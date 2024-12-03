@@ -1,0 +1,265 @@
+"use client";
+// TODO: reset to Idle does not reset timer for coffee and ride
+import "@/app/dynamic-island/style.css";
+
+import { useState, useMemo, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
+
+import { transitions, exitVariants } from "@/app/dynamic-island/animations";
+import { ViewState, ViewName } from "@/app/dynamic-island/types";
+
+import { ActionButtons } from "@/components/dynamic-island/Buttons";
+import { Timer } from "@/components/dynamic-island/Timer";
+import { Coffee } from "@/components/dynamic-island/Coffee";
+import { Ride } from "@/components/dynamic-island/Ride";
+import { Flight } from "@/components/dynamic-island/Flight";
+
+const TIMER_DURATION = 34;
+
+export default function DynamicIsland({
+  updateViewName,
+}: {
+  updateViewName: (name: ViewName) => void;
+}) {
+  const [view, setView] = useState<ViewName>(ViewName.IDLE);
+  const [viewState, setViewState] = useState<ViewState | null>(null);
+  const previousViewStateRef = useRef<ViewState | null>(null);
+
+  // TODO: remove suppression
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [transitionType, setTransitionType] = useState<any>(null);
+
+  const [timeInSeconds, setTimeInSeconds] = useState(TIMER_DURATION);
+  const [isPaused, setIsPaused] = useState(true);
+
+  // TODO: Cleanup this mess <--
+  useEffect(() => {
+    if (isPaused) return;
+
+    const id = setInterval(() => {
+      setTimeInSeconds((t) => {
+        if (t === 0) {
+          return TIMER_DURATION;
+        }
+        return t - 1;
+      });
+    }, 1000);
+    return () => clearInterval(id);
+  }, [isPaused]);
+
+  useEffect(() => {
+    console.log("calling effect");
+
+    if (view === ViewName.TIMER || view === ViewName.COFFEE) {
+      setIsPaused(false);
+    }
+  }, [view]);
+
+  function closeTimer() {
+    setIsPaused(true);
+    setTimeInSeconds(TIMER_DURATION);
+    setView(ViewName.IDLE);
+    updateViewName(ViewName.IDLE);
+  }
+  // TODO: Cleanup this mess -->
+
+  const content = useMemo(() => {
+    switch (view) {
+      case ViewName.IDLE: {
+        // updateViewName(ViewName.IDLE);
+        return <IdleView />;
+      }
+      case ViewName.TIMER: {
+        updateViewName(ViewName.TIMER);
+        return (
+          <Timer
+            isExpanded={viewState === ViewState.EXPANDED}
+            timeInSeconds={timeInSeconds}
+            isPaused={isPaused}
+            setIsPaused={setIsPaused}
+            closeTimer={closeTimer}
+          />
+        );
+      }
+      case ViewName.COFFEE: {
+        updateViewName(ViewName.COFFEE);
+        return (
+          <Coffee
+            isExpanded={viewState === ViewState.EXPANDED}
+            duration={TIMER_DURATION}
+            timeInSeconds={timeInSeconds}
+            closeTimer={closeTimer}
+          />
+        );
+      }
+      case ViewName.RIDE: {
+        updateViewName(ViewName.RIDE);
+        return (
+          <Ride
+            isExpanded={viewState === ViewState.EXPANDED}
+            driverId={Math.floor(Math.random() * 2)}
+          />
+        );
+      }
+      case ViewName.FLIGHT: {
+        updateViewName(ViewName.FLIGHT);
+        return <Flight isExpanded={viewState === ViewState.EXPANDED} />;
+      }
+    }
+  }, [view, viewState, timeInSeconds, isPaused, updateViewName]);
+
+  function handleClick(name: ViewName) {
+    const defaultViewState = ViewState.EXPANDED;
+
+    // no transition if from 'idle' state
+    if (view === "idle") {
+      setViewState((prev) => {
+        previousViewStateRef.current = prev;
+        return defaultViewState;
+      });
+      setTransitionType(transitions.idleToNewView);
+      setView(name);
+      return;
+    }
+
+    // always transition if the 'view' changes
+    if (view !== name) {
+      setIsPaused(true);
+      setTimeInSeconds(TIMER_DURATION);
+
+      setViewState((prev) => {
+        previousViewStateRef.current = prev;
+        return defaultViewState;
+      });
+      setTransitionType(transitions.viewToNewView);
+      transitionFromIdle(name);
+      return;
+    }
+
+    // no transition if same view and from compact viewState
+    if (viewState === ViewState.COMPACT) {
+      setViewState((prev) => {
+        previousViewStateRef.current = prev;
+        return ViewState.EXPANDED;
+      });
+      setTransitionType(transitions.compactToExpanded);
+    } else {
+      setViewState((prev) => {
+        previousViewStateRef.current = prev;
+        return ViewState.COMPACT;
+      });
+      setTransitionType(transitions.expandedToCompact);
+      transitionFromIdle(name);
+    }
+  }
+
+  // throttled to avoid rapid clicks that destroys the animation :D
+
+  function transitionFromIdle(newView: ViewName) {
+    // setView(newView);
+    // return;
+    setView(ViewName.IDLE);
+    setTimeout(() => {
+      setView(newView);
+    }, 400); // Delay here should match the desired transition duration
+  }
+
+  return (
+    <div className="relative basis-[540px] shrink-0 w-full h-full min-h-[69vh] flex flex-col items-center overflow-hidden">
+      <section className="relative mt-14 text-green-600">
+        <div className="iPhone relative">
+          <div className="horizon" />
+        </div>
+        <div className="dynamicIsland">
+          <motion.div
+            layout
+            transition={transitionType}
+            style={{
+              backgroundColor:
+                view === "flight" && viewState === ViewState.EXPANDED
+                  ? "#027DDA"
+                  : "black",
+              borderRadius: 40,
+            }}
+          >
+            {content}
+          </motion.div>
+
+          <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 flex justify-center h-[200px] w-[300px]">
+            <AnimatePresence mode="popLayout" custom={transitionType}>
+              <motion.div
+                variants={exitVariants}
+                initial={{ opacity: 0 }}
+                exit={`${view}-${viewState}`}
+                key={`exit-${view}-${viewState}`}
+                className="size-fit"
+              >
+                {content}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+      </section>
+
+      {/* <section className="absolute bottom-0 bg-gradient-to-t from-black via-black/95 via-70% to-black/90 w-full h-fit z-50 flex flex-col justify-center items-center gap-y-10 pb-14 pt-16"> */}
+      <section className="absolute bottom-0 bg-gradient-to-t from-[#0C0C0C] via-[#0C0C0C]/95 via-70% to-[#0C0C0C]/90 w-full h-fit z-50 flex flex-col justify-center items-center gap-y-10 pb-14 pt-16">
+        <div className="w-fit h-fit grid grid-cols-4 justify-items-center gap-7">
+          {ActionButtons.map((button) => (
+            <div key={button.name} className="flex flex-col items-center">
+              <motion.button
+                onClick={() => handleClick(button.name)}
+                whileTap={{ scale: 0.96 }}
+                className="size-16 bg-white rounded-2xl"
+              >
+                {view === button.name ? (
+                  viewState === ViewState.EXPANDED ? (
+                    // <div className="flex flex-col pt-1">
+                    <div className="flex flex-col">
+                      <span className="text-[11px] font-medium">
+                        Toggle Compact
+                      </span>
+                      {/* <span className="text-[9px] text-black/40">Compact</span> */}
+                    </div>
+                  ) : (
+                    // <div className="flex flex-col pt-1">
+                    <div className="flex flex-col">
+                      <span className="text-[11px] font-medium">
+                        Toggle Expanded
+                      </span>
+                      {/* <span className="text-[9px] text-black/40">Expanded</span> */}
+                    </div>
+                  )
+                ) : (
+                  <div className="flex justify-center">{button.icon}</div>
+                )}
+              </motion.button>
+
+              <span className="text-white text-sm capitalize mt-1.5">
+                {button.name}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <motion.button
+          onClick={() => {
+            setView(ViewName.IDLE);
+            setViewState(null);
+            previousViewStateRef.current = null;
+            setTransitionType(transitions.toIdle);
+            updateViewName(ViewName.IDLE);
+          }}
+          whileTap={{ scale: 0.96 }}
+          className="text-xs font-mono uppercase border border-gray-300 text-gray-100 rounded-sm px-6 py-1.5"
+          animate={{ opacity: viewState === null ? 0.42 : 1 }}
+        >
+          Reset to Idle
+        </motion.button>
+      </section>
+    </div>
+  );
+}
+
+function IdleView() {
+  return <motion.div className="idle flex" />;
+}
