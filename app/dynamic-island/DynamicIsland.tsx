@@ -55,18 +55,17 @@ export default function DynamicIsland({
     }
   }, [view]);
 
-  function closeTimer() {
+  const closeTimer = () => {
     setIsPaused(true);
     setTimeInSeconds(TIMER_DURATION);
     setView(ViewName.IDLE);
     updateViewName(ViewName.IDLE);
-  }
+  };
   // TODO: Cleanup this mess -->
 
   const content = useMemo(() => {
     switch (view) {
       case ViewName.IDLE: {
-        // updateViewName(ViewName.IDLE);
         return <IdleView />;
       }
       case ViewName.TIMER: {
@@ -106,7 +105,8 @@ export default function DynamicIsland({
         return <Flight isExpanded={viewState === ViewState.EXPANDED} />;
       }
     }
-  }, [view, viewState, timeInSeconds, isPaused, updateViewName]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view, viewState, timeInSeconds, isPaused]);
 
   function handleClick(name: ViewName) {
     const defaultViewState = ViewState.EXPANDED;

@@ -54,8 +54,6 @@ export const Story = ({
   useEffect(() => {
     setStoryIsComplete(false);
 
-    if (currentStep > 0) noIntroTEMPORARYNOTNECESSARY();
-
     switch (currentStep) {
       case 1: {
         setMemoryPositioning(MemoryPositioning.ALIGNED);
@@ -123,19 +121,6 @@ export const Story = ({
       }
     }
   }, [currentStep]);
-
-  // TODO: Remove this after testing
-  function noIntroTEMPORARYNOTNECESSARY() {
-    setShowIntroShootingStars(false);
-
-    for (let i = 0; i < visibilities.length; i++) {
-      setVisibilities((prev) => {
-        const newvisibilities = [...prev];
-        newvisibilities[i] = true;
-        return newvisibilities;
-      });
-    }
-  }
 
   useEffect(() => {
     setShowDescription(false);

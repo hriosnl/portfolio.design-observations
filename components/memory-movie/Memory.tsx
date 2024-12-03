@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { delay, motion } from "motion/react";
+import { motion } from "motion/react";
 import { useEffect, useState, useMemo, useCallback } from "react";
 
 import {
