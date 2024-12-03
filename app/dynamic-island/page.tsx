@@ -77,7 +77,7 @@ const Descriptions = ({ view }: { view: ViewName }) => {
   );
 };
 
-export const CloseButton = () => (
+const CloseButton = () => (
   <motion.div
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}

@@ -222,6 +222,7 @@ export function Memory({
         }
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [emitEvent, index, step]
   );
 
@@ -401,26 +402,26 @@ function Ripple({
   direction: RippleDirection;
   onRippleComplete: () => void;
 }) {
-  const colors = {
-    red: "hsl(20, 100%, 50%)",
-    green: "hsl(108, 100%, 25%)",
-    blue: "hsl(220, 100%, 50%)",
-    violet: "hsl(250, 60%, 86%)",
-  };
-
-  const colorCombinations = [
-    [colors.blue, colors.green, colors.red],
-    [colors.blue, colors.blue, colors.green],
-    [colors.blue, colors.green, colors.violet],
-    [colors.red, colors.green, colors.blue],
-    [colors.green, colors.blue, colors.violet],
-    [colors.red, colors.blue, colors.violet],
-  ];
-
   const duration = 0.93;
   const [pathColors, setPathColors] = useState<string[] | null>(null);
 
   useEffect(() => {
+    const colors = {
+      red: "hsl(20, 100%, 50%)",
+      green: "hsl(108, 100%, 25%)",
+      blue: "hsl(220, 100%, 50%)",
+      violet: "hsl(250, 60%, 86%)",
+    };
+
+    const colorCombinations = [
+      [colors.blue, colors.green, colors.red],
+      [colors.blue, colors.blue, colors.green],
+      [colors.blue, colors.green, colors.violet],
+      [colors.red, colors.green, colors.blue],
+      [colors.green, colors.blue, colors.violet],
+      [colors.red, colors.blue, colors.violet],
+    ];
+
     const colorCombinationIndex = Math.floor(
       Math.random() * colorCombinations.length
     );

@@ -63,52 +63,55 @@ export const ShootingStar = ({
   );
   const [doNotChangeMemoryYet, setDoNotChangeMemoryYet] = useState(false);
 
-  const generateProperties = (): ShootingStarProperties => {
-    const xDirection = setDirection();
-    const yDirection = setDirection();
-    const startXTranslate = setStartXTranslate(xDirection);
-    const startYTranslate = setStartYTranslate(yDirection);
-    const isNearFromCenter = startPositionsAreNearFromCenter(
-      startXTranslate,
-      startYTranslate
-    );
-    const trailWidth = setStarWidth(isNearFromCenter);
-    const trailHeight = setStarHeight(isNearFromCenter);
-    const rotate = setRotate(
-      isNearFromCenter,
-      xDirection,
-      startXTranslate,
-      startYTranslate,
-      targetXTranslate,
-      targetYTranslate
-    );
-    const scale = setScale();
-    const boxPositions = setBoxPosition(xDirection, yDirection);
-    const boxColors = setBoxColors();
-    const duration = setDuration();
+  const generateProperties = useMemo(() => {
+    return (): ShootingStarProperties => {
+      const xDirection = setDirection();
+      const yDirection = setDirection();
+      const startXTranslate = setStartXTranslate(xDirection);
+      const startYTranslate = setStartYTranslate(yDirection);
+      const isNearFromCenter = startPositionsAreNearFromCenter(
+        startXTranslate,
+        startYTranslate
+      );
+      const trailWidth = setStarWidth(isNearFromCenter);
+      const trailHeight = setStarHeight(isNearFromCenter);
+      const rotate = setRotate(
+        isNearFromCenter,
+        xDirection,
+        startXTranslate,
+        startYTranslate,
+        targetXTranslate,
+        targetYTranslate
+      );
+      const scale = setScale();
+      const boxPositions = setBoxPosition(xDirection, yDirection);
+      const boxColors = setBoxColors();
+      const duration = setDuration();
 
-    return {
-      xDirection,
-      yDirection,
-      startXTranslate,
-      startYTranslate,
-      isNearFromCenter,
-      trailWidth,
-      trailHeight,
-      rotate,
-      scale,
-      boxPositions,
-      boxColors,
-      duration,
+      return {
+        xDirection,
+        yDirection,
+        startXTranslate,
+        startYTranslate,
+        isNearFromCenter,
+        trailWidth,
+        trailHeight,
+        rotate,
+        scale,
+        boxPositions,
+        boxColors,
+        duration,
+      };
     };
-  };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [targetXTranslate, targetYTranslate]);
 
   const properties = useMemo(() => {
     return Array.from({ length: RANDOM_PROPERTIES }, () =>
       generateProperties()
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [generateProperties]);
 
   const xDirection = properties[randomIndex].xDirection;
   // const yDirection = properties[randomIndex].yDirection;
@@ -139,8 +142,6 @@ export const ShootingStar = ({
     if (!conditions.isRandomTiming() || shootingStarWillFall) return;
 
     const timer = setInterval(() => {
-      // const probabilityOfFalling = Math.random() < 0.0066;
-      // const probabilityOfFalling = Math.random() < 0.0072;
       const probabilityOfFalling = Math.random() < 0.0088;
 
       if (probabilityOfFalling) {
@@ -150,7 +151,7 @@ export const ShootingStar = ({
     }, 120);
 
     return () => clearInterval(timer);
-  }, [conditions]);
+  }, [conditions, shootingStarWillFall]);
 
   useEffect(() => {
     if (isStoryEnding) {
