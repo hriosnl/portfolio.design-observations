@@ -24,7 +24,7 @@ export function AnimatedDescription({ step }: { step: number }) {
 
   return (
     <div
-      className="min-h-[100px] h-[110px] text-white font-light"
+      className="min-h-[100px] h-[110px] text-white font-light select-none"
       // className="min-h-[100px] h-[110px] text-white font-light outline outline-1 outline-green-600"
       style={{
         width: isPrefinal ? "100%" : `${GRID_CELL_SIZE * 6.5}px`,
