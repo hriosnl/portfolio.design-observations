@@ -1,0 +1,46 @@
+@keyframes movePath {
+  from {
+    stroke-dashoffset: 35%;
+  }
+  to {
+    stroke-dashoffset: 10%;
+  }
+}
+
+@keyframes movePlane {
+  from {
+    offset-distance: 60%;
+  }
+  to {
+    offset-distance: 85%;
+  }
+}
+
+@keyframes moveZoomedPath {
+  0% {
+    stroke-dashoffset: 22;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Apply animations to classes */
+.pathAnimation {
+  animation: movePath 30s linear infinite;
+  stroke-dasharray: 100%;
+}
+
+.planeAnimation {
+  animation: movePlane 30s linear infinite;
+  offset-path: path("M 20,60 Q 150,0 280,60");
+}
+
+.planeShadowAnimation {
+  animation: movePlane 30s linear infinite;
+  offset-path: path("M 20,60 Q 150,40 280,60");
+}
+
+.zoomedPathAnimation {
+  animation: moveZoomedPath 8s linear infinite;
+}

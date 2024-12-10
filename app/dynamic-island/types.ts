@@ -10,3 +10,16 @@ export enum ViewName {
   RIDE = "ride",
   FLIGHT = "flight",
 }
+
+type TransitionType = "spring" | "ease";
+
+export type TransitionOptions = {
+  type?: TransitionType;
+  ease?: number[];
+  bounce?: number;
+  duration?: number;
+};
+
+export type Transition = {
+  [key: string]: TransitionOptions;
+};

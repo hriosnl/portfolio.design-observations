@@ -1,30 +1,16 @@
-const easeInCubic = [0.55, 0.055, 0.675, 0.19];
+import type { Variants } from "motion/react";
+import type { Transition } from "./types";
 
-type TransitionType = "spring" | "ease";
-
-export type TransitionOptions = {
-  type?: TransitionType;
-  ease?: number[];
-  bounce?: number;
-  duration?: number;
-};
-
-export type Transition = {
-  [key: string]: TransitionOptions;
-};
-
-export const transitions: {
-  [key: string]: TransitionOptions;
-} = {
+// const easeInCubic = [0.55, 0.055, 0.675, 0.19];
+export const transitions: Transition = {
   toIdle: {
     type: "spring",
     bounce: 0.2,
     duration: 0.7,
   },
   compactToExpanded: {
-    ease: easeInCubic,
+    ease: [0.55, 0.055, 0.675, 0.19],
     duration: 0.3,
-    // duration: 2,
   },
   expandedToCompact: {
     type: "spring",
@@ -41,9 +27,14 @@ export const transitions: {
     bounce: 0.2,
     duration: 0.7,
   },
+  idleToExpandedSlow: {
+    type: "spring",
+    bounce: 0.15,
+    duration: 3,
+  },
 };
 
-export const exitVariants = {
+export const exitVariants: Variants = {
   "timer-expanded": (transition: Transition) => {
     return {
       scale: 0.4,
@@ -79,6 +70,25 @@ export const exitVariants = {
       opacity: [1, 0],
       filter: "blur(5px)",
       transition,
+    };
+  },
+
+  "timerZoomed-expanded": (transition: Transition) => {
+    return {
+      scale: 0.35,
+      y: -40,
+      opacity: [1, 0],
+      filter: "blur(5px)",
+      transition,
+    };
+  },
+  "timerZoomed-expanded-slow": () => {
+    return {
+      scale: 0.35,
+      y: -40,
+      opacity: [1, 0],
+      filter: "blur(5px)",
+      transition: { duration: 2 },
     };
   },
 };

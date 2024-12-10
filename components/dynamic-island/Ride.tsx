@@ -21,13 +21,13 @@ export function Ride({
 
 function CompactRide() {
   return (
-    <div className="h-[41px] w-[226px]">
+    <div className="h-[2.5625rem] w-[14.125rem]">
       <motion.div
         initial={{ filter: "blur(10px)", opacity: 0.5 }}
         animate={{ filter: "blur(0px)", opacity: 1 }}
         className="h-full"
       >
-        <div className="h-full flex items-center justify-between px-[9px]">
+        <div className="h-full flex items-center justify-between px-[0.5625rem]">
           <CarIcon size={25} fill="#038BEC" stroke="#038BEC" />
           <div className="bg-[#038BEC]/90 text-white font-semibold text-sm rounded-full px-2 py-0.5">
             Arrived
@@ -52,7 +52,7 @@ function ExpandedRide({ driverId }: { driverId: number }) {
 
   return (
     <div
-      className="h-[180px] w-[406px] py-[16px] px-[16px]"
+      className="h-[11.6rem] md:h-[11.25rem] w-[25.375rem] py-4 px-4"
       style={{ borderRadius: 20 }}
     >
       <motion.div
@@ -62,8 +62,8 @@ function ExpandedRide({ driverId }: { driverId: number }) {
         className="flex justify-between"
       >
         <div className="flex flex-col w-fit gap-y-4">
-          <div className="flex h-fit items-center gap-x-[10px]">
-            <div className="size-[50px] rounded-full overflow-hidden shrink-0 relative">
+          <div className="flex h-fit items-center gap-x-[0.625rem]">
+            <div className="size-[3.125rem] rounded-full overflow-hidden shrink-0 relative">
               <Image
                 src={driver.image}
                 alt={driver.name}
@@ -96,9 +96,9 @@ function ExpandedRide({ driverId }: { driverId: number }) {
                   transform="translate(0, 1)"
                 />
               </span>
-              <div className="space-y-[8px] my-[7px]">
-                <div className="bg-gray-700 size-[4px] rounded-full" />
-                <div className="bg-gray-700 size-[4px] rounded-full" />
+              <div className="space-y-2 my-[0.4375rem]">
+                <div className="bg-gray-700 size-1 rounded-full" />
+                <div className="bg-gray-700 size-1 rounded-full" />
               </div>
               <span className="bg-orange-400 p-1.5 rounded-full">
                 <Utensils size={14} color="white" strokeWidth={3} />
@@ -120,7 +120,7 @@ function ExpandedRide({ driverId }: { driverId: number }) {
           </div>
         </div>
 
-        <div className="size-[148px] bg-[#303B49] rounded-[20px] relative overflow-hidden">
+        <div className="size-[9.25rem] bg-[#303B49] rounded-[1.25rem] relative overflow-hidden">
           <Car />
           <RoadMap />
           <div className="absolute top-0 right-0 pt-2 pr-2">
@@ -130,7 +130,7 @@ function ExpandedRide({ driverId }: { driverId: number }) {
                   <motion.div
                     initial={false}
                     animate={{ width: hasArrived ? 60 : 44 }}
-                    className="flex justify-center"
+                    className="flex justify-center select-none"
                   >
                     {hasArrived ? (
                       <motion.div
@@ -166,42 +166,98 @@ function ExpandedRide({ driverId }: { driverId: number }) {
   );
 }
 
-function Car() {
+const FrontBumper = () => {
+  return (
+    <div
+      style={{
+        height: "90%",
+        width: "50%",
+        position: "absolute",
+        top: 2,
+        right: -2,
+        borderRadius: 100,
+        backgroundColor: "#ffffff",
+        opacity: 0.8,
+        boxShadow: "-3px 1px 3px 0px rgba(0, 0, 0, 0.95)",
+      }}
+    />
+  );
+};
+
+const HeadLight = () => {
+  return (
+    <div
+      style={{
+        height: "90%",
+        width: "50%",
+        position: "absolute",
+        top: 3,
+        right: -5,
+        borderRadius: 100,
+        backgroundColor: "#ffffff",
+        opacity: 0.9,
+        filter: "blur(3px)",
+        boxShadow: "3px 0px 10px 1px rgba(255, 255, 255, 0.9)",
+      }}
+    />
+  );
+};
+
+const RearBumper = () => {
+  return (
+    <div
+      style={{
+        height: "100%",
+        width: 30,
+        position: "absolute",
+        top: 1,
+        left: -2,
+        borderRadius: 100,
+        backgroundColor: "#696969",
+        boxShadow: "-2px 1px 3px 0px rgba(0, 0, 0, 0.95)",
+      }}
+    />
+  );
+};
+
+const RearLight = () => {
   return (
     <motion.div
-      // style={{ x: 22, y: -18 }}
-      initial={{ x: 3, y: 0 }}
-      animate={{ x: 22, y: -18 }}
-      transition={{ type: "spring", duration: 5, bounce: 0, delay: 0.4 }}
-      className="absolute bottom-0"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.1, delay: 1.7 }}
     >
-      <div className="size-fit -rotate-45">
-        <div className="rear" />
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.1, delay: 1.7 }}
-        >
-          <div className="rearlight" />
-          <div className="rearlightSpread" />
-        </motion.span>
-        <div className="headlight" />
-        <div className="front" />
-        <div className="carBody">
-          <Image
-            src="/dynamic-island/car.png"
-            alt="Car"
-            width={40}
-            height={18}
-            priority
-          />
-        </div>
-      </div>
+      <div
+        style={{
+          height: "90%",
+          width: "30%",
+          position: "absolute",
+          top: 1,
+          left: 0,
+          filter: "blur(2px)",
+          borderRadius: 100,
+          boxShadow:
+            "-1px 1px 1px 1px rgba(235, 53, 53, 1), -3px 1px 2px 1px rgba(0, 0, 0, 0.8)",
+        }}
+      />
+      <div
+        style={{
+          zIndex: 100,
+          height: "110%",
+          width: "0.625rem",
+          position: "absolute",
+          top: 2,
+          left: -12,
+          filter: "blur(8px)",
+          borderRadius: 100,
+          backgroundColor: "red",
+        }}
+      />
     </motion.div>
   );
-}
+};
 
-function RoadMap() {
+const RoadMap = () => {
   return (
     <svg
       viewBox="0 0 400 400"
@@ -596,4 +652,41 @@ function RoadMap() {
       </g>
     </svg>
   );
-}
+};
+
+const Car = () => {
+  return (
+    <motion.div
+      initial={{ x: 3, y: 0 }}
+      animate={{ x: 22, y: -18 }}
+      transition={{ type: "spring", duration: 5, bounce: 0, delay: 0.4 }}
+      className="absolute bottom-0"
+    >
+      <div className="size-fit -rotate-45">
+        <RearBumper />
+        <RearLight />
+        <HeadLight />
+        <FrontBumper />
+        <div
+          style={{
+            width: "fit-content",
+            height: "fit-content",
+            backgroundColor: "#000000",
+            overflow: "hidden",
+            filter: "brightness(1.25)",
+            borderRadius: 100,
+            boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.95)",
+          }}
+        >
+          <Image
+            src="/dynamic-island/car.png"
+            alt="Car"
+            width={40}
+            height={18}
+            priority
+          />
+        </div>
+      </div>
+    </motion.div>
+  );
+};

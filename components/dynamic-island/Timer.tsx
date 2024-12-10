@@ -36,13 +36,13 @@ export function Timer({
 
 function CompactTimer({ timeInSeconds }: { timeInSeconds: number }) {
   return (
-    <div className="h-[41px] w-[226px]">
+    <div className="h-[2.5625rem] w-[14.125rem]">
       <motion.div
         initial={{ filter: "blur(10px)", opacity: 0.5 }}
         animate={{ filter: "blur(0px)", opacity: 1 }}
         className="h-full"
       >
-        <div className="text-[#FDB000] h-full flex items-center justify-between px-[8px]">
+        <div className="text-[#FDB000] h-full flex items-center justify-between px-[0.5rem]">
           <Clock12 size={25} />
           <span className="font-medium tabular-nums">
             {toClockFormat(timeInSeconds)}
@@ -65,18 +65,18 @@ function ExpandedTimer({
   closeTimer: () => void;
 }) {
   return (
-    <div className="h-[92px] w-[407px]">
+    <div className="h-[5.75rem] w-[25.4375rem]">
       <motion.div
         initial={{ filter: "blur(10px)", opacity: 0.5 }}
         animate={{ filter: "blur(0px)", opacity: 1 }}
         transition={{ delay: 0.2 }}
         className="flex justify-between items-center h-full"
       >
-        <div className="flex gap-[12px] ml-[16px]">
+        <div className="flex gap-3 ml-4">
           <motion.button
             whileTap={{ scale: 0.96 }}
             onClick={togglePause}
-            className="size-[55px] bg-[#5B3C07] rounded-full flex justify-center items-center"
+            className="size-14 bg-[#5B3C07] rounded-full flex justify-center items-center"
           >
             <AnimatePresence mode="wait" initial={false}>
               {isPaused ? (
@@ -92,7 +92,7 @@ function ExpandedTimer({
                     fill="#FDB000"
                     color="#FDB000"
                     strokeWidth={1}
-                    className="ml-[2px]"
+                    className="ml-[0.125rem]"
                   />
                 </motion.span>
               ) : (
@@ -116,15 +116,14 @@ function ExpandedTimer({
           <motion.button
             onClick={closeTimer}
             whileTap={{ scale: 0.96 }}
-            className="size-[55px] bg-[#3C3D3C] rounded-full flex justify-center items-center"
+            className="size-14 bg-[#3C3D3C] rounded-full flex justify-center items-center"
           >
             <X size={30} color="white" />
           </motion.button>
         </div>
-        <div className="text-[#FDB000] flex gap-x-[10px] items-baseline pr-[34px]">
+        <div className="text-[#FDB000] flex gap-x-[0.625rem] items-baseline pr-[2.125rem] select-none">
           <span className="text-lg">Timer</span>
           <span className="text-[3.125rem] font-light">
-            {/* {toClockFormat(timeInSeconds)} */}
             <AnimatedDigits seconds={timeInSeconds} />
           </span>
         </div>
@@ -141,9 +140,9 @@ function AnimatedDigits({ seconds }: { seconds: number }) {
       <motion.div
         className="inline-block tabular-nums"
         key={`tens-minutes-${digits.minuteDigits[0]}`}
-        initial={{ y: "12px", filter: "blur(2px)", opacity: 0 }}
+        initial={{ y: "0.75rem", filter: "blur(2px)", opacity: 0 }}
         animate={{ y: "0", filter: "blur(0px)", opacity: 1 }}
-        exit={{ y: "-12px", filter: "blur(2px)", opacity: 0 }}
+        exit={{ y: "-0.75rem", filter: "blur(2px)", opacity: 0 }}
         transition={{ type: "spring", bounce: 0.35 }}
       >
         {digits.minuteDigits[0]}
@@ -151,9 +150,9 @@ function AnimatedDigits({ seconds }: { seconds: number }) {
       <motion.div
         className="inline-block tabular-nums"
         key={`ones-minutes-${digits.minuteDigits[1]}`}
-        initial={{ y: "12px", filter: "blur(2px)", opacity: 0 }}
+        initial={{ y: "0.75rem", filter: "blur(2px)", opacity: 0 }}
         animate={{ y: "0", filter: "blur(0px)", opacity: 1 }}
-        exit={{ y: "-12px", filter: "blur(2px)", opacity: 0 }}
+        exit={{ y: "-0.75rem", filter: "blur(2px)", opacity: 0 }}
         transition={{ type: "spring", bounce: 0.35 }}
       >
         {digits.minuteDigits[1]}
@@ -162,9 +161,9 @@ function AnimatedDigits({ seconds }: { seconds: number }) {
       <motion.div
         className="inline-block tabular-nums"
         key={`tens-seconds-${digits.secondDigits[0]}`}
-        initial={{ y: "12px", filter: "blur(2px)", opacity: 0 }}
+        initial={{ y: "0.75rem", filter: "blur(2px)", opacity: 0 }}
         animate={{ y: "0", filter: "blur(0px)", opacity: 1 }}
-        exit={{ y: "-12px", filter: "blur(2px)", opacity: 0 }}
+        exit={{ y: "-0.75rem", filter: "blur(2px)", opacity: 0 }}
         transition={{ type: "spring", bounce: 0.35 }}
       >
         {digits.secondDigits[0]}
@@ -172,9 +171,9 @@ function AnimatedDigits({ seconds }: { seconds: number }) {
       <motion.div
         className="inline-block tabular-nums"
         key={`ones-seconds-${digits.secondDigits[1]}`}
-        initial={{ y: "12px", filter: "blur(2px)", opacity: 0 }}
+        initial={{ y: "0.75rem", filter: "blur(2px)", opacity: 0 }}
         animate={{ y: "0", filter: "blur(0px)", opacity: 1 }}
-        exit={{ y: "-12px", filter: "blur(2px)", opacity: 0 }}
+        exit={{ y: "-0.75rem", filter: "blur(2px)", opacity: 0 }}
         transition={{ type: "spring", bounce: 0.35 }}
       >
         {digits.secondDigits[1]}

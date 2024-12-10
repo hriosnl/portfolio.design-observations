@@ -3,19 +3,21 @@
 import { Globe, Plane } from "lucide-react";
 import { motion } from "motion/react";
 
+import styles from "./Flight.module.css";
+
 export function Flight({ isExpanded }: { isExpanded: boolean | undefined }) {
   return isExpanded ? <ExpandedFlight /> : <CompactTimer />;
 }
 
 function CompactTimer() {
   return (
-    <div className="h-[41px] w-[255px]">
+    <div className="h-[2.5625rem] w-[14.125rem]">
       <motion.div
         initial={{ filter: "blur(10px)", opacity: 0.5 }}
         animate={{ filter: "blur(0px)", opacity: 1 }}
         className="h-full"
       >
-        <div className="text-white h-full flex items-center justify-between px-[8px]">
+        <div className="text-white h-full flex items-center justify-between px-2">
           <Plane
             size={23}
             fill="#42aafa"
@@ -33,12 +35,12 @@ function CompactTimer() {
 
 function ExpandedFlight() {
   return (
-    <div className="w-[407px]">
+    <div className="w-[25.4375rem]">
       <motion.div
         initial={{ filter: "blur(10px)", opacity: 0.5 }}
         animate={{ filter: "blur(0px)", opacity: 1 }}
         transition={{ delay: 0.2 }}
-        className="flex flex-col gap-y-1 h-full px-[18px] pt-[16px] pb-[19px] text-white relative"
+        className="flex flex-col gap-y-1 h-full px-[1.125rem] pt-4 pb-[1.1875rem] text-white relative"
       >
         <div className="flex justify-between text-lg">
           <div className="flex items-center gap-x-0.5">
@@ -55,7 +57,7 @@ function ExpandedFlight() {
           <span>Departed 11:04 AM</span>
           <span>Terminal C 4:55 PM</span>
         </div>
-        <div className="absolute left-1/2 -translate-x-1/2 top-[30px] w-[210px] h-fit">
+        <div className="absolute left-1/2 -translate-x-1/2 top-[1.875rem] w-[13.125rem] h-fit">
           <PlaneTrack />
         </div>
       </motion.div>
@@ -141,9 +143,7 @@ function PlaneTrack() {
           strokeLinecap="round"
           strokeWidth="0.4"
           filter="url(#dashedBlurFilter)"
-          style={{
-            opacity: 0.6,
-          }}
+          className="opacity-60"
         />
 
         {/* Dashed curved path */}
@@ -165,23 +165,16 @@ function PlaneTrack() {
           fill="none"
           strokeWidth="0.6"
           filter="url(#solidBlurFilter)"
-          style={{
-            opacity: 0.6,
-            strokeDasharray: "100%",
-            animation: "drawLine 30s linear infinite",
-          }}
+          className={`opacity-60 ${styles.pathAnimation}`}
         />
 
-        {/* Solid curved path with animation */}
+        {/* Solid curved path */}
         <path
           d="M 20,60 Q 150,0 280,60"
           stroke="#ffffff"
           fill="none"
           strokeWidth="4"
-          style={{
-            strokeDasharray: "100%",
-            animation: "drawLine 30s linear infinite",
-          }}
+          className={styles.pathAnimation}
         />
       </g>
 
@@ -190,12 +183,8 @@ function PlaneTrack() {
       <g id="Plane_Icon">
         {/* Airplane shadow */}
         <g
-          style={{
-            opacity: 0.2,
-            offsetPath: "path('M 20,60 Q 150,40 280,60')",
-            animation: "movePlane 30s linear infinite",
-          }}
           filter="url(#planeBlurFilter)"
+          className={`opacity-20 ${styles.planeShadowAnimation}`}
         >
           <path
             d="M16.63,105.75c0.01-4.03,2.3-7.97,6.03-12.38L1.09,79.73c-1.36-0.59-1.33-1.42-0.54-2.4l4.57-3.9 c0.83-0.51,1.71-0.73,2.66-0.47l26.62,4.5l22.18-24.02L4.8,18.41c-1.31-0.77-1.42-1.64-0.07-2.65l7.47-5.96l67.5,18.97L99.64,7.45 c6.69-5.79,13.19-8.38,18.18-7.15c2.75,0.68,3.72,1.5,4.57,4.08c1.65,5.06-0.91,11.86-6.96,18.86L94.11,43.18l18.97,67.5 l-5.96,7.47c-1.01,1.34-1.88,1.23-2.65-0.07L69.43,66.31L45.41,88.48l4.5,26.62c0.26,0.94,0.05,1.82-0.47,2.66l-3.9,4.57 c-0.97,0.79-1.81,0.82-2.4-0.54l-13.64-21.57c-4.43,3.74-8.37,6.03-12.42,6.03C16.71,106.24,16.63,106.11,16.63,105.75 L16.63,105.75z"
@@ -204,12 +193,7 @@ function PlaneTrack() {
           />
         </g>
         {/* Airplane */}
-        <g
-          style={{
-            offsetPath: "path('M 20,60 Q 150,0 280,60')",
-            animation: "movePlane 30s linear infinite",
-          }}
-        >
+        <g className={styles.planeAnimation}>
           <path
             d="M16.63,105.75c0.01-4.03,2.3-7.97,6.03-12.38L1.09,79.73c-1.36-0.59-1.33-1.42-0.54-2.4l4.57-3.9 c0.83-0.51,1.71-0.73,2.66-0.47l26.62,4.5l22.18-24.02L4.8,18.41c-1.31-0.77-1.42-1.64-0.07-2.65l7.47-5.96l67.5,18.97L99.64,7.45 c6.69-5.79,13.19-8.38,18.18-7.15c2.75,0.68,3.72,1.5,4.57,4.08c1.65,5.06-0.91,11.86-6.96,18.86L94.11,43.18l18.97,67.5 l-5.96,7.47c-1.01,1.34-1.88,1.23-2.65-0.07L69.43,66.31L45.41,88.48l4.5,26.62c0.26,0.94,0.05,1.82-0.47,2.66l-3.9,4.57 c-0.97,0.79-1.81,0.82-2.4-0.54l-13.64-21.57c-4.43,3.74-8.37,6.03-12.42,6.03C16.71,106.24,16.63,106.11,16.63,105.75 L16.63,105.75z"
             fill="#ffffff"

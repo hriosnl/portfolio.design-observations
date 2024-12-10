@@ -1,12 +1,14 @@
 "use client";
-// TODO: reset to Idle does not reset timer for coffee and ride
-import "@/app/dynamic-island/style.css";
 
 import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
 import { transitions, exitVariants } from "@/app/dynamic-island/animations";
-import { ViewState, ViewName } from "@/app/dynamic-island/types";
+import {
+  ViewState,
+  ViewName,
+  TransitionOptions,
+} from "@/app/dynamic-island/types";
 
 import { ActionButtons } from "@/components/dynamic-island/Buttons";
 import { Timer } from "@/components/dynamic-island/Timer";
@@ -14,7 +16,7 @@ import { Coffee } from "@/components/dynamic-island/Coffee";
 import { Ride } from "@/components/dynamic-island/Ride";
 import { Flight } from "@/components/dynamic-island/Flight";
 
-const TIMER_DURATION = 34;
+const TIMER_DURATION = 42;
 
 export default function DynamicIsland({
   updateViewName,
@@ -25,9 +27,9 @@ export default function DynamicIsland({
   const [viewState, setViewState] = useState<ViewState | null>(null);
   const previousViewStateRef = useRef<ViewState | null>(null);
 
-  // TODO: remove suppression
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [transitionType, setTransitionType] = useState<any>(null);
+  const [transitionType, setTransitionType] = useState<TransitionOptions>(
+    transitions.idleToNewView
+  );
 
   const [timeInSeconds, setTimeInSeconds] = useState(TIMER_DURATION);
   const [isPaused, setIsPaused] = useState(true);
@@ -44,20 +46,22 @@ export default function DynamicIsland({
         return t - 1;
       });
     }, 1000);
+
     return () => clearInterval(id);
   }, [isPaused]);
 
   useEffect(() => {
-    console.log("calling effect");
-
     if (view === ViewName.TIMER || view === ViewName.COFFEE) {
       setIsPaused(false);
     }
   }, [view]);
 
-  const closeTimer = () => {
+  const resetToIdle = () => {
     setIsPaused(true);
     setTimeInSeconds(TIMER_DURATION);
+    setTransitionType(transitions.toIdle);
+    setViewState(null);
+    previousViewStateRef.current = null;
     setView(ViewName.IDLE);
     updateViewName(ViewName.IDLE);
   };
@@ -76,7 +80,7 @@ export default function DynamicIsland({
             timeInSeconds={timeInSeconds}
             isPaused={isPaused}
             setIsPaused={setIsPaused}
-            closeTimer={closeTimer}
+            closeTimer={resetToIdle}
           />
         );
       }
@@ -87,7 +91,7 @@ export default function DynamicIsland({
             isExpanded={viewState === ViewState.EXPANDED}
             duration={TIMER_DURATION}
             timeInSeconds={timeInSeconds}
-            closeTimer={closeTimer}
+            closeTimer={resetToIdle}
           />
         );
       }
@@ -165,12 +169,14 @@ export default function DynamicIsland({
   }
 
   return (
-    <div className="relative basis-[540px] shrink-0 w-full h-full min-h-[69vh] flex flex-col items-center overflow-hidden">
-      <section className="relative mt-14 text-green-600">
-        <div className="iPhone relative">
-          <div className="horizon" />
-        </div>
-        <div className="dynamicIsland">
+    <div className="relative lg:basis-[580px] shrink-0 w-full min-h-[69vh] flex flex-col items-center overflow-hidden">
+      <section className="relative mt-14">
+        {/* iPhone frame */}
+        <div className="bg-white h-[70vh] w-[26.6875rem] md:h-[95vh] outline outline-[0.75rem] outline-black rounded-[55px]" />
+        {/* Horizon: */}
+        <div className="md:hidden absolute w-[114%] h-[70px] bg-white bottom-0 left-1/2 -translate-x-1/2" />
+
+        <div className="absolute top-[0.75rem] left-1/2 -translate-x-1/2">
           <motion.div
             layout
             transition={transitionType}
@@ -185,7 +191,7 @@ export default function DynamicIsland({
             {content}
           </motion.div>
 
-          <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 flex justify-center h-[200px] w-[300px]">
+          <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 flex justify-center h-[12.5rem] w-[18.75rem]">
             <AnimatePresence mode="popLayout" custom={transitionType}>
               <motion.div
                 variants={exitVariants}
@@ -213,20 +219,16 @@ export default function DynamicIsland({
               >
                 {view === button.name ? (
                   viewState === ViewState.EXPANDED ? (
-                    // <div className="flex flex-col pt-1">
                     <div className="flex flex-col">
-                      <span className="text-[11px] font-medium">
+                      <span className="text-[0.6875rem] font-medium">
                         Toggle Compact
                       </span>
-                      {/* <span className="text-[9px] text-black/40">Compact</span> */}
                     </div>
                   ) : (
-                    // <div className="flex flex-col pt-1">
                     <div className="flex flex-col">
-                      <span className="text-[11px] font-medium">
+                      <span className="text-[0.6875rem] font-medium">
                         Toggle Expanded
                       </span>
-                      {/* <span className="text-[9px] text-black/40">Expanded</span> */}
                     </div>
                   )
                 ) : (
@@ -242,13 +244,7 @@ export default function DynamicIsland({
         </div>
 
         <motion.button
-          onClick={() => {
-            setView(ViewName.IDLE);
-            setViewState(null);
-            previousViewStateRef.current = null;
-            setTransitionType(transitions.toIdle);
-            updateViewName(ViewName.IDLE);
-          }}
+          onClick={resetToIdle}
           whileTap={{ scale: 0.96 }}
           className="text-xs font-mono uppercase border border-gray-300 text-gray-100 rounded-sm px-6 py-1.5"
           animate={{ opacity: viewState === null ? 0.42 : 1 }}
@@ -261,5 +257,5 @@ export default function DynamicIsland({
 }
 
 function IdleView() {
-  return <motion.div className="idle flex" />;
+  return <motion.div className="w-[8.5rem] h-[2.5625rem]" />;
 }

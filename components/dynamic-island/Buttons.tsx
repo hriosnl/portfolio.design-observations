@@ -1,3 +1,9 @@
+"use client";
+
+import type { Variants } from "motion/react";
+import { motion, useAnimation } from "motion/react";
+import { useEffect } from "react";
+
 import {
   Timer as TimerIcon,
   CarFront as Car,
@@ -30,3 +36,112 @@ export const ActionButtons = [
     color: "#5B3C07",
   },
 ];
+
+export const CheckButton = ({
+  isActive,
+  label,
+  color,
+  handleClick,
+}: {
+  isActive: boolean;
+  label: string;
+  color: string;
+  handleClick: () => void;
+}) => {
+  const controls = useAnimation();
+
+  const pathVariants: Variants = {
+    normal: {
+      opacity: 0.3,
+      pathLength: 1,
+      transition: {
+        duration: 0.3,
+        opacity: { duration: 0.1 },
+      },
+    },
+    animate: {
+      opacity: [0.1, 0.8],
+      pathLength: [0, 1],
+      transition: {
+        duration: 0.4,
+        opacity: { duration: 0.1 },
+      },
+    },
+    animateReversed: {
+      opacity: [0.8, 0.1],
+      pathLength: [1, 0],
+      transition: {
+        duration: 0.4,
+      },
+    },
+    active: {
+      opacity: 1,
+      pathLength: [0, 1],
+    },
+  };
+
+  useEffect(() => {
+    if (isActive) {
+      controls.start("active");
+    }
+  }, [isActive, controls]);
+
+  return (
+    <motion.div
+      onMouseEnter={
+        !isActive
+          ? () => controls.start("animate")
+          : () => controls.start("animateReversed")
+      }
+      onMouseLeave={
+        !isActive
+          ? () => controls.start("normal")
+          : () => controls.start("active")
+      }
+      onClick={handleClick}
+      style={{
+        color: color,
+        opacity: isActive ? 1 : 0.5,
+      }}
+      className="cursor-pointer select-none py-2 hover:bg-accent rounded-md transition-colors duration-200 flex items-center justify-center"
+    >
+      <div
+        style={{
+          border: `1px solid ${color}`,
+        }}
+        className="size-fit rounded-md p-0.5"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <motion.path
+            variants={pathVariants}
+            initial="normal"
+            animate={controls}
+            d="M4 12 9 17L20 6"
+          />
+        </svg>
+      </div>
+      <motion.span
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: isActive ? 1 : 0.5,
+        }}
+        style={{ color: color }}
+        className="ml-2 mono"
+      >
+        {label}
+      </motion.span>
+    </motion.div>
+  );
+};
