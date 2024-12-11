@@ -21,11 +21,13 @@ export const MemoryWithShootingStar = ({
   isStoryEnding,
   step,
   memoryPositioning,
+  memorySize,
 }: {
   index: number;
   isStoryEnding: boolean;
   step: number;
   memoryPositioning: MemoryPositioning;
+  memorySize: number;
 }) => {
   const initialAnimationProps = useMemo(
     () => getShrinkedAnimationProps(index),
@@ -69,19 +71,24 @@ export const MemoryWithShootingStar = ({
           isStoryEnding={isStoryEnding}
           step={step}
           animationProps={memoryAnimationProps()}
+          memorySize={memorySize}
         />
       </motion.div>
 
       {shootingStar.willShow(index) &&
         (shootingStar.isPartialShootingStar() ? (
-          <PartialShootingStar step={step} target={getMemoryPosition(index)} />
+          <PartialShootingStar
+            step={step}
+            target={getMemoryPosition(index, memorySize)}
+          />
         ) : (
           <ShootingStar
             index={index}
             isStoryEnding={isStoryEnding}
             animationProps={memoryAnimationProps()}
             step={step}
-            target={getMemoryPosition(index)}
+            target={getMemoryPosition(index, memorySize)}
+            targetSize={memorySize}
           />
         ))}
     </motion.div>

@@ -1,7 +1,13 @@
 import { motion } from "motion/react";
 import { DESCRIPTIONS, GRID_CELL_SIZE } from "@/app/memory-movie/constants";
 
+import useBreakpoint from "@/hooks/useBreakpoint";
+
 export function AnimatedDescription({ step }: { step: number }) {
+  const isMobile = useBreakpoint("xs");
+  const descriptionWidth = isMobile ? GRID_CELL_SIZE * 5.1 : GRID_CELL_SIZE * 8;
+  const wideDescriptionWidth = isMobile ? "90%" : "100%";
+
   const isFirstStep = step === 1;
   const isPrefinal = step === 15;
 
@@ -14,7 +20,8 @@ export function AnimatedDescription({ step }: { step: number }) {
       scale: 1,
       y: 0,
       transition: {
-        delay: i * 0.05,
+        // delay: i * 0.05,
+        delay: i * 0.03,
         duration: 1.6,
         type: "spring",
         bounce: 0,
@@ -25,11 +32,11 @@ export function AnimatedDescription({ step }: { step: number }) {
   return (
     <div
       className="min-h-[100px] h-[110px] text-white font-light select-none"
-      // className="min-h-[100px] h-[110px] text-white font-light outline outline-1 outline-green-600"
+      // className="min-h-[100px] h-[110px] text-white font-light select-none outline outline-1 outline-orange-600"
       style={{
-        width: isPrefinal ? "100%" : `${GRID_CELL_SIZE * 6.5}px`,
-        fontSize: isPrefinal ? "1.23rem" : "1.2rem",
-        paddingTop: isFirstStep ? "0.5rem" : "0",
+        width: isPrefinal ? wideDescriptionWidth : `${descriptionWidth}px`,
+        fontSize: isPrefinal ? "1.4rem" : isMobile ? "1.3rem" : "1.3rem",
+        paddingTop: isFirstStep ? "0.5rem" : "0rem",
       }}
     >
       <motion.div
@@ -50,7 +57,7 @@ export function AnimatedDescription({ step }: { step: number }) {
       >
         {words.map((word, index) =>
           word === "<EOL>" ? (
-            <div key={index} className="basis-full h-0" />
+            <div key={index} className="basis-full h-0 border-0 invisible" />
           ) : (
             <motion.span
               key={index}

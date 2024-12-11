@@ -1,29 +1,32 @@
 export const FOCUSED_INDEX = 12;
 export const [COLUMNS, ROWS] = [5, 7];
+
+// width, height, and cell size are in rem
 export const VIEW_WIDTH = 500;
 export const VIEW_HEIGHT = 768;
 export const GRID_CELL_SIZE = 70;
+export const SMALL_GRID_CELL_SIZE = 60;
 
-export const DESCRIPTIONS_OLD = [
-  "We have these memories that we want to remember.",
-  "Some Memories are so close together that they overlap each other, others are a bit far apart but still holds a key.",
-  "Let's focus on just 1 memory so that we can achieve stillness.",
-  "The Memory needs illumination just like life.",
-  "Illumination brings out new important memories",
-  "Let's see how it looks when illumination happens througout our memories",
-  "Now, we will ask for inspiration from the universe",
-  "A Shooting Star is slowly forming from above",
-  "Let the Shooting Star fall upon us",
-  "And suddenly, Shooting Stars appear from everywhere!",
-  "Bringing new memories from beyond in to our Memories",
-  "These new Memories from beyond energizes even our other Memories",
-  "Affecting the nearest Memories, giving them new light, a new meaning.",
-  "A lot of Shooting Stars that energizes our Memories!",
-  "Altogether now!!!",
+export const DESCRIPTIONS = [
+  "We all have memories we want to treasure forever",
+  "Though gathered from different places and different times, somehow, it converges into one meaning",
+  "So often, we try to hold onto one precious memory, capturing every detail, the exact feeling",
+  "Yet our memory is fleeting; gaze for too long and it slips from our mind, illuminating intensely as it try to dissipate",
+  "But nothing is truly lost; as without forgetting, we cannot recall other memories that are as equally precious",
+  "For in reality, our memories transform constantly, some circling back, and some sink into the depths of our mind",
+  "At times, there are memories we cannot quite grasp, never knowing the reason they unfolded",
+  "Until we became aware of a power that lies beyond",
+  "Striking our memories, altering and weaving their complete meaning",
+  "Once we recognized such power exists, we start to perceive it everywhere, at all times",
+  "Unfolding new memories we would never have if we just rely on the meaning we derived from within ourselves",
+  "Powerful enough, these new kinds of memories have the power to evoke and awaken others",
+  "Powerful indeed! That its transformation energizes all other memories!",
+  "We'll then realize that this transformation happens to all of our memories; redefining our perception of the past which then redefines how we see ourselves",
+  "Together, these transformations in our memories both from within and from a power beyond ourselves, define the meaning of our existence",
 ];
 
 // use <EOL> (with a space) for new line
-export const DESCRIPTIONS = [
+export const DESCRIPTIONS_SPACED = [
   "We all have memories we want to treasure forever",
   "Though gathered from different places and different times, somehow, it converges <EOL> into one meaning",
   "So often, we try to hold onto one precious memory, capturing every detail, the exact feeling",

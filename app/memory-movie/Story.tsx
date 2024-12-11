@@ -9,12 +9,14 @@ import { MemoryPositioning } from "@/app/memory-movie/types";
 import { AnimatedDescription } from "@/components/memory-movie/AnimatedDescription";
 import { IntroMemory } from "@/components/memory-movie/IntroMemory";
 import { IntroShootingStar } from "@/components/memory-movie/IntroShootingStar";
-
 import {
   Spotlight,
   FinalStepSpotlight,
 } from "@/components/memory-movie/Spotlight";
 import { MemoryWithShootingStar } from "@/components/memory-movie/MemoryWithShootingStar";
+
+import { GRID_CELL_SIZE, SMALL_GRID_CELL_SIZE } from "./constants";
+import useBreakpoint from "@/hooks/useBreakpoint";
 
 export const Story = ({
   currentStep,
@@ -51,27 +53,11 @@ export const Story = ({
     { x: 15, y: 0, rotate: 20, zIndex: 50 },
   ];
 
-  useEffect(() => {
-    console.log("🦶🏻 Current Step: ", currentStep);
-  }, [currentStep]);
-
-  // TODO: Remove this after testing
-  function noIntroTEMPORARYNOTNECESSARY() {
-    setShowIntroShootingStars(false);
-
-    for (let i = 0; i < visibilities.length; i++) {
-      setVisibilities((prev) => {
-        const newvisibilities = [...prev];
-        newvisibilities[i] = true;
-        return newvisibilities;
-      });
-    }
-  }
+  const isMobile = useBreakpoint("xs");
+  const memorySize = isMobile ? SMALL_GRID_CELL_SIZE : GRID_CELL_SIZE;
 
   useEffect(() => {
     setStoryIsComplete(false);
-
-    if (currentStep !== 0) noIntroTEMPORARYNOTNECESSARY();
 
     switch (currentStep) {
       case 1: {
@@ -198,11 +184,11 @@ export const Story = ({
   return (
     <div
       ref={containerRef}
-      className="relative size-full flex flex-col items-center"
+      className="relative w-full h-[90vh] sm:h-full flex flex-col items-center"
       style={{
         justifyContent: isFinalStep ? "center" : "flex-start",
-        paddingTop: isFinalStep ? "0" : "3.5rem",
-        paddingBottom: isFinalStep ? "1rem" : "0",
+        paddingTop: isFinalStep ? "0" : isMobile ? "4.2rem" : "3.5rem",
+        paddingBottom: !isFinalStep ? "0" : isMobile ? "6rem" : "1rem",
       }}
     >
       {showIntroShootingStars && (
@@ -219,11 +205,13 @@ export const Story = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            // className="absolute bottom-16 2xl:bottom-0 flex justify-center"
             className="absolute bottom-16 flex justify-center"
           >
             <motion.button onClick={() => unfoldMemories()} className="z-[100]">
               <Image
+                ref={folderRef}
                 src="/memory-movie/macos-folder-front.png"
                 alt="MacOS Folder"
                 width={60}
@@ -233,7 +221,6 @@ export const Story = ({
             </motion.button>
             <div className="absolute z-0">
               <Image
-                ref={folderRef}
                 src="/memory-movie/macos-folder-back.png"
                 alt="MacOS Folder Back"
                 width={60}
@@ -270,10 +257,10 @@ export const Story = ({
           !isFinalStep && (
             <motion.div
               exit={{ opacity: 0 }}
-              className="w-full absolute flex flex-col items-center gap-y-5 justify-between"
-              // className="w-full absolute flex flex-col items-center gap-y-5 justify-between outline outline-1 outline-yellow-200"
+              className="w-full absolute flex flex-col items-center gap-y-5 justify-between 2xl:-mb-8"
+              // className="w-full absolute flex flex-col items-center gap-y-5 justify-between -mb-10 outline outline-1 outline-yellow-200"
               style={{
-                bottom: isPrefinalStep ? "23rem" : "4rem",
+                bottom: isPrefinalStep ? "23rem" : isMobile ? "5rem" : "3.4rem",
               }}
             >
               <AnimatedDescription step={currentStep} />
@@ -288,7 +275,8 @@ export const Story = ({
       <AnimatePresence>
         {!isPrefinalStep && (
           <motion.div
-            animate={{ scale: storyIsComplete ? 1.169 : 1 }}
+            // animate={{ scale: storyIsComplete ? 1.169 : 1 }}
+            animate={{ scale: storyIsComplete ? 1.1 : 1 }}
             exit={{
               opacity: 0,
               filter: "blur(6px) brightness(2.5)",
@@ -324,6 +312,7 @@ export const Story = ({
                 if (isFinalStep) endTheStory();
               }}
               className="size-fit grid grid-cols-5 grid-rows-7 gap-[1px] relative"
+              // className="size-fit grid grid-cols-5 grid-rows-7 gap-[1px] relative mt-3 sm:mt-0 outline outline-yellow-300"
             >
               {visibilities.map((visible, i) =>
                 visible ? (
@@ -333,6 +322,7 @@ export const Story = ({
                     isStoryEnding={storyIsComplete}
                     step={currentStep}
                     memoryPositioning={memoryPositioning}
+                    memorySize={memorySize}
                   />
                 ) : null
               )}

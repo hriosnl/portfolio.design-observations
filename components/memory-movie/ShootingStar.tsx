@@ -5,7 +5,7 @@ import Image from "next/image";
 import {
   VIEW_WIDTH,
   VIEW_HEIGHT,
-  GRID_CELL_SIZE,
+  SMALL_GRID_CELL_SIZE,
 } from "@/app/memory-movie/constants";
 import { useImageContext } from "@/providers/image-provider";
 import { useMemoryEventContext } from "@/providers/event-provider";
@@ -43,18 +43,23 @@ export const ShootingStar = ({
   animationProps,
   step,
   target,
+  targetSize,
 }: {
   index: number;
   isStoryEnding: boolean;
   animationProps: MotionAnimationProps;
   step: number;
   target: number[];
+  targetSize: number;
 }) => {
+  const isMobile = targetSize === SMALL_GRID_CELL_SIZE;
+  const PROBABILITY = isMobile ? 0.0048 : 0.0088;
+
   const RANDOM_PROPERTIES = 30;
   const conditions = stepConditions(step);
 
   const [targetXTranslate, targetYTranslate] = target;
-  const [gridWidth, gridHeight] = getGridSize();
+  const [gridWidth, gridHeight] = getGridSize(targetSize);
 
   const [shootingStarWillFall, setShootingStarWillFall] = useState(false);
   const [randomIndex, setRandomIndex] = useState(0);
@@ -142,7 +147,7 @@ export const ShootingStar = ({
     if (!conditions.isRandomTiming() || shootingStarWillFall) return;
 
     const timer = setInterval(() => {
-      const probabilityOfFalling = Math.random() < 0.0088;
+      const probabilityOfFalling = Math.random() < PROBABILITY;
 
       if (probabilityOfFalling) {
         setRandomIndex(Math.floor(Math.random() * RANDOM_PROPERTIES));
@@ -151,7 +156,7 @@ export const ShootingStar = ({
     }, 120);
 
     return () => clearInterval(timer);
-  }, [conditions, shootingStarWillFall]);
+  }, [conditions, shootingStarWillFall, PROBABILITY]);
 
   useEffect(() => {
     if (isStoryEnding) {
@@ -274,8 +279,8 @@ export const ShootingStar = ({
     startXTranslate: number,
     startYTranslate: number
   ) {
-    const centerXTranslate = gridWidth / 2 - GRID_CELL_SIZE / 2;
-    const centerYTranslate = gridHeight / 2 - GRID_CELL_SIZE / 2;
+    const centerXTranslate = gridWidth / 2 - targetSize / 2;
+    const centerYTranslate = gridHeight / 2 - targetSize / 2;
 
     const distanceFromCenter = Math.sqrt(
       (startXTranslate - centerXTranslate) ** 2 +
@@ -286,11 +291,11 @@ export const ShootingStar = ({
   }
 
   function setStarWidth(isNearFromCenter: boolean) {
-    return isNearFromCenter ? GRID_CELL_SIZE * 1.7 : GRID_CELL_SIZE * 1.6;
+    return isNearFromCenter ? targetSize * 1.7 : targetSize * 1.6;
   }
 
   function setStarHeight(isNearFromCenter: boolean) {
-    return isNearFromCenter ? GRID_CELL_SIZE * 1.7 : GRID_CELL_SIZE * 1.4;
+    return isNearFromCenter ? targetSize * 1.7 : targetSize * 1.4;
   }
 
   function setDuration() {
@@ -326,8 +331,8 @@ export const ShootingStar = ({
         bounce: 0,
       }}
       style={{
-        width: GRID_CELL_SIZE,
-        height: GRID_CELL_SIZE,
+        width: targetSize,
+        height: targetSize,
         top: 0,
         left: 0,
       }}
@@ -341,6 +346,7 @@ export const ShootingStar = ({
           duration={duration}
           direction={xDirection}
           canEnergizeMemories={conditions.canEnergizeMemories()}
+          targetSize={targetSize}
         />
       )}
 
@@ -417,8 +423,8 @@ export const ShootingStar = ({
             borderRadius: isNearFromCenter ? 30 : 45,
             backgroundColor: boxTwoEndColor,
             rotate: isNearFromCenter ? 0 : rotate,
-            width: isNearFromCenter ? GRID_CELL_SIZE * 1.4 : trailWidth * 0.6,
-            height: isNearFromCenter ? GRID_CELL_SIZE * 1.4 : trailHeight,
+            width: isNearFromCenter ? targetSize * 1.4 : trailWidth * 0.6,
+            height: isNearFromCenter ? targetSize * 1.4 : trailHeight,
           }}
           transition={{
             duration,
@@ -458,11 +464,13 @@ const ShootingStarMemory = ({
   duration,
   direction,
   canEnergizeMemories,
+  targetSize,
 }: {
   memoryIndex: number;
   duration: number;
   direction: number;
   canEnergizeMemories: boolean;
+  targetSize: number;
 }) => {
   const { replacementImages, replaceImage } = useImageContext();
   const { emitEvent } = useMemoryEventContext();
@@ -535,7 +543,7 @@ const ShootingStarMemory = ({
       className="absolute size-full rounded-xl"
     >
       <div
-        style={{ width: GRID_CELL_SIZE, height: GRID_CELL_SIZE }}
+        style={{ width: targetSize, height: targetSize }}
         className="relative rounded-xl"
       >
         <Image

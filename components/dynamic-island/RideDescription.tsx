@@ -270,7 +270,7 @@ const Car = ({
         }}
         className="absolute -top-[2px] left-0 size-full flex justify-center"
       >
-        <span className="absolute -bottom-5 text-white text-sm font-medium">
+        <span className="absolute -bottom-4 text-white text-xs font-medium font-mono">
           car.png
         </span>
       </div>

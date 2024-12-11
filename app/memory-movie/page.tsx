@@ -15,14 +15,17 @@ import {
 import { ImageProvider } from "@/providers/image-provider";
 import { MemoryEventProvider } from "@/providers/event-provider";
 import { Story } from "@/app/memory-movie/Story";
+import useBreakpoint from "@/hooks/useBreakpoint";
 
 export default function MemoryMovie() {
+  const isMobile = useBreakpoint("xs");
+
   const [step, setStep] = useState(0);
-  const [prevButtonActive, setPrevButtonActive] = useState(false);
-  const [nextButtonActive, setNextButtonActive] = useState(false);
+  const [prevButtonIsActive, setPrevButtonIsActive] = useState(false);
+  const [nextButtonIsActive, setNextButtonIsActive] = useState(false);
 
   const nextStep = () => {
-    setNextButtonActive(true);
+    setNextButtonIsActive(true);
 
     setStep((prev) => {
       if (prev === 0) return 0;
@@ -33,7 +36,7 @@ export default function MemoryMovie() {
   };
 
   const previousStep = () => {
-    setPrevButtonActive(true);
+    setPrevButtonIsActive(true);
 
     setStep((prev) => {
       if (prev <= 1) return prev;
@@ -72,26 +75,31 @@ export default function MemoryMovie() {
   }, []);
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center px-8 bg-[#02080C] overflow-hidden">
+    <div className="w-screen h-screen flex justify-center items-center bg-[#02080C] overflow-hidden ">
       {step !== 0 && <CloseButton />}
 
       {step !== 0 && (
         <motion.div
           animate={{
-            x: prevButtonActive ? [0, -4, 0] : 0,
+            x: prevButtonIsActive ? [0, -4, 0] : 0,
           }}
           transition={{
             x: { duration: 0.4, ease: "easeInOut" },
           }}
-          onAnimationComplete={() => setPrevButtonActive(false)}
-          className="hidden sm:block mr-auto z-10 mb-20"
+          onAnimationComplete={() => setPrevButtonIsActive(false)}
+          // className="absolute bottom-0 left-3 sm:block sm:mr-auto sm:ml-5 sm:mb-20 z-10"
+          className="absolute bottom-2 left-3 sm:block sm:left-4 sm:top-[45%] z-10"
         >
           <PrevButton onButtonClick={previousStep} />
         </motion.div>
       )}
 
       <div
-        style={{ width: VIEW_WIDTH, height: VIEW_HEIGHT, minWidth: VIEW_WIDTH }}
+        style={{
+          width: isMobile ? "100%" : VIEW_WIDTH,
+          height: isMobile ? "100%" : VIEW_HEIGHT,
+          minWidth: isMobile ? "100%" : VIEW_WIDTH,
+        }}
       >
         <ImageProvider>
           <MemoryEventProvider>
@@ -103,13 +111,13 @@ export default function MemoryMovie() {
       {step !== 0 && (
         <motion.div
           animate={{
-            x: nextButtonActive ? [0, 4, 0] : 0,
+            x: nextButtonIsActive ? [0, 4, 0] : 0,
           }}
           transition={{
             x: { duration: 0.4, ease: "easeInOut" },
           }}
-          onAnimationComplete={() => setNextButtonActive(false)}
-          className="hidden sm:block ml-auto z-10 mb-20"
+          onAnimationComplete={() => setNextButtonIsActive(false)}
+          className="absolute bottom-2 right-3 sm:block sm:right-4 sm:top-[45%] z-10"
           style={{
             visibility: step === 16 ? "hidden" : "visible",
           }}

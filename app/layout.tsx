@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
 import "./globals.css";
 import { Noto_Sans, Mea_Culpa, Inter } from "next/font/google";
+import type { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const noto_sans = Noto_Sans({
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function RootLayout({
         className={`${noto_sans.className} ${mea_culpa.variable} ${inter.variable} antialiased`}
       >
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );

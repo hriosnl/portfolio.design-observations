@@ -1,4 +1,4 @@
-import { COLUMNS, ROWS, GRID_CELL_SIZE } from "./constants";
+import { COLUMNS, ROWS } from "./constants";
 import { MotionAnimationProps } from "./types";
 
 type RowPosition = "CENTER" | "ABOVE" | "BELOW";
@@ -114,7 +114,6 @@ export function getCompressedMemoryProps(index: number): MotionAnimationProps {
       translateX: x,
       translateY: y,
       scale: 1,
-      // opacity: 1,
       translateMoreCompactX: moreCompactX,
       translateMoreCompactY: moreCompactY,
     },
@@ -126,15 +125,11 @@ export function getCompressedMemoryProps(index: number): MotionAnimationProps {
 }
 
 export function getAlignedMemoryProps(): MotionAnimationProps {
-  // const customEase = [0.4, 1.2, 0.65, 0.98];
-
-  // TODO: Transition does not yet feel good, a bit
   return {
     props: {
       translateX: 0,
       translateY: 0,
       scale: 1,
-      // opacity: 1,
     },
     transition: {
       duration: { duration: 0.8, type: "spring" },
@@ -142,12 +137,13 @@ export function getAlignedMemoryProps(): MotionAnimationProps {
   };
 }
 
-export function getMemoryPosition(index: number, gap = 1) {
+export function getMemoryPosition(index: number, memoryCellSize: number) {
+  const gap = 1;
   const row = Math.floor(index / COLUMNS);
   const col = index % COLUMNS;
 
-  const x = (GRID_CELL_SIZE + gap) * col;
-  const y = (GRID_CELL_SIZE + gap) * row;
+  const x = (memoryCellSize + gap) * col;
+  const y = (memoryCellSize + gap) * row;
 
   return [x, y];
 }
@@ -165,9 +161,9 @@ export function getNeighbors(index: number) {
   return { top, right, bottom, left };
 }
 
-export function getGridSize() {
-  const width = COLUMNS * (GRID_CELL_SIZE + 1);
-  const height = ROWS * (GRID_CELL_SIZE + 1);
+export function getGridSize(targetSize: number) {
+  const width = COLUMNS * (targetSize + 1);
+  const height = ROWS * (targetSize + 1);
 
   return [width, height];
 }

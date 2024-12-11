@@ -3,6 +3,10 @@ import { motion } from "motion/react";
 import { useEffect, useState, useMemo, useCallback } from "react";
 
 import {
+  FOCUSED_INDEX,
+  SMALL_GRID_CELL_SIZE,
+} from "@/app/memory-movie/constants";
+import {
   MemoryEvents,
   RippleDirection,
   MotionAnimationProps,
@@ -10,7 +14,6 @@ import {
 import { getNeighbors } from "@/app/memory-movie/helper";
 import { useImageContext } from "@/providers/image-provider";
 import { useMemoryEventContext } from "@/providers/event-provider";
-import { GRID_CELL_SIZE, FOCUSED_INDEX } from "@/app/memory-movie/constants";
 
 const stepConditions = (step: number, isEnding: boolean) => {
   return {
@@ -78,11 +81,13 @@ export function Memory({
   isStoryEnding,
   step = -1,
   animationProps,
+  memorySize,
 }: {
   index: number;
   isStoryEnding: boolean;
   step: number;
   animationProps: MotionAnimationProps;
+  memorySize: number;
 }) {
   const { images, replaceImage } = useImageContext();
   const { subscribe, emitEvent } = useMemoryEventContext();
@@ -239,6 +244,8 @@ export function Memory({
     };
   }, [subscribe, index, handleEvents]);
 
+  const isMobile = memorySize === SMALL_GRID_CELL_SIZE;
+
   return (
     <motion.div
       animate={{
@@ -276,8 +283,8 @@ export function Memory({
         if (isStoryEnding) setShouldSlowlyTranslate(true);
       }}
       style={{
-        width: GRID_CELL_SIZE,
-        height: GRID_CELL_SIZE,
+        width: memorySize,
+        height: memorySize,
       }}
       className="relative rounded-xl"
     >
@@ -294,6 +301,7 @@ export function Memory({
         <Illuminator
           onIlluminationComplete={handleIlluminateComplete}
           isPeriodic={conditions.isPeriodicIllumination()}
+          isMobile={isMobile}
         />
       ) : null}
 
@@ -310,13 +318,17 @@ export function Memory({
 function Illuminator({
   onIlluminationComplete,
   isPeriodic,
+  isMobile,
 }: {
   onIlluminationComplete: () => void;
   isPeriodic: boolean;
+  isMobile: boolean;
 }) {
   const [illuminate, setIlluminate] = useState(false);
   const brightenDuration = 0.5;
   const fadeDuration = 0.28;
+
+  const PROBABILITY = isMobile ? 0.007 : 0.01;
 
   useEffect(() => {
     let timer;
@@ -327,7 +339,7 @@ function Illuminator({
       }, 2000);
     } else {
       timer = setInterval(() => {
-        const illuminationWillHappen = Math.random() < 0.01; //0.025
+        const illuminationWillHappen = Math.random() < PROBABILITY; //0.01
         // const illuminationWillHappen = Math.random() < 0.025; //0.025
 
         if (illuminationWillHappen) {
@@ -337,10 +349,9 @@ function Illuminator({
     }
 
     return () => clearInterval(timer);
-  }, [isPeriodic]);
+  }, [isPeriodic, PROBABILITY]);
 
   const handleIlluminateComplete = () => {
-    onIlluminationComplete();
     setIlluminate(false);
   };
 
@@ -360,7 +371,6 @@ function Illuminator({
           },
         }}
         onAnimationComplete={() => {
-          // console.log("illumination complete!: ", illuminate);
           if (illuminate) {
             handleIlluminateComplete();
           }
@@ -368,23 +378,20 @@ function Illuminator({
         className="absolute size-full rounded-xl"
       />
 
-      {/* <motion.div
-        initial={{ backdropFilter: "blur(0px)" }}
-        animate={{
-          backdropFilter: illuminate ? "blur(2px)" : "blur(0px)",
-        }}
-        style={{
-          mixBlendMode: "screen",
-        }}
-        className="overlay absolute size-full rounded-xl"
-      /> */}
-
       <motion.div
         initial={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
         animate={{
           backgroundColor: illuminate
-            ? "rgba(255, 255, 255, 0.72)"
+            ? "rgba(255, 255, 255, 0.62)"
             : "rgba(255, 255, 255, 0)",
+        }}
+        transition={{
+          duration: brightenDuration * 0.9,
+        }}
+        onAnimationComplete={() => {
+          if (illuminate) {
+            onIlluminationComplete();
+          }
         }}
         style={{
           mixBlendMode: "overlay",
@@ -512,17 +519,14 @@ function Ripple({
         mixBlendMode: "hard-light",
         opacity: opacity,
         borderRadius: "0.75rem",
-        zIndex: 200,
       }}
     >
       <svg
-        className="absolute overflow-visible z-[200]"
+        className="absolute overflow-visible z-20"
         width="70"
         height="70"
         viewBox="0 0 70 70"
-        style={{
-          transform: `scaleX(${scaleX}) rotate(${rotation}deg)`,
-        }}
+        style={{ transform: `scaleX(${scaleX}) rotate(${rotation}deg)` }}
       >
         {/* 1st Ripple */}
         <motion.path
