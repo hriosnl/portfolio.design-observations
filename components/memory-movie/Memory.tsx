@@ -368,7 +368,7 @@ function Illuminator({
         className="absolute size-full rounded-xl"
       />
 
-      <motion.div
+      {/* <motion.div
         initial={{ backdropFilter: "blur(0px)" }}
         animate={{
           backdropFilter: illuminate ? "blur(2px)" : "blur(0px)",
@@ -377,13 +377,13 @@ function Illuminator({
           mixBlendMode: "screen",
         }}
         className="overlay absolute size-full rounded-xl"
-      />
+      /> */}
 
       <motion.div
         initial={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
         animate={{
           backgroundColor: illuminate
-            ? "rgba(255, 255, 255, 0.52)"
+            ? "rgba(255, 255, 255, 0.72)"
             : "rgba(255, 255, 255, 0)",
         }}
         style={{
@@ -506,104 +506,103 @@ function Ripple({
   if (pathColors === null) return;
 
   return (
-    <svg
-      className="absolute overflow-visible z-20 blended"
-      width="70"
-      height="70"
-      viewBox="0 0 70 70"
+    <div
       style={{
-        // filter: "brightness(1.5)",
-        // filter: "blur(1.8px)",
         filter: "blur(1.6px) brightness(1.3)",
         mixBlendMode: "hard-light",
         opacity: opacity,
-        transform: `scaleX(${scaleX}) rotate(${rotation}deg)`,
         borderRadius: "0.75rem",
+        zIndex: 200,
       }}
     >
-      {/* 1st Ripple */}
-      <motion.path
-        d="M 2,10 A 21,21 0 0 1 10,2 H 73 A 21,21 0 0 1 81,10 V 73 A 21,21 0 0 1 73,81 H 71"
-        // d="M 2,10 A 23,23 0 0 1 10,2 H 65 A 23,23 0 0 1 73,10 V 65 A 23,23 0 0 1 65,73 H 63"
-        fill="none"
-        stroke={pathColors[0]}
-        strokeWidth="1.6"
-        pathLength="1"
-        transform="translate(-6.3,-7)"
-        strokeDasharray="0.4, 1"
-        variants={pathVariants}
-        initial="initialLongPath"
-        animate="animateLongPath"
-        onAnimationComplete={onRippleComplete}
-      />
-      <motion.path
-        // d="M 2,10 V 65 A 23,23 0 0 0 10,73 H 65 A 23,23 0 0 0 73,65 V 63"
-        d="M 2,10 V 73 A 21,21 0 0 0 10,81 H 73 A 21,21 0 0 0 81,73 V 71"
-        fill="none"
-        stroke={pathColors[0]}
-        strokeWidth="1.6"
-        pathLength="1"
-        transform="translate(-6.3,-7)"
-        strokeDasharray="0.7, 1"
-        variants={pathVariants}
-        initial="initialShortPath"
-        animate="animateShortPath"
-      />
+      <svg
+        className="absolute overflow-visible z-[200]"
+        width="70"
+        height="70"
+        viewBox="0 0 70 70"
+        style={{
+          transform: `scaleX(${scaleX}) rotate(${rotation}deg)`,
+        }}
+      >
+        {/* 1st Ripple */}
+        <motion.path
+          d="M 2,10 A 21,21 0 0 1 10,2 H 73 A 21,21 0 0 1 81,10 V 73 A 21,21 0 0 1 73,81 H 71"
+          fill="none"
+          stroke={pathColors[0]}
+          strokeWidth="1.6"
+          pathLength="1"
+          transform="translate(-6.3,-7)"
+          strokeDasharray="0.4, 1"
+          variants={pathVariants}
+          initial="initialLongPath"
+          animate="animateLongPath"
+          onAnimationComplete={onRippleComplete}
+        />
+        <motion.path
+          d="M 2,10 V 73 A 21,21 0 0 0 10,81 H 73 A 21,21 0 0 0 81,73 V 71"
+          fill="none"
+          stroke={pathColors[0]}
+          strokeWidth="1.6"
+          pathLength="1"
+          transform="translate(-6.3,-7)"
+          strokeDasharray="0.7, 1"
+          variants={pathVariants}
+          initial="initialShortPath"
+          animate="animateShortPath"
+        />
 
-      {/* 2nd Ripple */}
-      <motion.path
-        // d="M 2,10 A 14,14 0 0 1 10,2 H 66 A 14,14 0 0 1 74,10 V 66 A 14,14 0 0 1 66,74 H 64"
-        d="M 2,10 A 16,16 0 0 1 10,2 H 68 A 16,16 0 0 1 76,10 V 68 A 16,16 0 0 1 68,76 H 66"
-        fill="none"
-        stroke={pathColors[1]}
-        strokeWidth="1.6"
-        pathLength="1"
-        transform="translate(-4,-4.5)"
-        strokeDasharray="0.4, 1"
-        variants={pathVariants}
-        initial="initialLongPath"
-        animate="animateLongPath"
-      />
-      <motion.path
-        // d="M 2,10 V 66 A 14,14 0 0 0 10,74 H 66 A 14,14 0 0 0 74,66 V 64"
-        d="M 2,10 V 68 A 16,16 0 0 0 10,76 H 68 A 16,16 0 0 0 76,68 V 66"
-        fill="none"
-        stroke={pathColors[1]}
-        strokeWidth="1.6"
-        pathLength="1"
-        transform="translate(-4,-4.5)"
-        strokeDasharray="0.7, 1"
-        variants={pathVariants}
-        initial="initialShortPath"
-        animate="animateShortPath"
-      />
+        {/* 2nd Ripple */}
+        <motion.path
+          d="M 2,10 A 16,16 0 0 1 10,2 H 68 A 16,16 0 0 1 76,10 V 68 A 16,16 0 0 1 68,76 H 66"
+          fill="none"
+          stroke={pathColors[1]}
+          strokeWidth="1.6"
+          pathLength="1"
+          transform="translate(-4,-4.5)"
+          strokeDasharray="0.4, 1"
+          variants={pathVariants}
+          initial="initialLongPath"
+          animate="animateLongPath"
+        />
+        <motion.path
+          d="M 2,10 V 68 A 16,16 0 0 0 10,76 H 68 A 16,16 0 0 0 76,68 V 66"
+          fill="none"
+          stroke={pathColors[1]}
+          strokeWidth="1.6"
+          pathLength="1"
+          transform="translate(-4,-4.5)"
+          strokeDasharray="0.7, 1"
+          variants={pathVariants}
+          initial="initialShortPath"
+          animate="animateShortPath"
+        />
 
-      {/* 3rd Ripple */}
-      <motion.path
-        d="M 2,10 A 11,11 0 0 1 10,2 H 63 A 11,11 0 0 1 71,10 V 63 A 11,11 0 0 1 63,71 H 61"
-        fill="none"
-        stroke={pathColors[2]}
-        strokeWidth="1.6"
-        pathLength="1"
-        transform="translate(-1, -2)"
-        strokeDasharray="0.4, 1"
-        variants={pathVariants}
-        initial="initialLongPath"
-        animate="animateLongPath"
-        // className="blur-[2px]"
-      />
-      <motion.path
-        d="M 2,10 V 63 A 11,11 0 0 0 10,71 H 63 A 11,11 0 0 0 71,63 V 61"
-        fill="none"
-        stroke={pathColors[2]}
-        strokeWidth="1.6"
-        pathLength="1"
-        transform="translate(-1, -2)"
-        strokeDasharray="0.7, 1"
-        variants={pathVariants}
-        initial="initialShortPath"
-        animate="animateShortPath"
-      />
-    </svg>
+        {/* 3rd Ripple */}
+        <motion.path
+          d="M 2,10 A 11,11 0 0 1 10,2 H 63 A 11,11 0 0 1 71,10 V 63 A 11,11 0 0 1 63,71 H 61"
+          fill="none"
+          stroke={pathColors[2]}
+          strokeWidth="1.6"
+          pathLength="1"
+          transform="translate(-1, -2)"
+          strokeDasharray="0.4, 1"
+          variants={pathVariants}
+          initial="initialLongPath"
+          animate="animateLongPath"
+        />
+        <motion.path
+          d="M 2,10 V 63 A 11,11 0 0 0 10,71 H 63 A 11,11 0 0 0 71,63 V 61"
+          fill="none"
+          stroke={pathColors[2]}
+          strokeWidth="1.6"
+          pathLength="1"
+          transform="translate(-1, -2)"
+          strokeDasharray="0.7, 1"
+          variants={pathVariants}
+          initial="initialShortPath"
+          animate="animateShortPath"
+        />
+      </svg>
+    </div>
   );
 }

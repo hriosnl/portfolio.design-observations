@@ -9,6 +9,7 @@ import useBreakpoint from "@/hooks/useBreakpoint";
 export function RideDescription() {
   const [isRearLightsOn, setIsRearLighstOn] = useState(false);
   const [isHeadlightsOn, setIsHeadlightsOn] = useState(true);
+  const [showImageName, setShowImageName] = useState(false);
 
   useEffect(() => {
     console.log("isRearLightsOn", isRearLightsOn);
@@ -16,10 +17,11 @@ export function RideDescription() {
 
   return (
     <>
-      <div className="w-full flex flex-col lg:flex-row justify-center lg:pr-6 select-none">
+      <div className="w-full flex flex-col lg:flex-row justify-center items-center lg:pr-6 select-none">
         <ZoomedRide
           isRearLightsOn={isRearLightsOn}
           isHeadlightsOn={isHeadlightsOn}
+          showImageName={showImageName}
         />
         <LightButtons
           toggleRearLights={(isOn: boolean) => setIsRearLighstOn(isOn)}
@@ -41,9 +43,16 @@ export function RideDescription() {
           For hours, I was stuck deciding whether to draw the car with SVG as
           well, since that would mean learning more unknown SVG properties.
           Fortunately, my lazy brain came up with a solution: I simply cropped
-          and upscaled an image of the car instead. I had to accept that I
-          didn&apos;t need to understand every detail, and the cropped image
-          worked just fine.
+          and upscaled an{" "}
+          <button
+            className="dashed-link"
+            onPointerOver={() => setShowImageName(true)}
+            onPointerOut={() => setShowImageName(false)}
+          >
+            image of the car
+          </button>{" "}
+          instead. I had to accept that I didn&apos;t need to understand every
+          detail, and the cropped image worked just fine.
         </p>
 
         <p>
@@ -62,9 +71,11 @@ export function RideDescription() {
 function ZoomedRide({
   isRearLightsOn,
   isHeadlightsOn,
+  showImageName,
 }: {
   isRearLightsOn: boolean;
   isHeadlightsOn: boolean;
+  showImageName: boolean;
 }) {
   return (
     <motion.div
@@ -82,6 +93,7 @@ function ZoomedRide({
           <Car
             isRearLightsOn={isRearLightsOn}
             isHeadlightsOn={isHeadlightsOn}
+            showImageName={showImageName}
           />
         </div>
       </Road>
@@ -114,7 +126,7 @@ const LightButtons = ({
         }}
         whileHover={{ color: headlightsIsOn ? "#ffffb0" : "#9c9c78" }}
         whileTap={{ scale: 0.97 }}
-        className="size-16 lg:size-11 bg-black  rounded-2xl flex justify-center items-center"
+        className="size-[3.7rem] lg:size-12 bg-black  rounded-2xl flex justify-center items-center"
       >
         <svg
           width="1.4375rem"
@@ -148,16 +160,19 @@ const LightButtons = ({
           scale: 0.95,
           boxShadow: "0 0 3px 1px rgba(255, 177, 177, 0.1)",
         }}
-        className="size-16 lg:size-11 rounded-2xl bg-black flex justify-center items-center"
+        className="size-16 lg:size-12 rounded-2xl bg-black flex justify-center items-center"
       >
-        <div className="size-6 border border-[#ff2929] rounded-md flex flex-col justify-center items-center gap-y-1">
+        <span className="text-sm lg:text-xs text-red-600 font-medium">
+          Brake
+        </span>
+        {/* <div className="size-6 border border-[#ff2929] rounded-md flex flex-col justify-center items-center gap-y-1">
           <div className="w-full h-fit flex justify-between px-[5px]">
             <span className="size-[2px] bg-[#ff2929] rounded-full" />
             <span className="size-[2px] bg-[#ff2929] rounded-full" />
           </div>
           <div className="w-[56%] h-[2px] bg-[#ff2929] rounded-full" />
           <div className="w-[68%] h-[2px] bg-[#ff2929] rounded-full" />
-        </div>
+        </div> */}
       </motion.button>
     </div>
   );
@@ -212,9 +227,11 @@ const Path = () => {
 const Car = ({
   isRearLightsOn,
   isHeadlightsOn,
+  showImageName,
 }: {
   isRearLightsOn: boolean;
   isHeadlightsOn: boolean;
+  showImageName: boolean;
 }) => {
   const isLargeScreen = useBreakpoint("lg");
 
@@ -243,6 +260,19 @@ const Car = ({
             priority
           />
         </div>
+      </div>
+
+      <div
+        style={{
+          position: "absolute",
+          outline: "1px dashed white",
+          visibility: showImageName ? "visible" : "hidden",
+        }}
+        className="absolute -top-[2px] left-0 size-full flex justify-center"
+      >
+        <span className="absolute -bottom-5 text-white text-sm font-medium">
+          car.png
+        </span>
       </div>
     </motion.div>
   );

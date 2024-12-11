@@ -3,9 +3,9 @@ import { motion } from "motion/react";
 export const Spotlight = () => {
   return (
     <motion.div
-      initial={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
       animate={{ opacity: [1.0, 0.8, 0.54, 0.44, 0.54, 0.6, 1.0] }}
-      transition={{ delay: 8, duration: 11, repeat: Infinity }}
+      transition={{ duration: 11, repeat: Infinity }}
       className="absolute w-[1000px] h-[1100px] -top-[200px] sm:w-[1500px] sm:h-[1000px] sm:-top-[160px]"
     >
       <motion.div

@@ -37,6 +37,7 @@ next-env.d.ts
 
 # for testing new codes
 */examples
+*/*-compare
 
 # local docs
 *.md

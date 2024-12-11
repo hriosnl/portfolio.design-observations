@@ -21,7 +21,7 @@ export function TimerDescription() {
             slowedHackAnimation={slowedHackAnimation}
           />
         </div>
-        <div className="flex flex-col items-start gap-y-1 w-fit mt-10 pr-10">
+        <div className="flex flex-col items-start gap-y-1 w-fit mt-10">
           <CheckButton
             isActive={slowedAnimation}
             label="Slow transition"
@@ -62,6 +62,10 @@ export function TimerDescription() {
           If you{" "}
           <button
             onClick={() => {
+              window.scrollTo({
+                top: 540,
+                behavior: "smooth",
+              });
               setIsSlowHackAnimation(false);
               setIsSlowAnimation((prev) => !prev);
             }}
@@ -105,7 +109,13 @@ export function TimerDescription() {
         <p>
           In the end, I had to use his{" "}
           <button
-            onClick={() => setShowHackSolution((prev) => !prev)}
+            onClick={() => {
+              window.scrollTo({
+                top: 540,
+                behavior: "smooth",
+              });
+              setShowHackSolution((prev) => !prev);
+            }}
             style={{
               border: "1px solid",
               borderColor: showHackSolution
