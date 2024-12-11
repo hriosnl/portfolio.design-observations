@@ -53,3 +53,8 @@ h1 {
 .bbb {
   outline: 4px solid red;
 }
+
+/* * {
+  box-sizing: border-box;
+  outline: 1px solid lawngreen;
+} */

@@ -14,12 +14,14 @@ export function TimerDescription() {
   return (
     <>
       <div className="w-full flex flex-col md:flex-row justify-center items-center gap-x-8 lg:pr-6 mb-10">
-        <ZoomedTimer
-          slowedAnimation={slowedAnimation}
-          showHack={showHackSolution}
-          slowedHackAnimation={slowedHackAnimation}
-        />
-        <div className="flex flex-col items-start gap-y-1 min-w-fit mt-10">
+        <div className="grow flex justify-center">
+          <ZoomedTimer
+            slowedAnimation={slowedAnimation}
+            showHack={showHackSolution}
+            slowedHackAnimation={slowedHackAnimation}
+          />
+        </div>
+        <div className="flex flex-col items-start gap-y-1 w-fit mt-10 pr-10">
           <CheckButton
             isActive={slowedAnimation}
             label="Slow transition"
@@ -50,7 +52,7 @@ export function TimerDescription() {
 
       <h1 className="text-[2.5rem] font-light text-white">Timer</h1>
 
-      <main className="text-[#f5f6f4] space-y-7 pt-8 pb-20">
+      <main className="text-[#f5f6f4] space-y-7 pt-8 pb-24">
         <p>
           This is the first of the four Live Activities I created, where I ran
           into the toughest challenge of the entire project.
@@ -140,7 +142,7 @@ function ZoomedTimer({
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentView((prev) => (prev === "idle" ? "timer" : "idle"));
-    }, 4000);
+    }, 3000);
 
     return () => clearTimeout(interval);
   }, []);

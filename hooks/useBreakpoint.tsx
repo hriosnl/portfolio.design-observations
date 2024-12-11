@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-type ScreenSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
-// type ScreenSize = "xs" | "sm" | "md" | "lg";
+// type ScreenSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+type ScreenSize = "xs" | "sm" | "md" | "lg";
 
 const getMediaQuery = (screenSize: ScreenSize) => {
   switch (screenSize) {
@@ -12,12 +12,11 @@ const getMediaQuery = (screenSize: ScreenSize) => {
     case "md":
       return "(min-width: 768px) and (max-width: 1024px)";
     case "lg":
-      // return "(min-width: 1024px)";
-      return "(min-width: 1024px) and (max-width: 1280px)";
-    case "xl":
-      return "(min-width: 1280px) and (max-width: 1536px)";
-    case "2xl":
-      return "(min-width: 1536px)";
+      return "(min-width: 1024px)";
+    // case "xl":
+    //   return "(min-width: 1280px) and (max-width: 1536px)";
+    // case "2xl":
+    //   return "(min-width: 1536px)";
   }
 };
 

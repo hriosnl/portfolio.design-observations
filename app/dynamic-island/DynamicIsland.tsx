@@ -157,24 +157,20 @@ export default function DynamicIsland({
     }
   }
 
-  // throttled to avoid rapid clicks that destroys the animation :D
-
   function transitionFromIdle(newView: ViewName) {
-    // setView(newView);
-    // return;
     setView(ViewName.IDLE);
     setTimeout(() => {
       setView(newView);
-    }, 400); // Delay here should match the desired transition duration
+    }, 400);
   }
 
   return (
-    <div className="relative lg:basis-[580px] shrink-0 w-full min-h-[69vh] flex flex-col items-center overflow-hidden">
+    <div className="relative lg:basis-[580px] shrink-0 w-full min-h-[69vh] flex flex-col items-center overflow-hidden mt-3 lg:mt-0">
       <section className="relative mt-14">
         {/* iPhone frame */}
-        <div className="bg-white h-[70vh] w-[26.6875rem] md:h-[95vh] outline outline-[0.75rem] outline-black rounded-[55px]" />
+        <div className="bg-white h-[66vh] w-[27rem] lg:w-[26.6875rem] lg:h-[95vh] outline outline-[0.75rem] outline-black rounded-[55px]" />
         {/* Horizon: */}
-        <div className="md:hidden absolute w-[114%] h-[70px] bg-white bottom-0 left-1/2 -translate-x-1/2" />
+        <div className="absolute w-[28rem] h-[70px] bg-white bottom-0 left-1/2 -translate-x-1/2 lg:hidden" />
 
         <div className="absolute top-[0.75rem] left-1/2 -translate-x-1/2">
           <motion.div

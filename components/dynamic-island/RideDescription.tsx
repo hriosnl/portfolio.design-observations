@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
 
@@ -10,9 +10,13 @@ export function RideDescription() {
   const [isRearLightsOn, setIsRearLighstOn] = useState(false);
   const [isHeadlightsOn, setIsHeadlightsOn] = useState(true);
 
+  useEffect(() => {
+    console.log("isRearLightsOn", isRearLightsOn);
+  }, [isRearLightsOn]);
+
   return (
     <>
-      <div className="w-full flex flex-col md:flex-row justify-center lg:pr-6">
+      <div className="w-full flex flex-col lg:flex-row justify-center lg:pr-6 select-none">
         <ZoomedRide
           isRearLightsOn={isRearLightsOn}
           isHeadlightsOn={isHeadlightsOn}
@@ -26,7 +30,7 @@ export function RideDescription() {
 
       <h1 className="text-[2.5rem] font-light text-white">Ride</h1>
 
-      <main className="text-[#f5f6f4] space-y-7 pt-8 pb-20">
+      <main className="text-[#f5f6f4] space-y-7 pt-8 pb-24">
         <p>
           I&apos;m not particularly comfortable working with SVGs, but I decided
           to use it for the map because I&apos;m too lazy to draw it using
@@ -70,7 +74,7 @@ function ZoomedRide({
       style={{
         boxShadow: "0 0 15px 2px rgba(69, 68, 69, 0.5)",
       }}
-      className="shrink-0 border-2 border-white flex items-center w-96 h-36 lg:w-[29rem] lg:h-72 rounded-md lg:rounded-full overflow-hidden mx-auto"
+      className="shrink-0 border-2 border-white flex items-center w-96 h-44 lg:w-[29rem] lg:h-72 rounded-md lg:rounded-full overflow-hidden mx-auto"
     >
       <Road>
         <div className="absolute bottom-1 w-full h-16 flex flex-col justify-center">
@@ -95,7 +99,7 @@ const LightButtons = ({
   headlightsIsOn: boolean;
 }) => {
   return (
-    <div className="w-full md:w-fit flex items-end justify-center gap-5 py-6 md:py-0">
+    <div className="w-full lg:w-fit flex items-end justify-center gap-5 py-6 lg:py-0">
       <motion.button
         onClick={toggleHeadlights}
         initial={{
@@ -110,7 +114,7 @@ const LightButtons = ({
         }}
         whileHover={{ color: headlightsIsOn ? "#ffffb0" : "#9c9c78" }}
         whileTap={{ scale: 0.97 }}
-        className="size-11 bg-black  rounded-2xl flex justify-center items-center"
+        className="size-16 lg:size-11 bg-black  rounded-2xl flex justify-center items-center"
       >
         <svg
           width="1.4375rem"
@@ -132,10 +136,10 @@ const LightButtons = ({
       </motion.button>
 
       <motion.button
-        onMouseDown={() => toggleRearLights(true)}
-        onMouseUp={() => toggleRearLights(false)}
+        onPointerDown={() => toggleRearLights(true)}
+        onPointerUp={() => toggleRearLights(false)}
         style={{
-          boxShadow: "0 0 3px 1px rgba(255, 177, 177, 0.3)",
+          boxShadow: "0 0 4px 2px rgba(255, 177, 177, 0.5)",
         }}
         whileHover={{
           scale: 0.98,
@@ -144,7 +148,7 @@ const LightButtons = ({
           scale: 0.95,
           boxShadow: "0 0 3px 1px rgba(255, 177, 177, 0.1)",
         }}
-        className="size-11 rounded-2xl bg-black flex justify-center items-center"
+        className="size-16 lg:size-11 rounded-2xl bg-black flex justify-center items-center"
       >
         <div className="size-6 border border-[#ff2929] rounded-md flex flex-col justify-center items-center gap-y-1">
           <div className="w-full h-fit flex justify-between px-[5px]">

@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "motion/react";
-import { X } from "lucide-react";
+import { ArrowUpToLine, MoveUpLeft, X } from "lucide-react";
 
 import DynamicIsland from "@/app/dynamic-island/DynamicIsland";
 
@@ -14,26 +14,7 @@ import { CoffeeDescription } from "@/components/dynamic-island/CoffeeDescription
 import { RideDescription } from "@/components/dynamic-island/RideDescription";
 import { FlightDescription } from "@/components/dynamic-island/FlightDescription";
 
-import useBreakpoint from "@/hooks/useBreakpoint";
-
 export default function Home() {
-  const oxs = useBreakpoint("xs");
-  const osm = useBreakpoint("sm");
-  const omd = useBreakpoint("md");
-  const olg = useBreakpoint("lg");
-  const oxl = useBreakpoint("xl");
-  const o2xl = useBreakpoint("2xl");
-
-  useEffect(() => {
-    console.log("=================");
-    console.log("xs", oxs);
-    console.log("sm", osm);
-    console.log("md", omd);
-    console.log("lg", olg);
-    console.log("xl", oxl);
-    console.log("2xl", o2xl);
-  }, [oxs, osm, omd, olg, oxl, o2xl]);
-
   const [currentViewName, setCurrentViewName] = useState<ViewName>(
     ViewName.IDLE
   );
@@ -78,30 +59,55 @@ export default function Home() {
   }, [currentViewName]);
 
   return (
-    <motion.main
-      initial={{
-        backgroundColor: "#FFFFFF",
-      }}
-      animate={{
-        backgroundColor: getBackgroundColor,
-      }}
-      transition={{
-        duration: 0.69,
-        type: "spring",
-        bounce: 0,
-      }}
-      className="w-screen h-screen flex flex-col lg:flex-row"
-    >
-      <CloseButton />
-      <DynamicIsland updateViewName={setCurrentViewName} />
-      <div className="relative bg-[#0C0C0C] w-full flex justify-center">
-        <div className="w-full overflow-y-auto flex justify-center">
-          {/* <div className="h-fit max-w-[46rem] pt-10 border border-red-400"> */}
-          <div className="h-fit max-w-[57rem] pt-10 px-14">{description}</div>
-          <div className="hidden md:block absolute bottom-0 h-24 w-full bg-gradient-to-t from-black via-black/80 via-30% to-transparent pointer-events-none" />
+    <div className="w-screen h-screen flex justify-center items-center bg-black">
+      <motion.div
+        initial={{
+          backgroundColor: "#FFFFFF",
+        }}
+        animate={{
+          backgroundColor: getBackgroundColor,
+        }}
+        transition={{
+          duration: 0.69,
+          type: "spring",
+          bounce: 0,
+        }}
+        className="size-full max-w-[1500px] max-h-[890px] flex flex-col lg:flex-row"
+      >
+        <CloseButton />
+        <DynamicIsland updateViewName={setCurrentViewName} />
+        <div className="relative bg-[#0C0C0C] w-full flex justify-center">
+          <div className="w-full overflow-y-auto flex justify-center">
+            {/* <div className="h-fit max-w-[46rem] pt-10 border border-red-400"> */}
+            <div className="h-fit max-w-screen-sm md:max-w-[57rem] pt-3 md:pt-10 px-8 md:px-14">
+              {description}
+
+              <div className="lg:hidden absolute bottom-3 right-0 left-0 flex justify-between items-center px-5">
+                <Link
+                  href="/"
+                  className="flex justify-center items-center gap-x-1 text-white"
+                >
+                  <MoveUpLeft size={18} strokeWidth={1.6} />
+                  Home
+                </Link>
+                <button
+                  onClick={() => {
+                    window.scrollTo({
+                      top: 0,
+                      behavior: "smooth",
+                    });
+                  }}
+                  className="size-7 flex justify-center items-center bg-white text-black rounded-md"
+                >
+                  <ArrowUpToLine size={18} strokeWidth={2} />
+                </button>
+              </div>
+            </div>
+            <div className="hidden lg:block absolute bottom-0 h-24 w-full bg-gradient-to-t from-black via-black/80 via-30% to-transparent pointer-events-none" />
+          </div>
         </div>
-      </div>
-    </motion.main>
+      </motion.div>
+    </div>
   );
 }
 
@@ -110,7 +116,7 @@ const CloseButton = () => (
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     transition={{ delay: 0.5, duration: 0.8 }}
-    className="absolute top-3 right-4 cursor-pointer z-[1000] text-black lg:text-white"
+    className="absolute top-2 right-2 md:top-3 md:right-4 cursor-pointer z-[1000] text-black lg:text-white"
   >
     <Link href="/">
       <X size={35} strokeWidth={1.6} />

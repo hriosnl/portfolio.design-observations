@@ -52,7 +52,7 @@ function ExpandedRide({ driverId }: { driverId: number }) {
 
   return (
     <div
-      className="h-[11.6rem] md:h-[11.25rem] w-[25.375rem] py-4 px-4"
+      className="h-[11.6rem] lg:h-[11.25rem] w-[25.375rem] py-4 px-4"
       style={{ borderRadius: 20 }}
     >
       <motion.div

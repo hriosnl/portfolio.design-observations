@@ -10,13 +10,13 @@ export function CoffeeDescription() {
 
   return (
     <>
-      <div className="w-full flex justify-center lg:pr-6 pb-8 md:pb-0">
+      <div className="w-full flex justify-center lg:pr-6 pb-8 lg:pb-0">
         <ZoomedCoffeee isSlow={isSlow} />
       </div>
 
       <h1 className="text-[2.5rem] font-light text-white">Coffee</h1>
 
-      <main className="text-[#f5f6f4] space-y-7 pt-8 pb-20">
+      <main className="text-[#f5f6f4] space-y-7 pt-8 pb-24">
         <p>
           I tried to fully replicate Apple&apos;s version from their video{" "}
           <a
@@ -50,7 +50,13 @@ export function CoffeeDescription() {
             isActive={isSlow}
             label="Slower tick animation"
             color="#c97034"
-            handleClick={() => setIsSlow((prev) => !prev)}
+            handleClick={() => {
+              setIsSlow((prev) => !prev);
+              window.scrollBy({
+                top: -300,
+                behavior: "smooth",
+              });
+            }}
           />
         </p>
         <p>
@@ -106,17 +112,17 @@ function Graduations({
   currentTime: number;
   isSlow: boolean;
 }) {
-  const itemWithGap = 120;
-  const initialXPosition = -105;
+  const itemWithGap = 7.5;
+  const initialXPosition = -6.5625;
 
   return (
     <div className="size-full flex justify-end">
       <motion.ul
         initial={{
-          x: initialXPosition,
+          x: `${initialXPosition}rem`,
         }}
         animate={{
-          x: initialXPosition + itemWithGap * (duration - currentTime),
+          x: `${initialXPosition + itemWithGap * (duration - currentTime)}rem`,
         }}
         transition={{
           type: "spring",
@@ -124,12 +130,14 @@ function Graduations({
           duration: isSlow ? 2 : 1,
         }}
         className="w-fit flex items-center gap-[1.875rem]"
+        // className="w-fit flex items-center gap-[30px]"
       >
         {[...Array(duration)].map((_, index) => {
           const i = index + 1;
 
           return (
             <li key={i} className="h-[16.25rem]">
+              {/* <li key={i} className="h-[260px]"> */}
               <motion.span
                 initial={{
                   backgroundPositionX: "0%",
@@ -147,6 +155,7 @@ function Graduations({
                   backgroundSize: "800% 100%",
                 }}
                 className="w-[5.625rem] h-full rounded-full inline-block"
+                // className="w-[90px] h-full rounded-full inline-block"
               />
             </li>
           );

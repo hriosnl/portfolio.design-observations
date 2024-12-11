@@ -1,11 +1,11 @@
 export function IdleDescription() {
   return (
     <>
-      <h1 className="text-[2.3rem] md:text-[2.8rem] font-light text-white md:mt-10">
+      <h1 className="text-[2.3rem] md:text-[2.8rem] font-light text-white lg:mt-6">
         Dynamic Island on the Web
       </h1>
 
-      <main className="text-[#d8d8d8] space-y-8 text-justify mt-8 pb-20">
+      <main className="text-[#d8d8d8] space-y-8 text-justify mt-8 pb-24">
         <p>As much as I can, I focus on creating things I love.</p>
         <p>
           That&apos;s why, as my first project upon completing my first
