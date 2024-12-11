@@ -679,7 +679,7 @@ const Car = () => {
           }}
         >
           <Image
-            src="/dynamic-island/car.png"
+            src="/dynamic-island/car-small.png"
             alt="Car"
             width={40}
             height={18}

@@ -18,11 +18,38 @@ import { Flight } from "@/components/dynamic-island/Flight";
 
 const TIMER_DURATION = 42;
 
+import useBreakpoint from "@/hooks/useBreakpoint";
+
 export default function DynamicIsland({
   updateViewName,
 }: {
   updateViewName: (name: ViewName) => void;
 }) {
+  const oXs = useBreakpoint("xs");
+  const oSm = useBreakpoint("sm");
+  const oMd = useBreakpoint("md");
+  const oLg = useBreakpoint("lg");
+  const oXl = useBreakpoint("xl");
+  const o2Xl = useBreakpoint("2xl");
+
+  useEffect(() => {
+    console.log("==================");
+    console.log(
+      "xs: ",
+      oXs,
+      " sm: ",
+      oSm,
+      " | md: ",
+      oMd,
+      " | lg: ",
+      oLg,
+      " | xl: ",
+      oXl,
+      " | 2xl: ",
+      o2Xl
+    );
+  }, [oXs, oSm, oMd, oLg, oXl, o2Xl]);
+
   const [view, setView] = useState<ViewName>(ViewName.IDLE);
   const [viewState, setViewState] = useState<ViewState | null>(null);
   const previousViewStateRef = useRef<ViewState | null>(null);
@@ -168,7 +195,7 @@ export default function DynamicIsland({
     <div className="relative lg:basis-[580px] shrink-0 w-full min-h-[69vh] flex flex-col items-center overflow-hidden mt-3 lg:mt-0">
       <section className="relative mt-14">
         {/* iPhone frame */}
-        <div className="bg-white h-[66vh] w-[27rem] lg:w-[26.6875rem] lg:h-[95vh] outline outline-[0.75rem] outline-black rounded-[55px]" />
+        <div className="bg-white h-[62vh] w-[27rem] lg:w-[26.6875rem] lg:h-[95vh] outline outline-[0.75rem] outline-black rounded-[55px]" />
         {/* Horizon: */}
         <div className="absolute w-[28rem] h-[70px] bg-white bottom-0 left-1/2 -translate-x-1/2 lg:hidden" />
 

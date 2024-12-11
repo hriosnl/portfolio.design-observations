@@ -102,17 +102,17 @@ function Graduations({
   duration: number;
   currentTime: number;
 }) {
-  const itemWithGap = 16;
-  const initialXPosition = 200;
+  const itemWithGap = 1;
+  const initialXPosition = -12.5;
 
   return (
     <div className="flex justify-end relative overflow-hidden">
       <motion.ul
         initial={{
-          x: -initialXPosition,
+          x: `${initialXPosition}rem`,
         }}
         animate={{
-          x: -(initialXPosition - itemWithGap * (duration - currentTime)),
+          x: `${initialXPosition + itemWithGap * (duration - currentTime)}rem`,
           transition: { type: "spring", bounce: 0 },
         }}
         className="w-fit flex gap-[0.375rem]"
@@ -182,10 +182,12 @@ function Graduations({
       >
         <div className="h-[120%] w-24 absolute -top-2 right-0">
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/50 via-40% to-black rounded-tr-3xl" />
+          {/* <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/90 backdrop-blur-[2px] rounded-tr-3xl" /> */}
         </div>
 
         <div className="h-[120%] w-24 absolute -top-2 left-0">
           <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/50 via-40% to-black rounded-tl-3xl" />
+          {/* <div className="absolute inset-0 bg-gradient-to-l from-transparent to-black/90 backdrop-blur-[2px] rounded-tr-3xl" /> */}
         </div>
       </motion.div>
     </div>

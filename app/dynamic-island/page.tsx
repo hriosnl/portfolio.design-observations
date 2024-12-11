@@ -81,7 +81,7 @@ export default function Home() {
             <div className="h-fit max-w-screen-sm md:max-w-[57rem] pt-3 lg:pt-14 px-8 md:px-14">
               {description}
 
-              <div className="lg:hidden absolute bottom-3 right-0 left-0 flex justify-between items-center px-5">
+              <div className="lg:hidden absolute bottom-5 right-5 left-3 flex justify-between items-center px-5">
                 <Link
                   href="/"
                   className="flex justify-center items-center gap-x-1 text-white"

@@ -2,7 +2,8 @@ export function IdleDescription() {
   return (
     <>
       <h1 className="text-[2.3rem] md:text-[2.8rem] font-light text-white lg:mt-6">
-        Dynamic Island on the Web
+        Dynamic Island <br className="sm:hidden" />
+        on the Web
       </h1>
 
       <main className="text-[#d8d8d8] space-y-8 text-justify mt-8 pb-24">

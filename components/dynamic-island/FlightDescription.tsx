@@ -46,7 +46,7 @@ const ZoomedFlight = () => {
     <motion.div
       initial={{ filter: "blur(6px)" }}
       animate={{ filter: "blur(0px)" }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 1 }}
       className="w-full flex justify-center"
     >
       {/* <div className="absolute h-full w-1 bg-red-500" /> */}

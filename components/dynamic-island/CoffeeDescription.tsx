@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
@@ -30,6 +31,16 @@ export function CoffeeDescription() {
           <span className="font-mono">backdrop-filter</span> doesn&apos;t
           properly work in Safari, which I had to account for.
         </p>
+        <p className="flex flex-col items-center gap-2 py-3">
+          <Image
+            src="/dynamic-island/backdrop-filter.jpeg"
+            alt="backdrop-filter bug in Safari"
+            width={468}
+            height={90}
+            priority
+          />
+          <div className="text-xs">backdrop-filter bug in Safari</div>
+        </p>
         <p>
           As a workaround, I used a{" "}
           <span className="font-mono">linear-gradient</span> instead. While not
@@ -39,10 +50,12 @@ export function CoffeeDescription() {
         <p>
           When finalizing this project after leaving it untouched for a month, I
           realized an important part of the animation design was missing—the
-          transition of the seconds that had just passed. Originally, it just
-          changed color from orange to gray while adjusting opacity. To enhance
-          it, I added an orange-to-gray linear gradient background and animated
-          its position from left to right.
+          color transition of the graduation that had just passed.
+        </p>
+        <p>
+          Originally, it just changed color from orange to gray while adjusting
+          opacity. I enhanced it by adding an orange-to-gray linear gradient
+          background and animated its position from left to right.
         </p>
         <p>Try reducing the animation speed to better observe the effect:</p>
         <p>
@@ -53,7 +66,7 @@ export function CoffeeDescription() {
             handleClick={() => {
               setIsSlow((prev) => !prev);
               window.scrollBy({
-                top: -300,
+                top: -500,
                 behavior: "smooth",
               });
             }}
@@ -87,7 +100,7 @@ function ZoomedCoffeee({ isSlow }: { isSlow: boolean }) {
     <motion.div
       initial={{ filter: "blur(6px)" }}
       animate={{ filter: "blur(0px)" }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 1 }}
       style={{
         boxShadow: "0 0 16px 2px rgba(69, 68, 69, 0.26)",
       }}

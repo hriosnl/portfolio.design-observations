@@ -168,7 +168,7 @@ function ZoomedTimer({
     <motion.div
       initial={{ filter: "blur(6px)" }}
       animate={{ filter: "blur(0px)" }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 1 }}
       style={{
         boxShadow: "0 0 10px 2px rgba(69, 68, 69, 0.8)",
       }}

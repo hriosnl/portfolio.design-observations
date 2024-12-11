@@ -81,7 +81,7 @@ function ZoomedRide({
     <motion.div
       initial={{ filter: "blur(6px)" }}
       animate={{ filter: "blur(0px)" }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 1 }}
       style={{
         boxShadow: "0 0 15px 2px rgba(69, 68, 69, 0.5)",
       }}
@@ -253,7 +253,7 @@ const Car = ({
           className="relative bg-black rounded-full overflow-hidden brightness-125"
         >
           <Image
-            src="/dynamic-island/car_big.png"
+            src="/dynamic-island/car.png"
             alt="Car"
             width={120}
             height={264}
