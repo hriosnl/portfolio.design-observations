@@ -69,15 +69,15 @@ export function CoffeeDescription() {
 }
 
 function ZoomedCoffeee({ isSlow }: { isSlow: boolean }) {
-  const duration = 1000;
+  const duration = 44;
   const [currentTime, setCurrentTime] = useState(duration);
 
   useEffect(() => {
     const tickDuration = isSlow ? 2000 : 1000;
-    setCurrentTime((prev) => prev - 1);
+    setCurrentTime((prev) => (prev === 1 ? duration : prev - 1));
 
     const interval = setInterval(() => {
-      setCurrentTime((prev) => prev - 1);
+      setCurrentTime((prev) => (prev === 1 ? duration : prev - 1));
     }, tickDuration);
 
     return () => clearInterval(interval);
@@ -93,7 +93,6 @@ function ZoomedCoffeee({ isSlow }: { isSlow: boolean }) {
       }}
       className="border-2 border-black size-72 bg-black rounded-full overflow-hidden"
     >
-      {/* <div className="absolute h-full w-1 bg-red-500" /> */}
       <Graduations
         duration={duration}
         currentTime={currentTime}
@@ -130,14 +129,12 @@ function Graduations({
           duration: isSlow ? 2 : 1,
         }}
         className="w-fit flex items-center gap-[1.875rem]"
-        // className="w-fit flex items-center gap-[30px]"
       >
         {[...Array(duration)].map((_, index) => {
           const i = index + 1;
 
           return (
             <li key={i} className="h-[16.25rem]">
-              {/* <li key={i} className="h-[260px]"> */}
               <motion.span
                 initial={{
                   backgroundPositionX: "0%",
@@ -155,7 +152,6 @@ function Graduations({
                   backgroundSize: "800% 100%",
                 }}
                 className="w-[5.625rem] h-full rounded-full inline-block"
-                // className="w-[90px] h-full rounded-full inline-block"
               />
             </li>
           );
