@@ -1,33 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
 
 import useBreakpoint from "@/hooks/useBreakpoint";
 
 export function RideDescription() {
-  const [isRearLightsOn, setIsRearLighstOn] = useState(false);
-  const [isHeadlightsOn, setIsHeadlightsOn] = useState(true);
   const [showImageName, setShowImageName] = useState(false);
-
-  useEffect(() => {
-    console.log("isRearLightsOn", isRearLightsOn);
-  }, [isRearLightsOn]);
 
   return (
     <>
-      <div className="w-full flex flex-col lg:flex-row justify-center items-center lg:pr-6 select-none">
-        <ZoomedRide
-          isRearLightsOn={isRearLightsOn}
-          isHeadlightsOn={isHeadlightsOn}
-          showImageName={showImageName}
-        />
-        <LightButtons
-          toggleRearLights={(isOn: boolean) => setIsRearLighstOn(isOn)}
-          toggleHeadlights={() => setIsHeadlightsOn(!isHeadlightsOn)}
-          headlightsIsOn={isHeadlightsOn}
-        />
+      <div className="w-full flex justify-center lg:pr-6 select-none">
+        <ZoomedRide showImageName={showImageName} />
       </div>
 
       <h1 className="text-[2.5rem] font-light text-white">Ride</h1>
@@ -68,15 +53,10 @@ export function RideDescription() {
   );
 }
 
-function ZoomedRide({
-  isRearLightsOn,
-  isHeadlightsOn,
-  showImageName,
-}: {
-  isRearLightsOn: boolean;
-  isHeadlightsOn: boolean;
-  showImageName: boolean;
-}) {
+function ZoomedRide({ showImageName }: { showImageName: boolean }) {
+  const [isRearLightsOn, setIsRearLighstOn] = useState(false);
+  const [isHeadlightsOn, setIsHeadlightsOn] = useState(true);
+
   return (
     <motion.div
       initial={{ filter: "blur(6px)" }}
@@ -85,7 +65,7 @@ function ZoomedRide({
       style={{
         boxShadow: "0 0 15px 2px rgba(69, 68, 69, 0.5)",
       }}
-      className="shrink-0 border-2 border-white flex items-center w-96 h-44 lg:w-[29rem] lg:h-72 rounded-md lg:rounded-full overflow-hidden mx-auto"
+      className="relative shrink-0 border-2 border-white flex items-center w-96 h-60 lg:w-[29rem] lg:h-72 rounded-md lg:rounded-full overflow-hidden mx-auto"
     >
       <Road>
         <div className="absolute bottom-1 w-full h-16 flex flex-col justify-center">
@@ -97,6 +77,13 @@ function ZoomedRide({
           />
         </div>
       </Road>
+      <div className="absolute bottom-2 left-4 lg:left-0 lg:bottom-2 flex lg:justify-center w-full">
+        <LightButtons
+          toggleRearLights={(isOn: boolean) => setIsRearLighstOn(isOn)}
+          toggleHeadlights={() => setIsHeadlightsOn(!isHeadlightsOn)}
+          headlightsIsOn={isHeadlightsOn}
+        />
+      </div>
     </motion.div>
   );
 }
@@ -111,69 +98,107 @@ const LightButtons = ({
   headlightsIsOn: boolean;
 }) => {
   return (
-    <div className="w-full lg:w-fit flex items-end justify-center gap-5 py-6 lg:py-0">
-      <motion.button
-        onClick={toggleHeadlights}
-        initial={{
-          color: "#47473f",
-          boxShadow: "0 0 3px 1px rgba(255, 255, 176, 0.5)",
-        }}
-        animate={{
-          color: headlightsIsOn ? "#ffffb0" : "#47473f",
-          boxShadow: headlightsIsOn
-            ? "0 0 5px 1px rgba(255, 255, 176, 0.7)"
-            : "0 0 2px 1px rgba(255, 255, 176, 0.3)",
-        }}
-        whileHover={{ color: headlightsIsOn ? "#ffffb0" : "#9c9c78" }}
-        whileTap={{ scale: 0.97 }}
-        className="size-[3.7rem] lg:size-12 bg-black  rounded-2xl flex justify-center items-center"
-      >
-        <svg
-          width="1.4375rem"
-          height="1.4375rem"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+    <div className="w-fit flex items-center gap-2">
+      <div className="size-12 lg:size-11 relative mt-[1px]">
+        <div
+          style={{
+            backgroundColor: headlightsIsOn ? "#552811" : "#3e3e37",
+          }}
+          className="absolute bottom-0 size-full rounded-xl"
+        />
+        <motion.button
+          onClick={toggleHeadlights}
+          animate={{
+            borderTop: headlightsIsOn
+              ? "1px solid hsl(30, 66%, 16%)"
+              : "1px solid hsl(60, 6%, 18%)",
+            borderRight: headlightsIsOn
+              ? "1px solid hsl(30, 66%, 18%)"
+              : "1px solid hsl(60, 6%, 25%)",
+          }}
+          whileHover={{ translateY: -0.5 }}
+          whileTap={{ translateY: 1.5, transition: { duration: 0.01 } }}
+          className="absolute bottom-[3px] size-full rounded-xl bg-[#1e252c]"
         >
-          <g id="Light_Icon">
-            <path
-              d="M6 14C2.68629 14 0 11.3137 0 8C0 4.68629 2.68629 2 6 2H9V14H6Z"
-              fill="currentColor"
-            />
-            <path d="M11 4H16V2H11V4Z" fill="currentColor" />
-            <path d="M11 9H16V7H11V9Z" fill="currentColor" />
-            <path d="M11 14H16V12H11V14Z" fill="currentColor" />
-          </g>
-        </svg>
-      </motion.button>
-
-      <motion.button
-        onPointerDown={() => toggleRearLights(true)}
-        onPointerUp={() => toggleRearLights(false)}
-        style={{
-          boxShadow: "0 0 4px 2px rgba(255, 177, 177, 0.5)",
-        }}
-        whileHover={{
-          scale: 0.98,
-        }}
-        whileTap={{
-          scale: 0.95,
-          boxShadow: "0 0 3px 1px rgba(255, 177, 177, 0.1)",
-        }}
-        className="size-16 lg:size-12 rounded-2xl bg-black flex justify-center items-center"
-      >
-        <span className="text-sm lg:text-xs text-red-600 font-medium">
-          Brake
-        </span>
-        {/* <div className="size-6 border border-[#ff2929] rounded-md flex flex-col justify-center items-center gap-y-1">
-          <div className="w-full h-fit flex justify-between px-[5px]">
-            <span className="size-[2px] bg-[#ff2929] rounded-full" />
-            <span className="size-[2px] bg-[#ff2929] rounded-full" />
+          <div
+            style={{
+              filter: "blur(3px)",
+              background: headlightsIsOn
+                ? "radial-gradient(circle at 50% 50%, #b94a1a, #b04419, #7b2314, #601611, #060505, transparent)"
+                : "transparent",
+            }}
+            className="absolute inset-1 opacity-70"
+          />
+          <div
+            style={{
+              opacity: headlightsIsOn ? 0.9 : 1,
+              color: headlightsIsOn ? "#ffffff" : "#aebaca",
+            }}
+            className="absolute bottom-0 size-full flex justify-center items-center mt-[1px]"
+          >
+            <svg
+              width="1.3rem"
+              height="1.3rem"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="Light_Icon">
+                <path
+                  d="M6 14C2.68629 14 0 11.3137 0 8C0 4.68629 2.68629 2 6 2H9V14H6Z"
+                  fill="currentColor"
+                />
+                <path d="M11 4H16V2H11V4Z" fill="currentColor" />
+                <path d="M11 9H16V7H11V9Z" fill="currentColor" />
+                <path d="M11 14H16V12H11V14Z" fill="currentColor" />
+              </g>
+            </svg>
           </div>
-          <div className="w-[56%] h-[2px] bg-[#ff2929] rounded-full" />
-          <div className="w-[68%] h-[2px] bg-[#ff2929] rounded-full" />
-        </div> */}
-      </motion.button>
+        </motion.button>
+      </div>
+
+      <div className="size-[3.2rem] lg:size-12 relative">
+        <motion.button
+          style={{ backgroundColor: "#3e3e37" }}
+          whileTap={{ backgroundColor: "yellow" }}
+          className="absolute bottom-0 size-full rounded-[30px]"
+        />
+
+        <motion.button
+          onPointerDown={() => toggleRearLights(true)}
+          onPointerUp={() => toggleRearLights(false)}
+          style={{
+            borderTop: "1px solid hsl(60, 6%, 18%)",
+            borderRight: "1px solid hsl(60, 6%, 25%)",
+            color: "#aebaca",
+          }}
+          whileHover={{ translateY: -0.5 }}
+          whileTap={{
+            translateY: 1,
+            transition: { duration: 0.01 },
+            color: "#f93a3c",
+          }}
+          className="absolute bottom-[3px] size-full rounded-full bg-[#1e252c]"
+        >
+          <div className="size-full flex justify-center items-center">
+            <svg
+              height="1.48rem"
+              width="1.48rem"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 262.636 262.636"
+              enable-background="new 0 0 262.636 262.636"
+              fill="currentColor"
+              stroke="currentColor"
+            >
+              <g>
+                <path d="m262.636,89.777l-54.376-54.376-54.688,54.688c-14.21-0.298-33.658-4.365-47.609-15.065-7.164-5.494-14.247-8.279-21.052-8.279-10.218,0-16.294,6.32-17.594,7.822l-9.841,9.841 53.659,53.659 2.749-2.749c0.497,0.343 1.02,0.705 1.55,1.073 3.512,2.438 6.803,4.684 9.758,6.446l-4.644,4.644 39.324,39.323 6.798-6.797c0.591,0.118 1.198,0.179 1.812,0.179h0.001c2.378,0 4.662-0.919 6.265-2.522l13.794-13.794 74.094-74.093z" />
+                <polygon points="6.192,132.196 48.518,174.797 0,227.234 61.755,227.234 100.576,163.971 37.635,100.87 " />{" "}
+              </g>
+            </svg>
+          </div>
+        </motion.button>
+      </div>
     </div>
   );
 };
