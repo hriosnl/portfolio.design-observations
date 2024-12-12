@@ -18,7 +18,6 @@ export function IntroShootingStar({
 }) {
   const { images } = useImageContext();
 
-  // const maxFallDuration = 1.8;
   const minFallDuration = 0.88;
   const maxFallDuration = 1.4;
 

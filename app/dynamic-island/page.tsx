@@ -59,7 +59,7 @@ export default function Home() {
   }, [currentViewName]);
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center bg-black">
+    <div className="w-screen h-screen flex justify-center items-center bg-[#0C0C0C]">
       <motion.div
         initial={{
           backgroundColor: "#FFFFFF",
@@ -102,7 +102,7 @@ export default function Home() {
                 </button>
               </div>
             </div>
-            <div className="hidden lg:block absolute bottom-0 h-24 w-full bg-gradient-to-t from-black via-black/80 via-30% to-transparent pointer-events-none" />
+            <div className="hidden lg:block absolute bottom-0 h-24 w-full bg-gradient-to-t from-[#0C0C0C] via-[#0C0C0C]/80 via-30% to-transparent pointer-events-none" />
           </div>
         </div>
       </motion.div>

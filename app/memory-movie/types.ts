@@ -19,7 +19,6 @@ export type MotionAnimationProps = {
     translateX: number;
     translateY: number;
     scale: number;
-    // opacity: number;
     translateMoreCompactX?: number;
     translateMoreCompactY?: number;
   };
@@ -46,7 +45,7 @@ export enum MemoryPositioning {
   ALIGNED = "aligned",
 }
 
-// TODO: Refactor this enum
+// Dirty, but it works for now (and forever)
 export enum MemoryEvents {
   INITIAL = "Initial event",
   STRUCK = "Memory has been struck",

@@ -31,9 +31,6 @@ function getRelativePosition(index: number) {
 }
 
 export function getShrinkedAnimationProps(index: number): MotionAnimationProps {
-  // const invisibleIndeces = [15, 24, 29, 32];
-  // const isInvisible = invisibleIndeces.includes(index);
-
   let [x, y] = [0, 0];
 
   const [min, max] = [30, 50];
@@ -72,7 +69,6 @@ export function getShrinkedAnimationProps(index: number): MotionAnimationProps {
       translateX: x,
       translateY: y,
       scale: scale,
-      // opacity: isInvisible ? 0 : 1,
     },
     transition: {
       duration: { duration: 0.42, type: "spring", bounce: 0 },
@@ -81,15 +77,12 @@ export function getShrinkedAnimationProps(index: number): MotionAnimationProps {
 }
 
 export function getCompressedMemoryProps(index: number): MotionAnimationProps {
-  // const customEase = [0.26, 1.08, 0.65, 0.98];
-
   let [x, y] = [0, 0];
   const [min, max] = [5, 15];
   const relativePosition = getRelativePosition(index);
   const yOffset = Math.floor(Math.random() * (max - min + 1)) + min;
   const xOffset = Math.floor(Math.random() * (max - min + 1)) + min;
 
-  // TODO: any can move either left or right or up or down, some just have higher chance
   if (relativePosition.rowPosition === "BELOW") {
     y = yOffset;
   } else if (relativePosition.rowPosition === "ABOVE") {

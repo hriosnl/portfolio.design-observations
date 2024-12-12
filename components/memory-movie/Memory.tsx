@@ -339,8 +339,7 @@ function Illuminator({
       }, 2000);
     } else {
       timer = setInterval(() => {
-        const illuminationWillHappen = Math.random() < PROBABILITY; //0.01
-        // const illuminationWillHappen = Math.random() < 0.025; //0.025
+        const illuminationWillHappen = Math.random() < PROBABILITY;
 
         if (illuminationWillHappen) {
           setIlluminate(true);

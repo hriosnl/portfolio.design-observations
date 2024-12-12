@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode } from "react";
-import { IMAGES } from "../app/memory-movie/constants";
+import { IMAGES } from "@/app/memory-movie/constants";
 
 interface ImageContextType {
   images: string[];
@@ -12,7 +12,6 @@ interface ImageContextType {
 const ImageContext = createContext<ImageContextType | null>(null);
 
 export const ImageProvider = ({ children }: { children: ReactNode }) => {
-  // Initialize "images" with 35 images and "replacementImages" with the remaining 25
   const initialShown = IMAGES.slice(0, 35);
   const initialNotShown = IMAGES.slice(35);
 

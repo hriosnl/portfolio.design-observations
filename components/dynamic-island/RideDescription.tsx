@@ -11,7 +11,7 @@ export function RideDescription() {
 
   return (
     <>
-      <div className="w-full flex justify-center lg:pr-6 select-none">
+      <div className="w-full flex justify-center lg:pr-4 select-none">
         <ZoomedRide showImageName={showImageName} />
       </div>
 
@@ -98,7 +98,7 @@ const LightButtons = ({
   headlightsIsOn: boolean;
 }) => {
   return (
-    <div className="w-fit flex items-center gap-2">
+    <div className="w-fit flex items-center gap-3">
       <div className="size-12 lg:size-11 relative mt-[1px]">
         <div
           style={{
@@ -123,15 +123,16 @@ const LightButtons = ({
           <div
             style={{
               filter: "blur(3px)",
+
               background: headlightsIsOn
                 ? "radial-gradient(circle at 50% 50%, #b94a1a, #b04419, #7b2314, #601611, #060505, transparent)"
                 : "transparent",
             }}
-            className="absolute inset-1 opacity-70"
+            className="absolute inset-1 opacity-80"
           />
           <div
             style={{
-              opacity: headlightsIsOn ? 0.9 : 1,
+              opacity: headlightsIsOn ? 0.8 : 1,
               color: headlightsIsOn ? "#ffffff" : "#aebaca",
             }}
             className="absolute bottom-0 size-full flex justify-center items-center mt-[1px]"
@@ -216,7 +217,6 @@ const PedestrianLane = () => {
 
 const Road = ({ children }: { children?: React.ReactNode }) => {
   return (
-    // <div className="h-64 flex flex-col justify-center">
     <div className="w-full h-72 flex flex-col justify-center">
       <div className="w-full grow flex relative bg-[#1E6063]">
         <div className="w-[80%] bg-[#226982] rounded-br-md" />
@@ -344,7 +344,6 @@ const RearBumper = () => {
   return (
     <div
       style={{
-        // zIndex: 100,
         height: "90%",
         width: 30,
         position: "absolute",
@@ -365,7 +364,6 @@ const RearLight = ({ isOn }: { isOn: boolean }) => {
     <>
       <div
         style={{
-          // zIndex: 100,
           height: "78%",
           width: "10%",
           position: "absolute",
@@ -388,8 +386,6 @@ const RearLight = ({ isOn }: { isOn: boolean }) => {
           }
         }}
         style={{
-          // visibility: "hidden",
-          // zIndex: 100,
           height: "70%",
           width: "2rem",
           position: "absolute",

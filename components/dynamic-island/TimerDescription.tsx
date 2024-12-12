@@ -76,7 +76,6 @@ export function TimerDescription() {
                 : "rgba(253, 177, 0, 0.3)",
             }}
             className="rounded-md px-1 text-[0.9rem]"
-            // className="link"
           >
             slow down the animation
           </button>

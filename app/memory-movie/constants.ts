@@ -1,7 +1,5 @@
 export const FOCUSED_INDEX = 12;
 export const [COLUMNS, ROWS] = [5, 7];
-
-// width, height, and cell size are in rem
 export const VIEW_WIDTH = 500;
 export const VIEW_HEIGHT = 768;
 export const GRID_CELL_SIZE = 70;
@@ -86,7 +84,7 @@ export const IMAGES = [
   "46634169-B7EB-445C-A058-63F723E503F1.jpeg",
   "4C379A29-BF1F-48CB-95EC-ADF8E179D414.jpeg",
   "0F2E5F3C-6222-4B28-A78C-FDBB913ABC3A.jpeg",
-  //
+
   "02497395-50CE-464F-8A31-75613DC4E1B7.jpeg",
   "025B8804-FC1D-4AEB-A26D-8EFDA9DD8E41.jpeg",
   "05AD07EA-17A2-49F8-9DC9-7D78A83B2227.jpeg",

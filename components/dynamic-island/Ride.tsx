@@ -48,8 +48,6 @@ function ExpandedRide({ driverId }: { driverId: number }) {
     }, 2500);
   }, []);
 
-  // const index = 1;
-
   return (
     <div
       className="h-[11.6rem] lg:h-[11.25rem] w-[25.375rem] py-4 px-4"
@@ -138,7 +136,6 @@ function ExpandedRide({ driverId }: { driverId: number }) {
                         initial={{ opacity: 0, filter: "blur(6px)" }}
                         animate={{ opacity: 1, filter: "blur(0px)" }}
                         exit={{ opacity: 0, filter: "blur(10px)" }}
-                        // transition={{ duration: 0.6 }}
                       >
                         Arrived
                       </motion.div>
@@ -149,7 +146,6 @@ function ExpandedRide({ driverId }: { driverId: number }) {
                         animate={{
                           opacity: 1,
                           filter: "blur(0px)",
-                          // transition: { duration: 0.2 },
                         }}
                       >
                         1 min

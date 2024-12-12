@@ -1,7 +1,6 @@
 import type { Variants } from "motion/react";
 import type { Transition } from "./types";
 
-// const easeInCubic = [0.55, 0.055, 0.675, 0.19];
 export const transitions: Transition = {
   toIdle: {
     type: "spring",
@@ -41,7 +40,6 @@ export const exitVariants: Variants = {
       y: -28,
       opacity: [1, 0],
       filter: "blur(5px)",
-      // transition: { duration: 2 },
       transition,
     };
   },

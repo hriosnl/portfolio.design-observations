@@ -18,38 +18,11 @@ import { Flight } from "@/components/dynamic-island/Flight";
 
 const TIMER_DURATION = 42;
 
-import useBreakpoint from "@/hooks/useBreakpoint";
-
 export default function DynamicIsland({
   updateViewName,
 }: {
   updateViewName: (name: ViewName) => void;
 }) {
-  const oXs = useBreakpoint("xs");
-  const oSm = useBreakpoint("sm");
-  const oMd = useBreakpoint("md");
-  const oLg = useBreakpoint("lg");
-  const oXl = useBreakpoint("xl");
-  const o2Xl = useBreakpoint("2xl");
-
-  useEffect(() => {
-    console.log("==================");
-    console.log(
-      "xs: ",
-      oXs,
-      " sm: ",
-      oSm,
-      " | md: ",
-      oMd,
-      " | lg: ",
-      oLg,
-      " | xl: ",
-      oXl,
-      " | 2xl: ",
-      o2Xl
-    );
-  }, [oXs, oSm, oMd, oLg, oXl, o2Xl]);
-
   const [view, setView] = useState<ViewName>(ViewName.IDLE);
   const [viewState, setViewState] = useState<ViewState | null>(null);
   const previousViewStateRef = useRef<ViewState | null>(null);
@@ -61,7 +34,6 @@ export default function DynamicIsland({
   const [timeInSeconds, setTimeInSeconds] = useState(TIMER_DURATION);
   const [isPaused, setIsPaused] = useState(true);
 
-  // TODO: Cleanup this mess <--
   useEffect(() => {
     if (isPaused) return;
 
@@ -92,7 +64,6 @@ export default function DynamicIsland({
     setView(ViewName.IDLE);
     updateViewName(ViewName.IDLE);
   };
-  // TODO: Cleanup this mess -->
 
   const content = useMemo(() => {
     switch (view) {
@@ -139,7 +110,14 @@ export default function DynamicIsland({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view, viewState, timeInSeconds, isPaused]);
 
-  function handleClick(name: ViewName) {
+  const transitionFromIdle = (newView: ViewName) => {
+    setView(ViewName.IDLE);
+    setTimeout(() => {
+      setView(newView);
+    }, 400);
+  };
+
+  const handleClick = (name: ViewName) => {
     const defaultViewState = ViewState.EXPANDED;
 
     // no transition if from 'idle' state
@@ -182,14 +160,7 @@ export default function DynamicIsland({
       setTransitionType(transitions.expandedToCompact);
       transitionFromIdle(name);
     }
-  }
-
-  function transitionFromIdle(newView: ViewName) {
-    setView(ViewName.IDLE);
-    setTimeout(() => {
-      setView(newView);
-    }, 400);
-  }
+  };
 
   return (
     <div className="relative lg:basis-[580px] shrink-0 w-full min-h-[69vh] flex flex-col items-center overflow-hidden mt-3 lg:mt-0">
@@ -230,7 +201,6 @@ export default function DynamicIsland({
         </div>
       </section>
 
-      {/* <section className="absolute bottom-0 bg-gradient-to-t from-black via-black/95 via-70% to-black/90 w-full h-fit z-50 flex flex-col justify-center items-center gap-y-10 pb-14 pt-16"> */}
       <section className="absolute bottom-0 bg-gradient-to-t from-[#0C0C0C] via-[#0C0C0C]/95 via-70% to-[#0C0C0C]/90 w-full h-fit z-50 flex flex-col justify-center items-center gap-y-10 pb-14 pt-16">
         <div className="w-fit h-fit grid grid-cols-4 justify-items-center gap-7">
           {ActionButtons.map((button) => (

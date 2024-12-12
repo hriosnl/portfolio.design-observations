@@ -1,18 +1,17 @@
 import "./globals.css";
-import { Noto_Sans, Mea_Culpa, Inter } from "next/font/google";
+import { Noto_Sans, Mea_Culpa, Viaoda_Libre } from "next/font/google";
 import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const noto_sans = Noto_Sans({
   subsets: ["latin"],
-  // weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   weight: ["200", "300", "400"],
 });
 
-const inter = Inter({
+const decorative = Viaoda_Libre({
   subsets: ["latin"],
-  weight: ["300", "400"],
-  variable: "--font-inter",
+  weight: ["400"],
+  variable: "--font-decorative",
 });
 
 const mea_culpa = Mea_Culpa({
@@ -34,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${noto_sans.className} ${mea_culpa.variable} ${inter.variable} antialiased`}
+        className={`${noto_sans.className} ${mea_culpa.variable} ${decorative.variable} antialiased`}
       >
         {children}
         <SpeedInsights />

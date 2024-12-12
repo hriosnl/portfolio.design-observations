@@ -119,7 +119,6 @@ export const ShootingStar = ({
   }, [generateProperties]);
 
   const xDirection = properties[randomIndex].xDirection;
-  // const yDirection = properties[randomIndex].yDirection;
   const startXTranslate = properties[randomIndex].startXTranslate;
   const startYTranslate = properties[randomIndex].startYTranslate;
   const isNearFromCenter = properties[randomIndex].isNearFromCenter;
@@ -337,7 +336,6 @@ export const ShootingStar = ({
         left: 0,
       }}
       onAnimationComplete={handleAnimationComplete}
-      // className="absolute z-[1000] pointer-events-none bg-green-500/80 rounded-full"
       className="absolute z-[1000] pointer-events-none"
     >
       {showShootingStarMemory && !doNotChangeMemoryYet && (
@@ -596,7 +594,6 @@ const Impact = ({ duration }: { duration: number }) => {
         height: 100,
       }}
       animate={{
-        // opacity: [0.05, 0.05, 0.05, 0.05, 0],
         opacity: [0.08, 0.08, 0.08, 0.08, 0],
         width: 300,
         height: 300,
@@ -609,12 +606,7 @@ const Impact = ({ duration }: { duration: number }) => {
       className="absolute rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
       style={{
         backgroundColor: "hsl(204, 71%, 70%)",
-        // backgroundColor: "hsl(108, 100%, 85%)",
-        // backgroundColor: "hsl(1, 100%, 100%)",
         filter: "blur(6px) brightness(1)",
-        // opacity: 0.1,
-        // width: 300,
-        // height: 300,
       }}
     />
   );

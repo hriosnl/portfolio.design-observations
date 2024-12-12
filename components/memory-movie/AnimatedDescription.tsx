@@ -13,14 +13,12 @@ export function AnimatedDescription({ step }: { step: number }) {
 
   const words = DESCRIPTIONS[(step - 1) % DESCRIPTIONS.length].split(" ");
   const wordAnimation = {
-    // hidden: { opacity: 0, scale: 1.6, y: -5 },
     hidden: { opacity: 0, scale: 1.2, y: -5 },
     visible: (i: number) => ({
       opacity: 1,
       scale: 1,
       y: 0,
       transition: {
-        // delay: i * 0.05,
         delay: i * 0.03,
         duration: 1.6,
         type: "spring",
@@ -32,7 +30,6 @@ export function AnimatedDescription({ step }: { step: number }) {
   return (
     <div
       className="min-h-[100px] h-[110px] text-white font-light select-none"
-      // className="min-h-[100px] h-[110px] text-white font-light select-none outline outline-1 outline-orange-600"
       style={{
         width: isPrefinal ? wideDescriptionWidth : `${descriptionWidth}px`,
         fontSize: isPrefinal ? "1.4rem" : isMobile ? "1.3rem" : "1.3rem",
@@ -52,7 +49,6 @@ export function AnimatedDescription({ step }: { step: number }) {
           ],
         }}
         transition={{ duration: 1.8, color: { duration: 1.7 } }}
-        // className="flex flex-wrap gap-[0.33rem] justify-center outline outline-1 outline-purple-700"
         className="flex flex-wrap gap-[0.33rem] justify-center"
       >
         {words.map((word, index) =>

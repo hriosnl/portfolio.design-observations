@@ -1,13 +1,3 @@
-// TODOs
-// time's up design for both compact and expanded ✅ 😆
-// orange to gray pill animation ✅
-// tabular nums ✅
-// animated numbers ✅
-// enter animations blur for both compact and expanded ✅
-// it is not togglePause, it is stop ✅
-// ugly fonts ✅
-// stop timer button ✅
-
 import { motion, AnimatePresence } from "motion/react";
 
 export function Coffee({
@@ -182,12 +172,10 @@ function Graduations({
       >
         <div className="h-[120%] w-24 absolute -top-2 right-0">
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/50 via-40% to-black rounded-tr-3xl" />
-          {/* <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/90 backdrop-blur-[2px] rounded-tr-3xl" /> */}
         </div>
 
         <div className="h-[120%] w-24 absolute -top-2 left-0">
           <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/50 via-40% to-black rounded-tl-3xl" />
-          {/* <div className="absolute inset-0 bg-gradient-to-l from-transparent to-black/90 backdrop-blur-[2px] rounded-tr-3xl" /> */}
         </div>
       </motion.div>
     </div>

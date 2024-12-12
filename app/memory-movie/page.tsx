@@ -1,16 +1,16 @@
-// TODO: Finally, remove all the unnecessary prints and comments
-// TODO: Add Sonner for hints? Probably!
-
 "use client";
 
+import Image from "next/image";
+import { Toaster, toast } from "sonner";
 import { useState, useEffect } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 
 import { VIEW_HEIGHT, VIEW_WIDTH } from "@/app/memory-movie/constants";
 import {
   NextButton,
   PrevButton,
   CloseButton,
+  BackToHomeButton,
 } from "@/components/memory-movie/Buttons";
 import { ImageProvider } from "@/providers/image-provider";
 import { MemoryEventProvider } from "@/providers/event-provider";
@@ -20,6 +20,12 @@ import useBreakpoint from "@/hooks/useBreakpoint";
 export default function MemoryMovie() {
   const isMobile = useBreakpoint("xs");
 
+  const [showStep0Hint, setShowStep0Hint] = useState(false);
+  const [showStep1Hint, setShowStep1Hint] = useState(false);
+  const [temporaryHideNavigationButtons, setTemporaryHideNavigationButtons] =
+    useState(false);
+
+  const [showBackToHomeButton, setShowBackToHomeButton] = useState(false);
   const [step, setStep] = useState(0);
   const [prevButtonIsActive, setPrevButtonIsActive] = useState(false);
   const [nextButtonIsActive, setNextButtonIsActive] = useState(false);
@@ -74,11 +80,77 @@ export default function MemoryMovie() {
     };
   }, []);
 
+  useEffect(() => {
+    if (step === 2) toast.dismiss();
+    if (step === 16) {
+      setTimeout(() => {
+        setShowBackToHomeButton(true);
+      }, 12000);
+    }
+    if (step > 2) return;
+
+    if (showStep1Hint) return;
+    const timeoutId1 = setTimeout(() => {
+      if (step === 1 && !isMobile) {
+        setShowStep1Hint(true);
+      }
+    }, 8000);
+
+    if (showStep0Hint) return;
+    const timeoutId0 = setTimeout(() => {
+      if (step === 0) {
+        setShowStep0Hint(true);
+      }
+    }, 10000);
+
+    return () => {
+      clearTimeout(timeoutId0);
+      clearTimeout(timeoutId1);
+    };
+  }, [step, isMobile, showStep0Hint, showStep1Hint]);
+
+  useEffect(() => {
+    if (showStep0Hint) {
+      toast("Need help?", {
+        description: <Step0ToastContent />,
+      });
+    }
+  }, [showStep0Hint]);
+
+  useEffect(() => {
+    if (showStep1Hint) {
+      toast("Stuck?", {
+        description: "Use the arrow buttons to navigate",
+      });
+
+      setTemporaryHideNavigationButtons(true);
+      setTimeout(() => {
+        setTemporaryHideNavigationButtons(false);
+      }, 1200);
+
+      setTimeout(() => {
+        toast(
+          <p>
+            Alternatively, you can press the{" "}
+            <span className="font-medium">Arrow Keys</span> or{" "}
+            <span className="font-medium">Enter</span>
+          </p>
+        );
+      }, 4000);
+    }
+  }, [showStep1Hint]);
+
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-[#02080C] overflow-hidden ">
-      {step !== 0 && <CloseButton />}
+      <AnimatePresence mode="wait">
+        {!showBackToHomeButton ? (
+          step !== 0 && <CloseButton key="close-button" />
+        ) : (
+          <BackToHomeButton key="back-to-home-button" />
+        )}
+      </AnimatePresence>
 
-      {step !== 0 && (
+      {step !== 0 && !temporaryHideNavigationButtons && (
         <motion.div
           animate={{
             x: prevButtonIsActive ? [0, -4, 0] : 0,
@@ -87,7 +159,6 @@ export default function MemoryMovie() {
             x: { duration: 0.4, ease: "easeInOut" },
           }}
           onAnimationComplete={() => setPrevButtonIsActive(false)}
-          // className="absolute bottom-0 left-3 sm:block sm:mr-auto sm:ml-5 sm:mb-20 z-10"
           className="absolute bottom-2 left-3 sm:block sm:left-4 sm:top-[45%] z-10"
         >
           <PrevButton onButtonClick={previousStep} />
@@ -103,12 +174,18 @@ export default function MemoryMovie() {
       >
         <ImageProvider>
           <MemoryEventProvider>
-            <Story currentStep={step} startTheStory={() => setStep(1)} />
+            <Story
+              currentStep={step}
+              startTheStory={() => {
+                setStep(1);
+                toast.dismiss();
+              }}
+            />
           </MemoryEventProvider>
         </ImageProvider>
       </div>
 
-      {step !== 0 && (
+      {step !== 0 && !temporaryHideNavigationButtons && (
         <motion.div
           animate={{
             x: nextButtonIsActive ? [0, 4, 0] : 0,
@@ -125,6 +202,31 @@ export default function MemoryMovie() {
           <NextButton onButtonClick={nextStep} />
         </motion.div>
       )}
+
+      <Toaster
+        position={isMobile ? "top-center" : "bottom-right"}
+        expand={true}
+        gap={8}
+        toastOptions={{
+          unstyled: false,
+          duration: Infinity,
+        }}
+      />
     </div>
   );
 }
+
+const Step0ToastContent = () => (
+  <div className="flex justify-center items-center gap-1">
+    Click the folder{" "}
+    <Image
+      src="/memory-movie/macos-folder.png"
+      alt="MacOS Folder"
+      width={20}
+      height={20}
+      priority
+      className="inline"
+    />{" "}
+    to start
+  </div>
+);

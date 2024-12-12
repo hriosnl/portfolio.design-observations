@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, MoveUpLeft } from "lucide-react";
 
 import useBreakpoint from "@/hooks/useBreakpoint";
 
@@ -16,9 +16,9 @@ export const PrevButton = ({
     <button onClick={onButtonClick}>
       <motion.div
         initial={{
-          opacity: 0,
-          filter: "blur(10px)",
-          scale: 1.2,
+          opacity: 0.8,
+          filter: "blur(4px)",
+          scale: 1.6,
         }}
         animate={{
           opacity: 1,
@@ -68,9 +68,9 @@ export const NextButton = ({
     <button onClick={onButtonClick}>
       <motion.div
         initial={{
-          opacity: 0,
-          filter: "blur(10px)",
-          scale: 1.2,
+          opacity: 0.8,
+          filter: "blur(4px)",
+          scale: 1.6,
         }}
         animate={{
           opacity: 1,
@@ -114,10 +114,45 @@ export const CloseButton = () => (
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     transition={{ delay: 1.66, duration: 0.8 }}
-    className="absolute top-4 right-4 cursor-pointer z-[1000]"
+    exit={{ opacity: 0, transition: { duration: 2 } }}
+    className="absolute top-3 right-3 cursor-pointer z-[1000]"
   >
     <Link href="/">
-      <X size={30} color="rgba(255, 255, 255, 0.6)" strokeWidth={1} />
+      <X size={33} color="rgba(255, 255, 255, 0.6)" strokeWidth={1} />
+    </Link>
+  </motion.div>
+);
+
+export const BackToHomeButton = () => (
+  <motion.div
+    initial={{ opacity: 0, filter: "blur(4px)" }}
+    animate={{
+      opacity: 1,
+      filter: "blur(0px)",
+      color: [
+        "hsl(0, 100%, 100%)",
+        "hsl(270, 100%, 50%)",
+        "hsl(330, 100%, 50%)",
+        "hsl(0, 100%, 100%)",
+      ],
+    }}
+    transition={{
+      duration: 1.7,
+      ease: "easeOut",
+      color: {
+        duration: 1.75,
+        repeat: Infinity,
+        repeatType: "reverse",
+        repeatDelay: 0.5,
+      },
+    }}
+    className="absolute top-4 right-4 cursor-pointer z-[1000]"
+  >
+    <Link
+      href="/"
+      className="flex items-center gap-x-0.5 text-[1.5rem] decorative"
+    >
+      <MoveUpLeft size={24} /> Home
     </Link>
   </motion.div>
 );

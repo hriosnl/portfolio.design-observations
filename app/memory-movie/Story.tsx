@@ -1,5 +1,7 @@
 import Image from "next/image";
 import useMeasure from "react-use-measure";
+import { toast } from "sonner";
+
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect } from "react";
 
@@ -144,6 +146,7 @@ export const Story = ({
   };
 
   const unfoldMemories = () => {
+    toast.dismiss();
     setShowIntroShootingStars(false);
 
     for (let i = 0; i < visibilities.length; i++) {
@@ -187,8 +190,8 @@ export const Story = ({
       className="relative w-full h-[90vh] sm:h-full flex flex-col items-center"
       style={{
         justifyContent: isFinalStep ? "center" : "flex-start",
-        paddingTop: isFinalStep ? "0" : isMobile ? "4.2rem" : "3.5rem",
-        paddingBottom: !isFinalStep ? "0" : isMobile ? "6rem" : "1rem",
+        paddingTop: isFinalStep ? 0 : isMobile ? "4.2rem" : "3.5rem",
+        paddingBottom: !isFinalStep ? "0" : isMobile ? "6rem" : "3rem",
       }}
     >
       {showIntroShootingStars && (
@@ -206,7 +209,6 @@ export const Story = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
-            // className="absolute bottom-16 2xl:bottom-0 flex justify-center"
             className="absolute bottom-16 flex justify-center"
           >
             <motion.button onClick={() => unfoldMemories()} className="z-[100]">
@@ -243,7 +245,6 @@ export const Story = ({
                     ...imagesInFolderProperties[i % 3],
                     zIndex: imagesInFolderProperties[i % 3].zIndex - i,
                   }}
-                  // transition={{ duration: 0.1 }}
                   layoutId={`memory-${i}`}
                   className="absolute -bottom-[5px]"
                 >
@@ -258,13 +259,11 @@ export const Story = ({
             <motion.div
               exit={{ opacity: 0 }}
               className="w-full absolute flex flex-col items-center gap-y-5 justify-between 2xl:-mb-8"
-              // className="w-full absolute flex flex-col items-center gap-y-5 justify-between -mb-10 outline outline-1 outline-yellow-200"
               style={{
                 bottom: isPrefinalStep ? "23rem" : isMobile ? "5rem" : "3.4rem",
               }}
             >
               <AnimatedDescription step={currentStep} />
-              {/* <span className="text-white">{currentStep}</span> */}
             </motion.div>
           )
         )}
@@ -275,7 +274,6 @@ export const Story = ({
       <AnimatePresence>
         {!isPrefinalStep && (
           <motion.div
-            // animate={{ scale: storyIsComplete ? 1.169 : 1 }}
             animate={{ scale: storyIsComplete ? 1.1 : 1 }}
             exit={{
               opacity: 0,
@@ -312,7 +310,6 @@ export const Story = ({
                 if (isFinalStep) endTheStory();
               }}
               className="size-fit grid grid-cols-5 grid-rows-7 gap-[1px] relative"
-              // className="size-fit grid grid-cols-5 grid-rows-7 gap-[1px] relative mt-3 sm:mt-0 outline outline-yellow-300"
             >
               {visibilities.map((visible, i) =>
                 visible ? (
