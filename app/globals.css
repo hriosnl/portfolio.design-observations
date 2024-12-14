@@ -21,7 +21,6 @@ body {
 }
 
 h1 {
-  /* font-family: var(--font-inter); */
   font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -30,12 +29,16 @@ h1 {
     text-wrap: balance;
   }
 
-  .decorative {
-    font-family: var(--font-decorative);
-  }
-
   .cursive {
     font-family: var(--font-mea-culpa);
+  }
+
+  .decorative {
+    font-family: var(--font---font-viaoda-libre);
+  }
+
+  .oxanium {
+    font-family: var(--font-oxanium);
   }
 
   .link {
@@ -52,9 +55,21 @@ h1 {
     text-underline-offset: 2px;
     text-decoration-color: rgba(180, 182, 184, 0.7);
   }
-}
 
-/* * {
-  box-sizing: border-box;
-  outline: 1px solid lawngreen;
-} */
+  .super-fancy-text-fallback {
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .super-fancy-text {
+    font-weight: 700;
+    background: url("/assets/wave.gif") no-repeat center center;
+    background-size: cover;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    mask-image: linear-gradient(to right, black, black);
+    -webkit-mask-image: linear-gradient(to right, black, black);
+    -webkit-mask-composite: destination-in;
+    mask-composite: intersect;
+  }
+}

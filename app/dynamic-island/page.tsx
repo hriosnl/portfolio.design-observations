@@ -13,6 +13,8 @@ import { TimerDescription } from "@/components/dynamic-island/TimerDescription";
 import { CoffeeDescription } from "@/components/dynamic-island/CoffeeDescription";
 import { RideDescription } from "@/components/dynamic-island/RideDescription";
 import { FlightDescription } from "@/components/dynamic-island/FlightDescription";
+import { CloseButton } from "@/components/dynamic-island/Buttons";
+import { FadeIn } from "@/components/FadeIn";
 
 export default function Home() {
   const [currentViewName, setCurrentViewName] = useState<ViewName>(
@@ -83,11 +85,11 @@ export default function Home() {
 
               <div className="lg:hidden absolute bottom-5 right-5 left-3 flex justify-between items-center px-5">
                 <Link
-                  href="/"
+                  href="/works"
                   className="flex justify-center items-center gap-x-1 text-white"
                 >
                   <MoveUpLeft size={18} strokeWidth={1.6} />
-                  Home
+                  Works
                 </Link>
                 <button
                   onClick={() => {
@@ -106,19 +108,8 @@ export default function Home() {
           </div>
         </div>
       </motion.div>
+
+      <FadeIn />
     </div>
   );
 }
-
-const CloseButton = () => (
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ delay: 0.5, duration: 0.8 }}
-    className="absolute top-2 right-2 md:top-3 md:right-4 cursor-pointer z-[1000] text-black lg:text-white"
-  >
-    <Link href="/">
-      <X size={35} strokeWidth={1.6} />
-    </Link>
-  </motion.div>
-);

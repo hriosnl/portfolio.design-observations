@@ -16,6 +16,7 @@ import { ImageProvider } from "@/providers/image-provider";
 import { MemoryEventProvider } from "@/providers/event-provider";
 import { Story } from "@/app/memory-movie/Story";
 import useBreakpoint from "@/hooks/useBreakpoint";
+import { FadeIn } from "@/components/FadeIn";
 
 export default function MemoryMovie() {
   const isMobile = useBreakpoint("xs");
@@ -136,7 +137,7 @@ export default function MemoryMovie() {
             <span className="font-medium">Enter</span>
           </p>
         );
-      }, 4000);
+      }, 3000);
     }
   }, [showStep1Hint]);
 
@@ -212,6 +213,8 @@ export default function MemoryMovie() {
           duration: Infinity,
         }}
       />
+
+      <FadeIn />
     </div>
   );
 }
@@ -220,11 +223,11 @@ const Step0ToastContent = () => (
   <div className="flex justify-center items-center gap-1">
     Click the folder{" "}
     <Image
+      priority
       src="/memory-movie/macos-folder.png"
       alt="MacOS Folder"
       width={20}
       height={20}
-      priority
       className="inline"
     />{" "}
     to start

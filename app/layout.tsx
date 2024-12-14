@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Noto_Sans, Mea_Culpa, Viaoda_Libre } from "next/font/google";
+import { Noto_Sans, Mea_Culpa, Viaoda_Libre, Oxanium } from "next/font/google";
 import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -8,16 +8,21 @@ const noto_sans = Noto_Sans({
   weight: ["200", "300", "400"],
 });
 
-const decorative = Viaoda_Libre({
+const viaoda_libre = Viaoda_Libre({
   subsets: ["latin"],
   weight: ["400"],
-  variable: "--font-decorative",
+  variable: "--font-viaoda-libre",
 });
 
 const mea_culpa = Mea_Culpa({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-mea-culpa",
+});
+
+const oxanium = Oxanium({
+  subsets: ["latin"],
+  variable: "--font-oxanium",
 });
 
 export const metadata: Metadata = {
@@ -33,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${noto_sans.className} ${mea_culpa.variable} ${decorative.variable} antialiased`}
+        className={`${noto_sans.className} ${mea_culpa.variable} ${viaoda_libre.variable} ${oxanium.variable} antialiased`}
       >
         {children}
         <SpeedInsights />

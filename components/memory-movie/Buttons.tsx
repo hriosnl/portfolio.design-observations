@@ -117,7 +117,7 @@ export const CloseButton = () => (
     exit={{ opacity: 0, transition: { duration: 2 } }}
     className="absolute top-3 right-3 cursor-pointer z-[1000]"
   >
-    <Link href="/">
+    <Link href="/works">
       <X size={33} color="rgba(255, 255, 255, 0.6)" strokeWidth={1} />
     </Link>
   </motion.div>
@@ -149,10 +149,10 @@ export const BackToHomeButton = () => (
     className="absolute top-4 right-4 cursor-pointer z-[1000]"
   >
     <Link
-      href="/"
+      href="/works"
       className="flex items-center gap-x-0.5 text-[1.5rem] decorative"
     >
-      <MoveUpLeft size={24} /> Home
+      <MoveUpLeft size={24} /> Works
     </Link>
   </motion.div>
 );

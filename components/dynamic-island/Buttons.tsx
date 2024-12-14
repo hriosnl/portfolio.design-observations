@@ -3,12 +3,14 @@
 import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
 import { useEffect } from "react";
+import Link from "next/link";
 
 import {
   Timer as TimerIcon,
   CarFront as Car,
   PlaneTakeoff as Plane,
   Icon,
+  X,
 } from "lucide-react";
 import { mug } from "@lucide/lab";
 
@@ -145,3 +147,16 @@ export const CheckButton = ({
     </motion.div>
   );
 };
+
+export const CloseButton = () => (
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ delay: 0.5, duration: 0.8 }}
+    className="absolute top-2 right-2 md:top-3 md:right-4 cursor-pointer z-[1000] text-black lg:text-white"
+  >
+    <Link href="/works">
+      <X size={35} strokeWidth={1.6} />
+    </Link>
+  </motion.div>
+);
