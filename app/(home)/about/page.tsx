@@ -25,7 +25,7 @@ export default function About() {
   return (
     <main>
       <section className="w-full flex justify-start mt-6 md:mt-10">
-        <p className="sm:w-[40rem] text-lg">
+        <p className="sm:w-[40rem] xl:w-[40%] text-lg 2xl:text-xl">
           I specialize in crafting innovative, user-centered solutions that
           bridge functionality and aesthetics. With a keen eye for detail and a
           deep understanding of design principles, I thrive on solving complex

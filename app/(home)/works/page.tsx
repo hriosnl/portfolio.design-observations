@@ -96,9 +96,12 @@ export default function Works() {
   }, [currentDescription]);
 
   return (
-    <main ref={scope} className="h-full flex flex-col md:flex-row">
-      <section className="flex items-center">
-        <ul className="space-y-10 pb-5 pt-20 px-0 md:mb-16 md:py-0">
+    <main
+      ref={scope}
+      className="h-full flex flex-col md:flex-row md:justify-between"
+    >
+      <section className="flex items-center ">
+        <ul className="space-y-10 pb-5 pt-20 px-0 md:mb-16 md:py-0 md:mr-10">
           <WorkLink
             name="Dynamic Island"
             href="/dynamic-island"
@@ -142,8 +145,8 @@ export default function Works() {
         </ul>
       </section>
 
-      <section className="basis-1/2 grow flex flex-col-reverse md:flex-col items-end md:pl-32">
-        <div className="basis-1/2 grow py-6">
+      <section className="relative basis-1/2 grow flex flex-col-reverse justify-between md:flex-col items-end max-w-[1000px]">
+        <div className="pb-16 pt-6 md:pb-0 md:pl-28 xl:pl-32 max-w-[900px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentDescription}
@@ -154,7 +157,7 @@ export default function Works() {
                 transition: { duration: 0.3 },
               }}
               transition={{ duration: 0.4 }}
-              className="relative text-[color:hsl(0,0%,85%)] text-lg font-normal pb-16"
+              className="relative text-[color:hsl(0,0%,85%)] text-lg font-normal"
             >
               {description}
               <motion.div
@@ -169,8 +172,11 @@ export default function Works() {
           </AnimatePresence>
         </div>
 
-        <div className="w-full min-h-[225px] md:min-h-[300px] flex flex-row-reverse md:flex-row justify-between pb-14">
-          <div style={{ width, height }} className="relative overflow-hidden">
+        <div className="w-full  min-h-[225px] md:min-h-[300px] flex flex-row-reverse md:flex-row justify-between">
+          <div
+            style={{ width, height }}
+            className="relative overflow-hidden lg:mb-10"
+          >
             <motion.div
               id="memoryMoviePreview"
               style={{ y: "101%" }}
@@ -202,11 +208,11 @@ export default function Works() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="md:hidden grow flex justify-center items-end"
+                  className="md:hidden grow flex items-center"
                 >
                   <Link href={linkToOpen.href}>
-                    <button className="w-full h-16">
-                      <span className="font-mono mr-1 link">
+                    <button className="w-full h-20">
+                      <span className="font-mono text-lg mr-1 link">
                         {linkToOpen.title}
                       </span>
                     </button>
@@ -299,7 +305,10 @@ const Video = ({
       playsInline
     >
       <source src={`/assets/${name}`} type="video/mp4" />
-      Put a fallback here!
+      <div>
+        Of course, this is not the right fallback image!
+        <img src={`/memory-movie/macos-folder.png`} />
+      </div>
     </video>
   );
 };

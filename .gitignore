@@ -39,6 +39,7 @@ next-env.d.ts
 */examples
 */*-compare
 *.bak
+debugging.css
 
 # local docs
 *.md
