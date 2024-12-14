@@ -6,7 +6,6 @@ import { FadeIn } from "@/components/FadeIn";
 import { useMemo, useState } from "react";
 
 import useBreakpoint from "@/hooks/useBreakpoint";
-import { ScrollToTopButton } from "@/components/Buttons";
 
 export default function Works() {
   const [scope, animate] = useAnimate();

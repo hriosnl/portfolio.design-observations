@@ -29,6 +29,9 @@ export const Story = ({
 }) => {
   const { images } = useImageContext();
 
+  const isMobile = useBreakpoint("xs");
+  const memorySize = isMobile ? SMALL_GRID_CELL_SIZE : GRID_CELL_SIZE;
+
   const [containerRef, containerBounds] = useMeasure();
   const [folderRef, folderBounds] = useMeasure();
 
@@ -54,9 +57,6 @@ export const Story = ({
     { x: 0, y: -10, rotate: 0, zIndex: 10 },
     { x: 15, y: 0, rotate: 20, zIndex: 50 },
   ];
-
-  const isMobile = useBreakpoint("xs");
-  const memorySize = isMobile ? SMALL_GRID_CELL_SIZE : GRID_CELL_SIZE;
 
   useEffect(() => {
     setStoryIsComplete(false);
@@ -187,12 +187,12 @@ export const Story = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[90vh] sm:h-full flex flex-col items-center"
       style={{
         justifyContent: isFinalStep ? "center" : "flex-start",
         paddingTop: isFinalStep ? 0 : isMobile ? "4.2rem" : "3.5rem",
         paddingBottom: !isFinalStep ? "0" : isMobile ? "6rem" : "3rem",
       }}
+      className="relative size-full flex flex-col items-center bor2"
     >
       {showIntroShootingStars && (
         <IntroShootingStar
@@ -204,16 +204,19 @@ export const Story = ({
       <AnimatePresence mode="wait">
         {currentStep === 0 ? (
           <motion.div
+            ref={folderRef}
             key="intro-container"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1, delay: 1 }}
-            className="absolute bottom-16 flex justify-center"
+            className="absolute bottom-4 sm:bottom-16 flex justify-center size-[60px] otlg"
           >
-            <motion.button onClick={() => unfoldMemories()} className="z-[100]">
+            <motion.button
+              onClick={() => unfoldMemories()}
+              className="absolute bottom-0 z-[100]"
+            >
               <Image
-                ref={folderRef}
                 src="/memory-movie/macos-folder-front.png"
                 alt="MacOS Folder"
                 width={60}
@@ -221,7 +224,7 @@ export const Story = ({
                 priority
               />
             </motion.button>
-            <div className="absolute z-0">
+            <div className="absolute bottom-0 z-0">
               <Image
                 src="/memory-movie/macos-folder-back.png"
                 alt="MacOS Folder Back"
@@ -231,8 +234,8 @@ export const Story = ({
               />
             </div>
             <div
-              style={{ boxShadow: "0 0 100px 30px rgba(14, 88, 128, 0.5)" }}
-              className="absolute top-4 size-8"
+              style={{ boxShadow: "0 0 60px 30px rgba(14, 88, 128, 0.4)" }}
+              className="absolute bottom-4 size-8 rounded-full"
             />
             {/* The Memories inside the folder */}
             {visibilities.map((visible, i) =>

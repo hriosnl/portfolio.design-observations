@@ -18,6 +18,8 @@ import { Story } from "@/app/memory-movie/Story";
 import useBreakpoint from "@/hooks/useBreakpoint";
 import { FadeIn } from "@/components/FadeIn";
 
+import { useCurrentScreenSize } from "@/hooks/useBreakpoint";
+
 export default function MemoryMovie() {
   const isMobile = useBreakpoint("xs");
 
@@ -113,7 +115,7 @@ export default function MemoryMovie() {
   useEffect(() => {
     if (showStep0Hint) {
       toast("Need help?", {
-        description: <Step0ToastContent />,
+        description: <ToastContent />,
       });
     }
   }, [showStep0Hint]);
@@ -141,8 +143,12 @@ export default function MemoryMovie() {
     }
   }, [showStep1Hint]);
 
+  const screenSize = useCurrentScreenSize();
+
   return (
-    <div className="w-screen h-screen flex justify-center items-center bg-[#02080C] overflow-hidden ">
+    <div className="w-screen h-[100svh] sm:h-screen flex justify-center items-center bg-[#02080C] overflow-hidden ">
+      <span className="absolute top-2 right-2 text-red-600">{screenSize}</span>
+
       <AnimatePresence mode="wait">
         {!showBackToHomeButton ? (
           step !== 0 && <CloseButton key="close-button" />
@@ -219,7 +225,7 @@ export default function MemoryMovie() {
   );
 }
 
-const Step0ToastContent = () => (
+const ToastContent = () => (
   <div className="flex justify-center items-center gap-1">
     Click the folder{" "}
     <Image

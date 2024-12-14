@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { motion } from "motion/react";
-import { ArrowUpToLine, MoveUpLeft, X } from "lucide-react";
+import { ArrowUpToLine, MoveUpLeft } from "lucide-react";
 
 import DynamicIsland from "@/app/dynamic-island/DynamicIsland";
 
