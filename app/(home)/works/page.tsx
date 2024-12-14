@@ -98,17 +98,13 @@ export default function Works() {
   return (
     <main ref={scope} className="h-full flex flex-col md:flex-row">
       <section className="flex items-center">
-        <ul className="space-y-10 pb-5 pt-20 px-0 md:py-0">
+        <ul className="space-y-10 pb-5 pt-20 px-0 md:mb-16 md:py-0">
           <WorkLink
             name="Dynamic Island"
             href="/dynamic-island"
             handleMouseOver={() => {
               setCurrentDescription("dynamicIsland");
-              animate(
-                ".dynamicIslandPreview",
-                { y: 0 },
-                { duration: 0.45, ease: "easeOut" }
-              );
+              animate(".dynamicIslandPreview", { y: 0 }, { duration: 0.3 });
             }}
             handleMouseOut={() => {
               setCurrentDescription(null);
@@ -124,19 +120,11 @@ export default function Works() {
             href="/memory-movie"
             handleMouseOver={() => {
               setCurrentDescription("memoryMovie");
-              animate(
-                ".memoryMoviePreview",
-                { y: 0 },
-                { duration: 0.4, ease: "easeOut" }
-              );
+              animate(".memoryMoviePreview", { y: 0 }, { duration: 0.4 });
             }}
             handleMouseOut={() => {
               setCurrentDescription(null);
-              animate(
-                ".memoryMoviePreview",
-                { y: "101%" },
-                { duration: 0.4, ease: "easeOut" }
-              );
+              animate(".memoryMoviePreview", { y: "101%" }, { duration: 0.4 });
             }}
           />
           <WorkLink
@@ -144,19 +132,11 @@ export default function Works() {
             href="/components"
             handleMouseOver={() => {
               setCurrentDescription("components");
-              animate(
-                ".componentsPreview",
-                { y: 0 },
-                { duration: 0.4, ease: "easeOut" }
-              );
+              animate(".componentsPreview", { y: 0 }, { duration: 0.4 });
             }}
             handleMouseOut={() => {
               setCurrentDescription(null);
-              animate(
-                ".componentsPreview",
-                { y: "101%" },
-                { duration: 0.4, ease: "easeOut" }
-              );
+              animate(".componentsPreview", { y: "101%" }, { duration: 0.4 });
             }}
           />
         </ul>
@@ -189,8 +169,7 @@ export default function Works() {
           </AnimatePresence>
         </div>
 
-        <div className="w-full min-h-[225px] md:min-h-[300px] flex flex-row-reverse md:flex-row justify-between">
-          {/* <div className="absolute bottom-0 size-full overflow-hidden flex justify-end md:justify-start pl-14"> */}
+        <div className="w-full min-h-[225px] md:min-h-[300px] flex flex-row-reverse md:flex-row justify-between pb-14">
           <div style={{ width, height }} className="relative overflow-hidden">
             <motion.div
               id="memoryMoviePreview"

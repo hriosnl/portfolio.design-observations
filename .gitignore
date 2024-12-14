@@ -38,6 +38,7 @@ next-env.d.ts
 # for testing new codes
 */examples
 */*-compare
+*.bak
 
 # local docs
 *.md
