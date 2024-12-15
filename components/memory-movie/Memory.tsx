@@ -292,7 +292,7 @@ export function Memory({
         src={`/memory-movie/memories/${images[index]}`}
         alt={`Memory Image: ${images[index]}`}
         fill={true}
-        sizes="100px"
+        sizes="70px"
         priority
         className="object-cover rounded-xl"
       />
@@ -328,7 +328,8 @@ function Illuminator({
   const brightenDuration = 0.5;
   const fadeDuration = 0.28;
 
-  const PROBABILITY = isMobile ? 0.007 : 0.01;
+  // const PROBABILITY = isMobile ? 0.007 : 0.01;
+  const PROBABILITY = isMobile ? 0.01 : 0.01;
 
   useEffect(() => {
     let timer;
@@ -381,11 +382,11 @@ function Illuminator({
         initial={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
         animate={{
           backgroundColor: illuminate
-            ? "rgba(255, 255, 255, 0.62)"
+            ? "rgba(255, 255, 255, 0.72)"
             : "rgba(255, 255, 255, 0)",
         }}
         transition={{
-          duration: brightenDuration * 0.9,
+          duration: brightenDuration * 0.8,
         }}
         onAnimationComplete={() => {
           if (illuminate) {

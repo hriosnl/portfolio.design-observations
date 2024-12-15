@@ -97,14 +97,14 @@ export default function MemoryMovie() {
       if (step === 1 && !isMobile) {
         setShowStep1Hint(true);
       }
-    }, 8000);
+    }, 10000);
 
     if (showStep0Hint) return;
     const timeoutId0 = setTimeout(() => {
       if (step === 0) {
         setShowStep0Hint(true);
       }
-    }, 10000);
+    }, 17000);
 
     return () => {
       clearTimeout(timeoutId0);
