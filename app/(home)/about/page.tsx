@@ -12,7 +12,7 @@ export default function About() {
     console.log("loading...");
 
     const img = new Image();
-    img.src = "/assets/wave.gif";
+    img.src = "/home/wave.gif";
     img.onload = () => {
       setIsLoaded(true);
       console.log("Image loaded");
@@ -23,8 +23,8 @@ export default function About() {
   }, []);
 
   return (
-    <main>
-      <section className="w-full flex justify-start mt-6 md:mt-10">
+    <main className="mt-6 md:mt-0">
+      <section className="w-full flex justify-start">
         <p className="sm:w-[40rem] xl:w-[40%] text-lg 2xl:text-xl">
           I specialize in crafting innovative, user-centered solutions that
           bridge functionality and aesthetics. With a keen eye for detail and a

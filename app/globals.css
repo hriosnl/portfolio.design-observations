@@ -63,7 +63,7 @@ h1 {
   }
   .super-fancy-text {
     font-weight: 700;
-    background: url("/assets/wave.gif") no-repeat center center;
+    background: url("/home/wave.gif") no-repeat center center;
     background-size: cover;
     background-clip: text;
     -webkit-background-clip: text;

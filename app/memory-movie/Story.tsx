@@ -58,23 +58,8 @@ export const Story = ({
     { x: 15, y: 0, rotate: 20, zIndex: 50 },
   ];
 
-  // TODO: Remove this after testing
-  function noIntroTEMPORARYNOTNECESSARY() {
-    setShowIntroShootingStars(false);
-
-    for (let i = 0; i < visibilities.length; i++) {
-      setVisibilities((prev) => {
-        const newvisibilities = [...prev];
-        newvisibilities[i] = true;
-        return newvisibilities;
-      });
-    }
-  }
-
   useEffect(() => {
     setStoryIsComplete(false);
-
-    if (currentStep > 0) noIntroTEMPORARYNOTNECESSARY();
 
     switch (currentStep) {
       case 1: {

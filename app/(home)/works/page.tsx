@@ -6,6 +6,7 @@ import { FadeIn } from "@/components/FadeIn";
 import { useMemo, useState } from "react";
 
 import useBreakpoint from "@/hooks/useBreakpoint";
+import Image from "next/image";
 
 export default function Works() {
   const [scope, animate] = useAnimate();
@@ -182,14 +183,14 @@ export default function Works() {
               style={{ y: "101%" }}
               className="memoryMoviePreview absolute bottom-0"
             >
-              <Video name="memory-movie.mp4" width={width} height={height} />
+              <Video name="memory-movie" width={width} height={height} />
             </motion.div>
             <motion.div
               style={{ y: "101%" }}
               id="dynamicIslandPreview"
               className="dynamicIslandPreview absolute bottom-0"
             >
-              <Video name="dynamic-island.mp4" width={width} height={width} />
+              <Video name="dynamic-island" width={width} height={width} />
             </motion.div>
             <motion.div
               id="componentsPreview"
@@ -304,10 +305,14 @@ const Video = ({
       muted
       playsInline
     >
-      <source src={`/assets/${name}`} type="video/mp4" />
+      <source src={`/home/${name}.mp4`} type="video/mp4" />
       <div>
-        Of course, this is not the right fallback image!
-        <img src={`/memory-movie/macos-folder.png`} />
+        <Image
+          src={`/home/${name}.jpeg`}
+          width={width}
+          height={height}
+          alt={name}
+        />
       </div>
     </video>
   );
