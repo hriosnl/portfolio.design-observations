@@ -1,5 +1,12 @@
 import "./globals.css";
-import { Noto_Sans, Mea_Culpa, Viaoda_Libre, Oxanium } from "next/font/google";
+
+import {
+  Noto_Sans,
+  Mea_Culpa,
+  Viaoda_Libre,
+  Oxanium,
+  Chakra_Petch,
+} from "next/font/google";
 import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -25,6 +32,12 @@ const oxanium = Oxanium({
   variable: "--font-oxanium",
 });
 
+const alternative = Chakra_Petch({
+  subsets: ["latin"],
+  variable: "--font-tektur",
+  weight: ["300", "700"],
+});
+
 export const metadata: Metadata = {
   title: "Design Observations",
   description: "Reflecting on the beauty of user interface designs",
@@ -38,7 +51,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${noto_sans.className} ${mea_culpa.variable} ${viaoda_libre.variable} ${oxanium.variable} antialiased`}
+        className={`${noto_sans.className} ${mea_culpa.variable} ${viaoda_libre.variable} ${oxanium.variable} ${alternative.variable}  antialiased`}
       >
         {children}
         <SpeedInsights />

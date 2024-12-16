@@ -100,9 +100,9 @@ export function TimerDescription() {
             Emil
           </a>{" "}
           came up with a workaround for this issue, but I wanted to create a{" "}
-          <span className="italic">cleaner</span> solution. I tried several
-          approaches, but unfortunately, I ended up stuck for over a week
-          without making any progress.
+          &quot;cleaner&quot; solution. I tried several approaches, but
+          unfortunately, I ended up stuck for over a week without making any
+          progress.
         </p>
 
         <p>

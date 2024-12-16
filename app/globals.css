@@ -35,21 +35,27 @@ h1 {
   }
 
   .decorative {
-    font-family: var(--font---font-viaoda-libre);
+    font-family: var(--font-viaoda-libre);
+    font-style: italic;
   }
 
   .oxanium {
     font-family: var(--font-oxanium);
   }
 
+  .alternative {
+    font-family: var(--font-alternative);
+  }
+
   .link {
     text-decoration: underline;
     text-decoration-thickness: 0.5px;
-    text-underline-offset: 3px;
+    text-underline-offset: 4px;
     text-decoration-color: rgba(205, 226, 244, 0.7);
   }
 
   .dashed-link {
+    cursor: pointer;
     text-decoration: underline;
     text-decoration-style: dashed;
     text-decoration-thickness: 1px;
@@ -58,11 +64,9 @@ h1 {
   }
 
   .super-fancy-text-fallback {
-    font-weight: 700;
     color: rgba(255, 255, 255, 0.9);
   }
   .super-fancy-text {
-    font-weight: 700;
     background: url("/home/wave.gif") no-repeat center center;
     background-size: cover;
     background-clip: text;

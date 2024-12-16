@@ -6,16 +6,11 @@ import { motion, useAnimate } from "motion/react";
 
 export const MainNavigation = () => {
   return (
-    <nav className="z-[20000] relative py-7 px-4 lg:px-16">
-      <ul className="flex gap-x-5 sm:gap-x-6 text-[1.3rem] sm:font-light sm:text-2xl uppercase oxanium">
+    <nav className="z-[20000] relative py-7 px-6 lg:px-16">
+      <ul className="flex gap-x-5 sm:gap-x-6">
         <NavigationLink name="About" href="/about" />
         <NavigationLink name="Works" href="/works" />
-        <button
-          className="ml-auto uppercase "
-          onClick={() => alert("Contacting..!")}
-        >
-          <NavigationLink name="Contact" href="" />
-        </button>
+        {/* <Contact /> */}
       </ul>
     </nav>
   );
@@ -44,7 +39,10 @@ const NavigationLink = ({ name, href }: { name: string; href: string }) => {
       }
       className="relative"
     >
-      <Link href={href}>
+      <Link
+        href={href}
+        className="text-[1.3rem] sm:font-light sm:text-2xl uppercase oxanium"
+      >
         <div className="size-full">{name}</div>
         <div
           ref={scope}
