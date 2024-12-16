@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { GRID_CELL_SIZE } from "@/app/memory-movie/constants";
+import { GRID_CELL_SIZE } from "@/app/(projects)/memory-movie/constants";
 import { useImageContext } from "@/providers/image-provider";
 
 export function IntroMemory({ index }: { index: number }) {

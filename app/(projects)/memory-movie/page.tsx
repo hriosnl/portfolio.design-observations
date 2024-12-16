@@ -5,7 +5,10 @@ import { Toaster, toast } from "sonner";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
-import { VIEW_HEIGHT, VIEW_WIDTH } from "@/app/memory-movie/constants";
+import {
+  VIEW_HEIGHT,
+  VIEW_WIDTH,
+} from "@/app/(projects)/memory-movie/constants";
 import {
   NextButton,
   PrevButton,
@@ -14,11 +17,10 @@ import {
 } from "@/components/memory-movie/Buttons";
 import { ImageProvider } from "@/providers/image-provider";
 import { MemoryEventProvider } from "@/providers/event-provider";
-import { Story } from "@/app/memory-movie/Story";
-import useBreakpoint from "@/hooks/useBreakpoint";
+import { Story } from "@/app/(projects)/memory-movie/Story";
 import { FadeIn } from "@/components/FadeIn";
 
-import { useCurrentScreenSize } from "@/hooks/useBreakpoint";
+import useBreakpoint from "@/hooks/useBreakpoint";
 
 export default function MemoryMovie() {
   const isMobile = useBreakpoint("xs");
@@ -143,12 +145,8 @@ export default function MemoryMovie() {
     }
   }, [showStep1Hint]);
 
-  const screenSize = useCurrentScreenSize();
-
   return (
     <div className="w-screen h-[100svh] sm:h-screen flex justify-center items-center bg-[#02080C] overflow-hidden ">
-      <span className="absolute top-2 right-2 text-red-600">{screenSize}</span>
-
       <AnimatePresence mode="wait">
         {!showBackToHomeButton ? (
           step !== 0 && <CloseButton key="close-button" />

@@ -1,6 +1,6 @@
 import { Subject } from "rxjs";
 import { useMemo, useCallback } from "react";
-import { Observer, Event } from "@/app/memory-movie/types";
+import { Observer, Event } from "@/app/(projects)/memory-movie/types";
 
 export function useMemoryEvents() {
   const eventSubject = useMemo(() => new Subject<Event>(), []);

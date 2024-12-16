@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { mug } from "@lucide/lab";
 
-import { ViewName } from "@/app/dynamic-island/types";
+import { ViewName } from "@/app/(projects)/dynamic-island/types";
 
 export const ActionButtons = [
   {

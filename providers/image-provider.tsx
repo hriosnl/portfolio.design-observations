@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode } from "react";
-import { IMAGES } from "@/app/memory-movie/constants";
+import { IMAGES } from "@/app/(projects)/memory-movie/constants";
 
 interface ImageContextType {
   images: string[];

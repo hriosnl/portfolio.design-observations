@@ -3,12 +3,15 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
-import { transitions, exitVariants } from "@/app/dynamic-island/animations";
+import {
+  transitions,
+  exitVariants,
+} from "@/app/(projects)/dynamic-island/animations";
 import {
   ViewState,
   ViewName,
   TransitionOptions,
-} from "@/app/dynamic-island/types";
+} from "@/app/(projects)/dynamic-island/types";
 
 import { ActionButtons } from "@/components/dynamic-island/Buttons";
 import { Timer } from "@/components/dynamic-island/Timer";

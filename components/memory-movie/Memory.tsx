@@ -5,13 +5,13 @@ import { useEffect, useState, useMemo, useCallback } from "react";
 import {
   FOCUSED_INDEX,
   SMALL_GRID_CELL_SIZE,
-} from "@/app/memory-movie/constants";
+} from "@/app/(projects)/memory-movie/constants";
 import {
   MemoryEvents,
   RippleDirection,
   MotionAnimationProps,
-} from "@/app/memory-movie/types";
-import { getNeighbors } from "@/app/memory-movie/helper";
+} from "@/app/(projects)/memory-movie/types";
+import { getNeighbors } from "@/app/(projects)/memory-movie/helper";
 import { useImageContext } from "@/providers/image-provider";
 import { useMemoryEventContext } from "@/providers/event-provider";
 

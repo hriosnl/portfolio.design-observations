@@ -3,7 +3,10 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
 
-import { transitions, exitVariants } from "@/app/dynamic-island/animations";
+import {
+  transitions,
+  exitVariants,
+} from "@/app/(projects)/dynamic-island/animations";
 import { CheckButton } from "@/components/dynamic-island/Buttons";
 
 export function TimerDescription() {

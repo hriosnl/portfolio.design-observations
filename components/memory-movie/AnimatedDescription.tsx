@@ -1,5 +1,8 @@
 import { motion } from "motion/react";
-import { DESCRIPTIONS, GRID_CELL_SIZE } from "@/app/memory-movie/constants";
+import {
+  DESCRIPTIONS,
+  GRID_CELL_SIZE,
+} from "@/app/(projects)/memory-movie/constants";
 
 import useBreakpoint from "@/hooks/useBreakpoint";
 

@@ -2,7 +2,7 @@
 
 import { createContext, useContext, ReactNode } from "react";
 
-import { Observer, Event } from "@/app/memory-movie/types";
+import { Observer, Event } from "@/app/(projects)/memory-movie/types";
 import { useMemoryEvents } from "@/hooks/useMemoryEvents";
 
 interface MemoryEventContextType {

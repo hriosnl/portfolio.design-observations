@@ -8,7 +8,7 @@ export const MainNavigation = () => {
   return (
     <nav className="z-[20000] relative py-7 px-6 lg:px-16">
       <ul className="flex gap-x-5 sm:gap-x-6">
-        <NavigationLink name="About" href="/about" />
+        <NavigationLink name="About" href="/" />
         <NavigationLink name="Works" href="/works" />
         {/* <Contact /> */}
       </ul>

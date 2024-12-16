@@ -35,7 +35,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# for testing new codes
+# for debugging
 */examples
 */*-compare
 *.bak

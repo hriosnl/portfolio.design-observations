@@ -5,9 +5,9 @@ import { useMemo, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowUpToLine, MoveUpLeft } from "lucide-react";
 
-import DynamicIsland from "@/app/dynamic-island/DynamicIsland";
+import DynamicIsland from "@/app/(projects)/dynamic-island/DynamicIsland";
 
-import { ViewName } from "@/app/dynamic-island/types";
+import { ViewName } from "@/app/(projects)/dynamic-island/types";
 import { IdleDescription } from "@/components/dynamic-island/IdleDescription";
 import { TimerDescription } from "@/components/dynamic-island/TimerDescription";
 import { CoffeeDescription } from "@/components/dynamic-island/CoffeeDescription";

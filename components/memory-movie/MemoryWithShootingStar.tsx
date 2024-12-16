@@ -8,9 +8,9 @@ import {
   getAlignedMemoryProps,
   getMemoryPosition,
   getShrinkedAnimationProps,
-} from "@/app/memory-movie/helper";
-import { MemoryPositioning } from "@/app/memory-movie/types";
-import { FOCUSED_INDEX } from "@/app/memory-movie/constants";
+} from "@/app/(projects)/memory-movie/helper";
+import { MemoryPositioning } from "@/app/(projects)/memory-movie/types";
+import { FOCUSED_INDEX } from "@/app/(projects)/memory-movie/constants";
 
 import { Memory } from "@/components/memory-movie/Memory";
 import { PartialShootingStar } from "@/components/memory-movie/PartialShootingStar";

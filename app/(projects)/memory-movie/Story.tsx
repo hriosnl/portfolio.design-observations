@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect } from "react";
 
 import { useImageContext } from "@/providers/image-provider";
-import { MemoryPositioning } from "@/app/memory-movie/types";
+import { MemoryPositioning } from "@/app/(projects)/memory-movie/types";
 
 import { AnimatedDescription } from "@/components/memory-movie/AnimatedDescription";
 import { IntroMemory } from "@/components/memory-movie/IntroMemory";

@@ -6,7 +6,7 @@ import {
   VIEW_WIDTH,
   VIEW_HEIGHT,
   GRID_CELL_SIZE,
-} from "@/app/memory-movie/constants";
+} from "@/app/(projects)/memory-movie/constants";
 import { useImageContext } from "@/providers/image-provider";
 
 export function IntroShootingStar({

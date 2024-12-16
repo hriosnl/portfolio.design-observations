@@ -21,7 +21,6 @@ body {
 }
 
 h1 {
-  /* font-family: var(--font-inter); */
   font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -78,3 +77,8 @@ h1 {
     mask-composite: intersect;
   }
 }
+
+/* * {
+  box-sizing: border-box;
+  outline: 1px solid lawngreen;
+} */

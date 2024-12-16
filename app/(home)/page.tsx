@@ -13,7 +13,7 @@ export default function About() {
   const [makeFancy, setMakeFancy] = useState(false);
   const [showHonesty, setShowHonesty] = useState(false);
 
-  const time = useTimePeriod();
+  const timePeriod = useTimePeriod();
 
   useEffect(() => {
     const img = new globalThis.Image();
@@ -65,21 +65,23 @@ export default function About() {
           </div>
           <div className="w-1/2">
             <p>EST+13</p>
-            <p className="mt-1 font-extralight">{time}</p>
+            <p className="mt-1 font-extralight">{timePeriod}</p>
           </div>
         </div>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: showHonesty ? 1 : 0 }}
-          className="mt-4"
+          className="sm:mt-4"
         >
-          <Image
-            src="/home/honest-design.jpeg"
-            alt="Good design is honest"
-            width={330}
-            height={220}
-          />
+          <div className="relative w-[330px] h-[184px] xl:w-[350px] xl:h-[196px] 2xl:w-[400px] 2xl:h-[224px]">
+            <Image
+              src="/home/honest-design.jpeg"
+              alt="Good design is honest"
+              fill={true}
+              sizes="(max-width: 1280px) 330px, 450px"
+            />
+          </div>
         </motion.div>
       </section>
 

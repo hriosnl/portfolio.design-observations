@@ -6,13 +6,16 @@ import {
   VIEW_WIDTH,
   VIEW_HEIGHT,
   SMALL_GRID_CELL_SIZE,
-} from "@/app/memory-movie/constants";
+} from "@/app/(projects)/memory-movie/constants";
 import { useImageContext } from "@/providers/image-provider";
 import { useMemoryEventContext } from "@/providers/event-provider";
-import { getGridSize } from "@/app/memory-movie/helper";
-import { ShootingStarProperties } from "@/app/memory-movie/types";
+import { getGridSize } from "@/app/(projects)/memory-movie/helper";
+import { ShootingStarProperties } from "@/app/(projects)/memory-movie/types";
 
-import { MemoryEvents, MotionAnimationProps } from "@/app/memory-movie/types";
+import {
+  MemoryEvents,
+  MotionAnimationProps,
+} from "@/app/(projects)/memory-movie/types";
 
 const stepConditions = (step: number) => {
   return {
