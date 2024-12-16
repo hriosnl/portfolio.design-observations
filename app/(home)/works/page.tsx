@@ -74,7 +74,7 @@ export default function Works() {
           <div key="memoryMovieDescription" className="space-y-4">
             <p>
               I still remember the first time I saw Apple&apos;s Memory Movie on
-              my phone <br />
+              my phone <br className="hidden lg:block" />
               —it was magical.
             </p>
             <p>
@@ -173,7 +173,6 @@ export default function Works() {
       </section>
 
       <section className="relative basis-1/2 grow flex flex-col-reverse justify-between lg:flex-col items-end max-w-[1000px]">
-        {/* <div className="pb-16 pt-6 sm:max-w-[40rem] mx-auto lg:pb-0 lg:pl-20 xl:pl-32 otlg"> */}
         <div className="pb-16 pt-6 sm:max-w-[40rem] mx-auto lg:py-0 lg:pl-20 lg:mx-0 xl:pl-0">
           <AnimatePresence mode="wait">
             <motion.div
@@ -248,7 +247,7 @@ export default function Works() {
                 >
                   <Link href={linkToOpen.href}>
                     <button className="w-full h-20">
-                      <span className="font-mono text-lg mr-1 link">
+                      <span className="font-mono text-lg sm:text-xl mr-1 underline text-[hsl(237,62%,65%)]">
                         {linkToOpen.title}
                       </span>
                     </button>

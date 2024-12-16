@@ -146,7 +146,8 @@ export default function MemoryMovie() {
   }, [showStep1Hint]);
 
   return (
-    <div className="w-screen h-[100svh] sm:h-screen flex justify-center items-center bg-[#02080C] overflow-hidden ">
+    <div className="max-w-[96rem] max-h-[54rem] size-full flex justify-center items-center bg-[#02080C] overflow-hidden">
+      {/* <div className="w-screen h-[100svh] sm:h-screen flex justify-center items-center bg-[#02080C] overflow-hidden"> */}
       <AnimatePresence mode="wait">
         {!showBackToHomeButton ? (
           step !== 0 && <CloseButton key="close-button" />

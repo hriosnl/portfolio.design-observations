@@ -61,7 +61,8 @@ export default function Home() {
   }, [currentViewName]);
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center bg-[#0C0C0C]">
+    // <div className="w-screen h-screen flex justify-center items-center bg-[#0C0C0C]">
+    <div className="max-w-[96rem] max-h-[54rem] size-full bg-red-50">
       <motion.div
         initial={{
           backgroundColor: "#FFFFFF",
@@ -74,13 +75,14 @@ export default function Home() {
           type: "spring",
           bounce: 0,
         }}
-        className="size-full max-w-[1500px] max-h-[890px] flex flex-col lg:flex-row"
+        className="size-full flex flex-col lg:flex-row"
       >
         <CloseButton />
         <DynamicIsland updateViewName={setCurrentViewName} />
         <div className="relative bg-[#0C0C0C] w-full flex justify-center">
           <div className="w-full overflow-y-auto flex justify-center">
-            <div className="h-fit max-w-screen-sm md:max-w-[57rem] pt-3 lg:pt-14 px-8 md:px-14">
+            {/* <div className="h-fit max-w-screen-sm md:max-w-full pt-3 lg:pt-14 px-8 md:px-14 bor2"> */}
+            <div className="h-fit pt-3 lg:pt-14 px-8 md:px-14">
               {description}
 
               <div className="lg:hidden absolute bottom-5 right-5 left-3 flex justify-between items-center px-5">

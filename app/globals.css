@@ -82,3 +82,34 @@ h1 {
   box-sizing: border-box;
   outline: 1px solid lawngreen;
 } */
+
+.otlg {
+  outline: 2px solid green;
+}
+.otlo {
+  outline: 2px solid orange;
+}
+.otlr {
+  outline: 2px solid red;
+}
+.otlb {
+  outline: 2px solid blue;
+}
+.otl4 {
+  outline: 4px solid yellow;
+}
+.otl8 {
+  outline: 8px solid rebeccapurple;
+}
+
+.bor1 {
+  border: 2px solid yellow;
+}
+
+.bor2 {
+  border: 2px solid salmon;
+}
+
+.bor3 {
+  border: 2px solid darkcyan;
+}

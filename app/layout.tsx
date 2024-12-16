@@ -53,7 +53,9 @@ export default function RootLayout({
       <body
         className={`${noto_sans.className} ${mea_culpa.variable} ${viaoda_libre.variable} ${oxanium.variable} ${alternative.variable}  antialiased`}
       >
-        {children}
+        <div className="w-screen h-[100svh] md:h-screen flex justify-center items-center bg-black">
+          {children}
+        </div>
         <SpeedInsights />
       </body>
     </html>
