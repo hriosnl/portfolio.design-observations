@@ -45,7 +45,7 @@ export function CoffeeDescription() {
           As a workaround, I used a{" "}
           <span className="font-mono">linear-gradient</span> instead. While not
           perfect, it delivered almost the same effect and felt like a safer
-          choice.
+          choice for most browsers.
         </p>
         <p>
           When finalizing this project after leaving it untouched for a month, I
@@ -53,9 +53,10 @@ export function CoffeeDescription() {
           color transition of the graduation that had just passed.
         </p>
         <p>
-          Originally, it just changed color from orange to gray while adjusting
-          opacity. I enhanced it by adding an orange-to-gray linear gradient
-          background and animated its position from left to right.
+          Originally, it simply changed color from orange to gray while
+          decreasing opacity. I enhanced it by adding a huge linear-gradient
+          background from orange to gray and animating its position from left to
+          right.
         </p>
         <p>Try reducing the animation speed to better observe the effect:</p>
         <p>

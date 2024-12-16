@@ -473,37 +473,25 @@ const ShootingStarMemory = ({
   canEnergizeMemories: boolean;
   targetSize: number;
 }) => {
-  const { images, getReplacementImage, replaceImage } = useImageContext();
+  const { replacementImages, replaceImage } = useImageContext();
   const { emitEvent } = useMemoryEventContext();
 
-  const [hideImage, setHideImage] = useState(false);
   const [newImage, setNewImage] = useState("");
   const [rotation, setRotation] = useState(0);
 
   useEffect(() => {
-    const loadImage = async () => {
-      try {
-        const result = await getReplacementImage();
+    const newImgIndex = Math.floor(Math.random() * replacementImages.length);
+    setNewImage(replacementImages[newImgIndex]);
 
-        if (result) setNewImage(result);
-      } catch (error) {
-        console.log("Error loading image:", error);
-
-        setNewImage(images[memoryIndex]); // Set error result
-      }
-    };
-
-    loadImage();
-  }, [getReplacementImage, images, memoryIndex]);
-
-  useEffect(() => {
     const randomRotation = 5 + Math.floor(Math.random() * 30);
     setRotation(randomRotation);
-  }, [memoryIndex]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [memoryIndex, replacementImages.length]);
 
   const onAnimationComplete = () => {
-    replaceImage(memoryIndex);
-    setHideImage(true);
+    const newImageIndex = replacementImages.indexOf(newImage);
+    replaceImage(memoryIndex, newImageIndex);
   };
 
   const emitStruckEvent = () => {
@@ -515,9 +503,10 @@ const ShootingStarMemory = ({
     }
   };
 
-  if (newImage === "") return;
+  // Prevent rendering when initial values are not yet computed
+  if (newImage === "") return null;
 
-  return hideImage ? null : (
+  return (
     <motion.div
       initial={{
         opacity: 0,

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Toaster, toast } from "sonner";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { TriangleAlert } from "lucide-react";
 
 import {
   VIEW_HEIGHT,
@@ -24,6 +25,7 @@ import useBreakpoint from "@/hooks/useBreakpoint";
 
 export default function MemoryMovie() {
   const isMobile = useBreakpoint("xs");
+  const [showDisclaimer, setShowDisclaimer] = useState(true);
 
   const [showStep0Hint, setShowStep0Hint] = useState(false);
   const [showStep1Hint, setShowStep1Hint] = useState(false);
@@ -86,7 +88,11 @@ export default function MemoryMovie() {
   }, []);
 
   useEffect(() => {
-    if (step === 2) toast.dismiss();
+    if (showDisclaimer) return;
+
+    if (step === 2) {
+      toast.dismiss();
+    }
     if (step === 16) {
       setTimeout(() => {
         setShowBackToHomeButton(true);
@@ -112,7 +118,7 @@ export default function MemoryMovie() {
       clearTimeout(timeoutId0);
       clearTimeout(timeoutId1);
     };
-  }, [step, isMobile, showStep0Hint, showStep1Hint]);
+  }, [step, isMobile, showStep0Hint, showStep1Hint, showDisclaimer]);
 
   useEffect(() => {
     if (showStep0Hint) {
@@ -145,9 +151,10 @@ export default function MemoryMovie() {
     }
   }, [showStep1Hint]);
 
-  return (
+  return showDisclaimer && isMobile ? (
+    <Disclaimer onClick={() => setShowDisclaimer(false)} />
+  ) : (
     <div className="max-w-[96rem] max-h-[54rem] size-full flex justify-center items-center bg-[#02080C] overflow-hidden">
-      {/* <div className="w-screen h-[100svh] sm:h-screen flex justify-center items-center bg-[#02080C] overflow-hidden"> */}
       <AnimatePresence mode="wait">
         {!showBackToHomeButton ? (
           step !== 0 && <CloseButton key="close-button" />
@@ -223,6 +230,30 @@ export default function MemoryMovie() {
     </div>
   );
 }
+
+const Disclaimer = ({ onClick }: { onClick: () => void }) => (
+  <div className="otlg size-full text-left flex flex-col justify-center items-center space-y-16">
+    <TriangleAlert size={44} strokeWidth={1.5} color="hsl(42,100%,70%)" />
+
+    <div className="px-8 text-base space-y-8">
+      <h2 className="text-[hsl(0,0%,100%)] text-lg">
+        Please try to view this on a desktop browser.
+      </h2>
+      <p className="text-[hsl(0,0%,80%)]">
+        Memory Movie is optimized for desktop browsers (Chrome, Firefox,
+        Safari). Some features may not work as intended on mobile browsers.
+      </p>
+    </div>
+
+    <motion.button
+      onClick={onClick}
+      whileTap={{ scale: 0.96 }}
+      className="bg-white rounded-xl px-20 py-5 text-lg font-mono font-semibold"
+    >
+      OK
+    </motion.button>
+  </div>
+);
 
 const ToastContent = () => (
   <div className="flex justify-center items-center gap-1">

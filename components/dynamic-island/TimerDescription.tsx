@@ -16,7 +16,7 @@ export function TimerDescription() {
 
   return (
     <>
-      <div className="w-full flex flex-col md:flex-row justify-center items-center gap-x-8 lg:pr-6 mb-10">
+      <div className="w-full flex flex-col md:flex-row justify-center items-center gap-x-8 lg:pr-6">
         <div className="grow flex justify-center">
           <ZoomedTimer
             slowedAnimation={slowedAnimation}
@@ -57,7 +57,7 @@ export function TimerDescription() {
 
       <main className="text-[#f5f6f4] space-y-7 pt-8 pb-24">
         <p>
-          This is the first of the four Live Activities I created, where I ran
+          This is the first of the four Live Activities I created where I ran
           into the toughest challenge of the entire project.
         </p>
 
@@ -82,7 +82,7 @@ export function TimerDescription() {
           >
             slow down the animation
           </button>
-          , you&apos;ll notice the time turns black instantly before it
+          , you&apos;ll notice the timer turns black instantly before it
           minimizes. This happens because of how Framer Motion handles layout
           animations. It uses the{" "}
           <a
@@ -92,9 +92,11 @@ export function TimerDescription() {
           >
             FLIP
           </a>{" "}
-          technique, which essentially copies the properties of the
-          animation&apos;s destination then transforms the original properties
-          to match the destination&apos;s properties.
+          technique, which transforms the destination element&apos;s properties
+          (Idle view) to match the starting element&apos;s properties (Expanded
+          view). Before the transition animation begins, the destination element
+          essentially replaces the starting element, which is why it appears
+          black.
         </p>
 
         <p>
@@ -128,10 +130,9 @@ export function TimerDescription() {
           >
             hacky solution
           </button>
-          , which involved creating a copy of the element to minimize, placing
-          it outside the area where the automatic{" "}
-          <span className="font-mono code">layout</span> transition happens, and
-          giving it its own exit animation.
+          , which involved duplicating the active view. The first one is
+          responsible only for the enter animation, while the other is hidden
+          and only shows up when it&apos;s exiting.
         </p>
         <p>It might not be the perfect solution, but it works!</p>
         <p>ありがとう、せんぱい! 🙂</p>

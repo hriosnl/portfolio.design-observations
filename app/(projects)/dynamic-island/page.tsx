@@ -81,7 +81,7 @@ export default function Home() {
         <DynamicIsland updateViewName={setCurrentViewName} />
         <div className="relative bg-[#0C0C0C] w-full flex justify-center">
           <div className="w-full overflow-y-auto flex justify-center">
-            {/* <div className="h-fit max-w-screen-sm md:max-w-full pt-3 lg:pt-14 px-8 md:px-14 bor2"> */}
+            {/* <div className="h-fit max-w-screen-sm md:max-w-full pt-3 lg:pt-14 px-8 md:px-142"> */}
             <div className="h-fit pt-3 lg:pt-14 px-8 md:px-14">
               {description}
 

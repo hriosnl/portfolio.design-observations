@@ -18,7 +18,7 @@ export const PrevButton = ({
         initial={{
           opacity: 0.8,
           filter: "blur(4px)",
-          scale: 1.6,
+          scale: 1.3,
         }}
         animate={{
           opacity: 1,
@@ -70,7 +70,7 @@ export const NextButton = ({
         initial={{
           opacity: 0.8,
           filter: "blur(4px)",
-          scale: 1.6,
+          scale: 1.3,
         }}
         animate={{
           opacity: 1,

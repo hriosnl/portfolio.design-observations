@@ -7,21 +7,21 @@ export const SMALL_GRID_CELL_SIZE = 60;
 
 // use <EOL> (with a space) for new line
 export const DESCRIPTIONS = [
-  "We all have memories we want to treasure forever",
+  "We all have memories we want to remember",
   "Though gathered from different places and different times, somehow, it converges into one meaning",
   "So often, we try to hold onto one precious memory, capturing every detail, the exact feeling",
   "Yet our memory is fleeting; gaze for too long and it slips from our mind, illuminating intensely as it try to dissipate",
-  "But nothing is truly lost; as without forgetting, we cannot recall other memories that are as equally precious",
-  "For in reality, our memories transform constantly, some circling back, and some sink into the depths of our mind",
-  "At times, there are memories we cannot quite grasp, never knowing the reason they unfolded",
+  "But nothing is truly lost—without forgetting, we cannot recall other memories that are equally precious",
+  "For in reality, our memories transform constantly, some circle back, while others sink into the depths of our mind",
+  "However, there are memories we cannot quite grasp, never knowing the reason they unfolded",
   "Until we became aware of a power that lies beyond",
-  "Striking our memories, altering and weaving their complete meaning",
+  "Striking our memories, altering and reshaping their complete meaning",
   "Once we recognized such power exists, we start to perceive it everywhere, at all times",
-  "Unfolding new memories we would never have if we just rely on the meaning we derived from within ourselves",
+  "Unfolding new memories we would never have if we only relied on the meaning derived from within ourselves",
   "Powerful enough, these new kinds of memories have the power to evoke and awaken others",
   "Powerful indeed! That its transformation energizes all other memories!",
-  "We'll then realize that this transformation happens to all of our memories; redefining our perception of the past which then redefines how we see ourselves",
-  "Together, these transformations in our memories both from within and from a power beyond ourselves, define the meaning of our existence",
+  "These transformations happen to all our memories, redefining our perception of the past and eventually, redefining how we see ourselves",
+  "Together, these transformations in our memories— <EOL> shaped from within and by a power beyond, <EOL> ultimately create the meaning of our life.",
 ];
 
 export const IMAGES = [

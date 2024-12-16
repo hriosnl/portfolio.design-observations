@@ -33,7 +33,7 @@ export function IdleDescription() {
           to bring into existence, much like what{" "}
           <a
             className="link"
-            href="https://youtu.be/LxiDNdM2-bM?t=170"
+            href="https://youtu.be/LxiDNdM2-bM?t=169"
             target="_blank"
           >
             Paul Rand said about his work

@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "motion/react";
 import {
   DESCRIPTIONS,
@@ -9,7 +11,7 @@ import useBreakpoint from "@/hooks/useBreakpoint";
 export function AnimatedDescription({ step }: { step: number }) {
   const isMobile = useBreakpoint("xs");
   const descriptionWidth = isMobile ? GRID_CELL_SIZE * 5.1 : GRID_CELL_SIZE * 8;
-  const wideDescriptionWidth = isMobile ? "90%" : "100%";
+  const wideDescriptionWidth = isMobile ? "90%" : "36rem";
 
   const isFirstStep = step === 1;
   const isPrefinal = step === 15;
@@ -56,7 +58,12 @@ export function AnimatedDescription({ step }: { step: number }) {
       >
         {words.map((word, index) =>
           word === "<EOL>" ? (
-            <div key={index} className="basis-full h-0 border-0 invisible" />
+            <div
+              key={index}
+              className={`basis-full h-0 border-0 ${
+                isMobile ? "hidden" : "block"
+              }`}
+            />
           ) : (
             <motion.span
               key={index}

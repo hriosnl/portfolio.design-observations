@@ -11,7 +11,7 @@ export function RideDescription() {
 
   return (
     <>
-      <div className="w-full flex justify-center lg:pr-4 select-none">
+      <div className="w-full flex justify-center lg:pr-4 select-none mb-8 sm:mb-0">
         <ZoomedRide showImageName={showImageName} />
       </div>
 
@@ -26,7 +26,7 @@ export function RideDescription() {
 
         <p>
           For hours, I was stuck deciding whether to draw the car with SVG as
-          well, since that would mean learning more unknown SVG properties.
+          well, knowing it would mean learning more unfamiliar SVG properties.
           Fortunately, my lazy brain came up with a solution: I simply cropped
           and upscaled an{" "}
           <button
@@ -37,13 +37,14 @@ export function RideDescription() {
             image of the car
           </button>{" "}
           instead. I had to accept that I didn&apos;t need to understand every
-          detail, and the cropped image worked just fine.
+          detail, and that the cropped image would worked just fine.
         </p>
 
         <p>
           The most fun part of creating this was synchronizing the timing of the
-          different animation elements—the car entrance, the glowing of the rear
-          lights, and the appearance of the &apos;Arrived&apos; label.
+          different animation elements—the car&apos;s entrance, the glowing of
+          the it&apos;s break lights, and the appearance of the
+          &apos;Arrived&apos; label.
         </p>
         <p>
           This is my favorite among the four types of Live Activities I made.

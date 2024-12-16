@@ -189,7 +189,8 @@ export const Story = ({
       ref={containerRef}
       style={{
         justifyContent: isFinalStep ? "center" : "flex-start",
-        paddingTop: isFinalStep ? 0 : isMobile ? "4.2rem" : "3.5rem",
+        // paddingTop: isFinalStep ? 0 : isMobile ? "4.2rem" : "3.5rem",
+        paddingTop: isFinalStep ? 0 : isMobile ? "10svh" : "3.5rem",
         paddingBottom: !isFinalStep ? "0" : isMobile ? "6rem" : "3rem",
       }}
       className="relative size-full flex flex-col items-center"
@@ -261,9 +262,9 @@ export const Story = ({
           !isFinalStep && (
             <motion.div
               exit={{ opacity: 0 }}
-              className="w-full absolute flex flex-col items-center gap-y-5 justify-between 2xl:-mb-8"
+              className="w-full absolute bottom-0 flex flex-col items-center justify-between 2xl:-mb-8"
               style={{
-                bottom: isPrefinalStep ? "23rem" : isMobile ? "5rem" : "3.4rem",
+                bottom: isPrefinalStep ? "23rem" : isMobile ? "4svh" : "3.4rem",
               }}
             >
               <AnimatedDescription step={currentStep} />

@@ -30,11 +30,11 @@ export function FlightDescription() {
         </p>
 
         <p>
-          The plane&apos;s and path&apos;s shadow, though nearly identical to
-          the previous code, with added{" "}
-          <span className="font-mono">filter</span> and some{" "}
-          <span className="font-mono">translation</span>s, were simple additions
-          that made the animation much more interesting.
+          The plane&apos;s and path&apos;s shadow were nearly identical to the
+          other related code, with just a few additional{" "}
+          <span className="font-mono">filters</span> and{" "}
+          <span className="font-mono">translation</span>s. These additions,
+          although simple, made the animation much more interesting.
         </p>
       </main>
     </>
