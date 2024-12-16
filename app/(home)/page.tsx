@@ -64,7 +64,7 @@ export default function About() {
             </p>
           </div>
           <div className="w-1/2">
-            <p>EST+13</p>
+            <p>UTC+8</p>
             <p className="mt-1 font-extralight">{timePeriod}</p>
           </div>
         </div>
