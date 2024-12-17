@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion, useAnimate, AnimatePresence } from "motion/react";
 import { FadeIn } from "@/components/FadeIn";
 import { useMemo, useState } from "react";
-import { TriangleAlert } from "lucide-react";
 
 import useBreakpoint from "@/hooks/useBreakpoint";
 import Image from "next/image";
@@ -82,18 +81,35 @@ export default function Works() {
               this time on the web, as I was in the middle of a web animation
               course I was taking.
             </p>
-            <p className="pt-3 text-sm xl:text-base text-[color:hsl(0,0%,70%)]">
-              <span className="inline-block size-4 relative mr-2">
-                <TriangleAlert
-                  size={isMobile ? 16 : 18}
-                  color="#FADA7A"
-                  className="absolute -bottom-[3px]"
-                />
-              </span>
-              This was primarily designed for Google Chrome, but also optimized
-              for Firefox and Safari. If you&apos;re viewing this on a mobile
-              browser, please note that some design elements and animations may
-              not function as intended. I&apos;ll fix these issues soon.
+            <p>
+              Rather than simply replicating Apple&apos;s Memory Movie, I
+              created a short{" "}
+              <motion.span
+                animate={{
+                  color: [
+                    "hsl(0, 100%, 100%)",
+                    "hsl(270, 100%, 50%)",
+                    "hsl(330, 100%, 50%)",
+                    "hsl(0, 100%, 100%)",
+                  ],
+                }}
+                transition={{
+                  ease: "linear",
+                  duration: 3,
+                  times: [0, 1, 5, 9, 1],
+                  repeat: Infinity,
+                }}
+              >
+                story
+              </motion.span>{" "}
+              that reflects how I imagined the design as I worked on it. The
+              story also illustrates the chronological process of how I
+              implement the animation design.
+            </p>
+            <p className="pt-1 text-sm xl:text-sm text-[color:hsl(0,0%,70%)] italic">
+              If you&apos;re viewing this on a mobile browser, please note that
+              some design elements and animations may not function as intended.
+              This will be fixed soon.
             </p>
           </div>
         );
