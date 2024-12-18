@@ -41,7 +41,7 @@ const NavigationLink = ({ name, href }: { name: string; href: string }) => {
     >
       <Link
         href={href}
-        className="text-[1.3rem] sm:font-light sm:text-2xl uppercase oxanium"
+        className="text-[1.1rem] sm:font-light sm:text-xl uppercase oxanium"
       >
         <div className="size-full">{name}</div>
         <div

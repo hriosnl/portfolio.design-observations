@@ -8,11 +8,12 @@ import { useMemo, useState } from "react";
 import useBreakpoint from "@/hooks/useBreakpoint";
 import Image from "next/image";
 
+type PreviewType = "dynamic-island" | "memory-movie" | "components";
+
 export default function Works() {
   const [scope, animate] = useAnimate();
-  const [currentDescription, setCurrentDescription] = useState<
-    "dynamicIsland" | "memoryMovie" | "components" | null
-  >(null);
+  const [currentDescription, setCurrentDescription] =
+    useState<PreviewType | null>(null);
 
   const isMobile = useBreakpoint("xs");
 
@@ -21,12 +22,12 @@ export default function Works() {
 
   const linkToOpen = useMemo(() => {
     switch (currentDescription) {
-      case "dynamicIsland":
+      case "dynamic-island":
         return {
           title: "Open Dynamic Island",
           href: "/dynamic-island",
         };
-      case "memoryMovie":
+      case "memory-movie":
         return {
           title: "Open Memory Movie",
           href: "/memory-movie",
@@ -47,7 +48,7 @@ export default function Works() {
 
   const description = useMemo(() => {
     switch (currentDescription) {
-      case "dynamicIsland": {
+      case "dynamic-island": {
         return (
           <div key="dynamicIslandDescription" className="space-y-4">
             <p>
@@ -68,7 +69,7 @@ export default function Works() {
           </div>
         );
       }
-      case "memoryMovie": {
+      case "memory-movie": {
         return (
           <div key="memoryMovieDescription" className="space-y-4">
             <p>
@@ -123,33 +124,30 @@ export default function Works() {
     }
   }, [currentDescription]);
 
-  const hideDescription = () => {
-    if (currentDescription === "dynamicIsland") {
-      animate(
-        ".dynamicIslandPreview",
-        { y: "101%" },
-        { duration: 0.4, ease: "easeOut" }
-      );
-    }
+  const hideDetails = () => {
+    if (currentDescription === null) return;
 
-    if (currentDescription === "memoryMovie") {
-      animate(
-        ".memoryMoviePreview",
-        { y: "101%" },
-        { duration: 0.4, ease: "easeOut" }
-      );
-    }
-
-    if (currentDescription === "components") {
-      animate(
-        ".componentsPreview",
-        { y: "101%" },
-        { duration: 0.4, ease: "easeOut" }
-      );
-    }
+    animate(
+      `#${currentDescription}-preview`,
+      { y: "101%" },
+      { duration: 0.4, ease: "easeOut" }
+    );
 
     setCurrentDescription(null);
   };
+
+  const showDetails = (preview: PreviewType) => {
+    setCurrentDescription(preview);
+    animate(`#${preview}-preview`, { y: 0 }, { duration: 0.3 });
+  };
+
+  // const searchParams = useSearchParams();
+  // useEffect(() => {
+  //   if (searchParams.get("v")) {
+  //     showDetails(searchParams.get("v") as PreviewType);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [searchParams]);
 
   return (
     <main
@@ -157,33 +155,24 @@ export default function Works() {
       className="h-full flex flex-col lg:flex-row lg:justify-between"
     >
       <section className="flex items-center">
-        <ul className="space-y-10 pb-5 pt-20 sm:pl-14 lg:pl-0 lg:mb-32 lg:py-0 lg:mr-10">
+        <ul className="space-y-10 pb-5 pt-5 sm:pl-14 lg:pl-0 lg:mb-32 lg:py-0 lg:mr-10">
           <WorkLink
             name="Dynamic Island"
             href="/dynamic-island"
-            showDescription={() => {
-              setCurrentDescription("dynamicIsland");
-              animate(".dynamicIslandPreview", { y: 0 }, { duration: 0.3 });
-            }}
-            hideDescription={() => hideDescription()}
+            showDetails={() => showDetails("dynamic-island")}
+            hideDetails={() => hideDetails()}
           />
           <WorkLink
             name="Memory Movie"
             href="/memory-movie"
-            showDescription={() => {
-              setCurrentDescription("memoryMovie");
-              animate(".memoryMoviePreview", { y: 0 }, { duration: 0.4 });
-            }}
-            hideDescription={() => hideDescription()}
+            showDetails={() => showDetails("memory-movie")}
+            hideDetails={() => hideDetails()}
           />
           <WorkLink
             name="Components"
             href=""
-            showDescription={() => {
-              setCurrentDescription("components");
-              animate(".componentsPreview", { y: 0 }, { duration: 0.4 });
-            }}
-            hideDescription={() => hideDescription()}
+            showDetails={() => showDetails("components")}
+            hideDetails={() => hideDetails()}
           />
         </ul>
       </section>
@@ -221,9 +210,9 @@ export default function Works() {
             className="relative overflow-hidden lg:mb-10"
           >
             <motion.div
-              id="memoryMoviePreview"
+              id="memory-movie-preview"
               style={{ y: "101%" }}
-              className="memoryMoviePreview absolute bottom-0"
+              className="absolute bottom-0"
             >
               <Video
                 name="memory-movie"
@@ -233,8 +222,8 @@ export default function Works() {
             </motion.div>
             <motion.div
               style={{ y: "101%" }}
-              id="dynamicIslandPreview"
-              className="dynamicIslandPreview absolute bottom-0"
+              id="dynamic-island-preview"
+              className="absolute bottom-0"
             >
               <Video
                 name="dynamic-island"
@@ -243,9 +232,9 @@ export default function Works() {
               />
             </motion.div>
             <motion.div
-              id="componentsPreview"
+              id="components-preview"
               style={{ y: "101%" }}
-              className="componentsPreview absolute bottom-0"
+              className="absolute bottom-0"
             >
               <Video name={null} width={previewWidth} height={previewWidth} />
             </motion.div>
@@ -282,13 +271,13 @@ export default function Works() {
 const WorkLink = ({
   name,
   href,
-  showDescription,
-  hideDescription,
+  showDetails,
+  hideDetails,
 }: {
   name: string;
   href: string;
-  showDescription: () => void;
-  hideDescription: () => void;
+  showDetails: () => void;
+  hideDetails: () => void;
 }) => {
   const [scope, animate] = useAnimate();
   const isLg = useBreakpoint("lg");
@@ -298,11 +287,9 @@ const WorkLink = ({
   return (
     <li
       onClick={() => {
-        hideDescription();
-        if (isShown) {
-          hideDescription();
-        } else {
-          showDescription();
+        hideDetails();
+        if (!isShown) {
+          showDetails();
         }
         setIsShown(!isShown);
       }}
@@ -312,7 +299,7 @@ const WorkLink = ({
           { clipPath: "inset(0% 0% 0% 100%)" },
           { duration: 0.6 }
         );
-        if (isLg) showDescription();
+        if (isLg) showDetails();
       }}
       onMouseOut={() => {
         animate(
@@ -320,7 +307,7 @@ const WorkLink = ({
           { clipPath: "inset(0% 0% 0% 0%)" },
           { duration: 0.6 }
         );
-        if (isLg) hideDescription();
+        if (isLg) hideDetails();
         setIsShown(false);
       }}
       className="relative uppercase text-5xl xl:text-6xl font-extralight"
