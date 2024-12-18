@@ -29,7 +29,7 @@ export default function About() {
   return (
     <main className="mt-3 md:mt-0">
       <section className="w-full sm:w-[40rem] xl:w-[45%] flex flex-col gap-y-6">
-        <div className="text-lg 2xl:text-xl">
+        <div className="text-lg sm:text-base 2xl:text-lg">
           <p>
             I strive to design{" "}
             <button

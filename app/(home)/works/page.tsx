@@ -121,7 +121,7 @@ export default function Works() {
         return "";
       }
     }
-  }, [currentDescription, isMobile]);
+  }, [currentDescription]);
 
   const hideDescription = () => {
     if (currentDescription === "dynamicIsland") {
@@ -157,7 +157,7 @@ export default function Works() {
       className="h-full flex flex-col lg:flex-row lg:justify-between"
     >
       <section className="flex items-center">
-        <ul className="space-y-10 pb-5 pt-20 sm:pl-14 lg:pl-0 lg:mb-16 lg:py-0 lg:mr-10">
+        <ul className="space-y-10 pb-5 pt-20 sm:pl-14 lg:pl-0 lg:mb-32 lg:py-0 lg:mr-10">
           <WorkLink
             name="Dynamic Island"
             href="/dynamic-island"
@@ -200,7 +200,7 @@ export default function Works() {
                 transition: { duration: 0.3 },
               }}
               transition={{ duration: 0.4 }}
-              className="relative text-[color:hsl(0,0%,85%)] text-base xl:text-lg font-normal"
+              className="relative text-[color:hsl(0,0%,85%)] text-lg md:text-base font-normal"
             >
               {description}
               <motion.div

@@ -46,7 +46,9 @@ const NavigationLink = ({ name, href }: { name: string; href: string }) => {
         <div className="size-full">{name}</div>
         <div
           ref={scope}
-          className="absolute top-0 size-full text-[hsl(0,0%,70%)]"
+          className={`absolute top-0 size-full ${
+            isActive ? "text-[hsl(0,0%,90%)]" : "text-[hsl(0,0%,70%)]"
+          }`}
         >
           {name}
         </div>
