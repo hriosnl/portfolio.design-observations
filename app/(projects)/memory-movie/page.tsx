@@ -207,10 +207,6 @@ export default function MemoryMovie() {
     <Disclaimer onClick={() => setShowDisclaimer(false)} />
   ) : (
     <div className="max-w-[96rem] max-h-[54rem] size-full flex justify-center items-center bg-[#02080C] overflow-hidden">
-      <div className="absolute top-0 right-10 text-yellow-400">
-        step: {step}
-      </div>
-
       <AnimatePresence mode="wait">
         {!showBackToHomeButton ? (
           step !== 0 && <CloseButton key="close-button" />
