@@ -27,8 +27,12 @@ export default function MemoryMovie() {
   const isMobile = useBreakpoint("xs");
   const [showDisclaimer, setShowDisclaimer] = useState(true);
 
-  const [showStep0Hint, setShowStep0Hint] = useState(false);
-  const [showStep1Hint, setShowStep1Hint] = useState(false);
+  const [showFirstHint, setShowFirstHint] = useState(false);
+  const [showSecondHint, setSecondHint] = useState(false);
+
+  const [showFirstWarning, setShowFirstWarning] = useState(true);
+  const [showSecondWarning, setShowSecondWarning] = useState(true);
+
   const [temporaryHideNavigationButtons, setTemporaryHideNavigationButtons] =
     useState(false);
 
@@ -100,17 +104,17 @@ export default function MemoryMovie() {
     }
     if (step > 2) return;
 
-    if (showStep1Hint) return;
+    if (showSecondHint) return;
     const timeoutId1 = setTimeout(() => {
       if (step === 1 && !isMobile) {
-        setShowStep1Hint(true);
+        setSecondHint(true);
       }
     }, 10000);
 
-    if (showStep0Hint) return;
+    if (showFirstHint) return;
     const timeoutId0 = setTimeout(() => {
       if (step === 0) {
-        setShowStep0Hint(true);
+        setShowFirstHint(true);
       }
     }, 17000);
 
@@ -118,18 +122,18 @@ export default function MemoryMovie() {
       clearTimeout(timeoutId0);
       clearTimeout(timeoutId1);
     };
-  }, [step, isMobile, showStep0Hint, showStep1Hint, showDisclaimer]);
+  }, [step, isMobile, showFirstHint, showSecondHint, showDisclaimer]);
 
   useEffect(() => {
-    if (showStep0Hint) {
+    if (showFirstHint) {
       toast("Need help?", {
         description: <ToastContent />,
       });
     }
-  }, [showStep0Hint]);
+  }, [showFirstHint]);
 
   useEffect(() => {
-    if (showStep1Hint) {
+    if (showSecondHint) {
       toast("Stuck?", {
         description: "Use the arrow buttons to navigate",
       });
@@ -149,12 +153,64 @@ export default function MemoryMovie() {
         );
       }, 3000);
     }
-  }, [showStep1Hint]);
+  }, [showSecondHint]);
+
+  useEffect(() => {
+    if (!isMobile) return;
+
+    if (step === 5 && showFirstWarning) {
+      toast("There's likely an animation error here.", {
+        closeButton: true,
+        description: (
+          <p>
+            Any tips? DM me on{" "}
+            <a href="https://x.com/hriosnl" target="_blank" className="link">
+              x.com
+            </a>{" "}
+            or{" "}
+            <a href="mailto:hriosnl@gmail.com" className="link">
+              email me
+            </a>
+            . 🙂
+          </p>
+        ),
+      });
+
+      setShowFirstWarning(false);
+    }
+
+    if (step === 13 && showSecondWarning) {
+      toast.dismiss();
+
+      toast("This is where it really starts to break.", {
+        closeButton: true,
+        description: (
+          <p>
+            Got any advice? DM me on{" "}
+            <a href="https://x.com/hriosnl" target="_blank" className="link">
+              x.com
+            </a>{" "}
+            or{" "}
+            <a href="mailto:hriosnl@gmail.com" className="link">
+              email me
+            </a>
+            . 🙂
+          </p>
+        ),
+      });
+
+      setShowSecondWarning(false);
+    }
+  }, [isMobile, step, showFirstWarning, showSecondWarning]);
 
   return showDisclaimer && isMobile ? (
     <Disclaimer onClick={() => setShowDisclaimer(false)} />
   ) : (
     <div className="max-w-[96rem] max-h-[54rem] size-full flex justify-center items-center bg-[#02080C] overflow-hidden">
+      <div className="absolute top-0 right-10 text-yellow-400">
+        step: {step}
+      </div>
+
       <AnimatePresence mode="wait">
         {!showBackToHomeButton ? (
           step !== 0 && <CloseButton key="close-button" />
