@@ -237,12 +237,19 @@ const Disclaimer = ({ onClick }: { onClick: () => void }) => (
 
     <div className="px-8 text-base space-y-8">
       <h2 className="text-[hsl(0,0%,100%)] text-lg">
-        Please try to view this on a desktop browser.
+        Please view this on a desktop browser.
       </h2>
-      <p className="text-[hsl(0,0%,80%)]">
-        Memory Movie is optimized for desktop browsers (Chrome, Firefox,
-        Safari). Some features may not work as intended on mobile browsers.
-      </p>
+      <div className="text-[hsl(0,0%,80%)] space-y-4">
+        <p>
+          Memory Movie is made for desktop browsers (Chrome, Firefox, Safari).
+        </p>
+        <p>
+          Some features{" "}
+          <span className="font-semibold text-[hsl(42,40%,70%)]">
+            do not work as intended on mobile browsers.
+          </span>
+        </p>
+      </div>
     </div>
 
     <motion.button
