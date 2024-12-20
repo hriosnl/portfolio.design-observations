@@ -10,7 +10,6 @@ export const MainNavigation = () => {
       <ul className="flex gap-x-5 sm:gap-x-6">
         <NavigationLink name="About" href="/" />
         <NavigationLink name="Works" href="/works" />
-        {/* <Contact /> */}
       </ul>
     </nav>
   );
