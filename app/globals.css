@@ -3,8 +3,6 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
   font-size: 16px;
 }
 
@@ -15,8 +13,6 @@
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -29,21 +25,17 @@ h1 {
     text-wrap: balance;
   }
 
-  .cursive {
-    font-family: var(--font-mea-culpa);
+  .font-display {
+    font-family: var(--font-display);
   }
 
-  .decorative {
+  .font-decorative {
     font-family: var(--font-viaoda-libre);
     font-style: italic;
   }
 
-  .oxanium {
-    font-family: var(--font-oxanium);
-  }
-
-  .alternative {
-    font-family: var(--font-alternative);
+  .font-cursive {
+    font-family: var(--font-mea-culpa);
   }
 
   .link {
@@ -76,40 +68,4 @@ h1 {
     -webkit-mask-composite: destination-in;
     mask-composite: intersect;
   }
-}
-
-/* * {
-  box-sizing: border-box;
-  outline: 1px solid lawngreen;
-} */
-
-.otlg {
-  outline: 2px solid green;
-}
-.otlo {
-  outline: 2px solid orange;
-}
-.otlr {
-  outline: 2px solid red;
-}
-.otlb {
-  outline: 2px solid blue;
-}
-.otl4 {
-  outline: 4px solid yellow;
-}
-.otl8 {
-  outline: 8px solid rebeccapurple;
-}
-
-.bor1 {
-  border: 2px solid yellow;
-}
-
-.bor2 {
-  border: 2px solid salmon;
-}
-
-.bor3 {
-  border: 2px solid darkcyan;
 }

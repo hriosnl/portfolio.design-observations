@@ -8,9 +8,9 @@ export default function HomeLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative size-full max-w-[99rem] bg-[#0F0F0F] text-white overflow-y-scroll flex flex-col">
+    <div className="relative size-full max-w-[99rem] bg-[hsl(240,3%,7%)] text-[hsl(270,6%,90%)] overflow-y-scroll flex flex-col font-light text-lg">
       <MainNavigation />
-      <div className="grow px-6 lg:px-16">{children}</div>
+      <div className="grow px-6 lg:px-16 mt-3">{children}</div>
     </div>
   );
 }

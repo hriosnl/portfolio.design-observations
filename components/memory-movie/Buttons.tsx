@@ -150,7 +150,7 @@ export const BackToHomeButton = () => (
   >
     <Link
       href="/works"
-      className="flex items-center gap-x-0.5 text-[1.5rem] decorative"
+      className="flex items-center gap-x-0.5 text-[1.5rem] font-decorative"
     >
       <MoveUpLeft size={24} /> Works
     </Link>

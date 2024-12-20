@@ -27,9 +27,9 @@ export default function About() {
   }, []);
 
   return (
-    <main className="mt-3 md:mt-0">
+    <main>
       <section className="w-full sm:w-[40rem] xl:w-[45%] flex flex-col gap-y-6">
-        <div className="text-lg sm:text-base 2xl:text-lg">
+        <div>
           <p>
             I strive to design{" "}
             <button
@@ -50,7 +50,7 @@ export default function About() {
           </p>
         </div>
 
-        <div className="flex">
+        <div className="flex text-base">
           <div className="w-1/2">
             <p>
               <Link href="mailto:hriosnl@gmail.com" className="link">
@@ -85,7 +85,7 @@ export default function About() {
         </motion.div>
       </section>
 
-      <section className="absolute bottom-0 right-0 pr-2 md:pr-8 text-[5rem] sm:text-[10rem] leading-none oxanium flex flex-col items-end">
+      <section className="absolute bottom-0 right-0 pr-2 md:pr-8 text-[5rem] sm:text-[10rem] leading-none flex flex-col items-end font-display">
         <div className="overflow-hidden relative">
           <motion.div
             initial={{ opacity: 0, y: "100%" }}

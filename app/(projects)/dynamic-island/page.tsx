@@ -61,8 +61,7 @@ export default function Home() {
   }, [currentViewName]);
 
   return (
-    // <div className="w-screen h-screen flex justify-center items-center bg-[#0C0C0C]">
-    <div className="max-w-[96rem] max-h-[54rem] size-full bg-red-50">
+    <div className="max-w-[96rem] max-h-[54rem] size-full">
       <motion.div
         initial={{
           backgroundColor: "#FFFFFF",

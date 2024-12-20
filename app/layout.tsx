@@ -1,41 +1,29 @@
 import "./globals.css";
 
-import {
-  Noto_Sans,
-  Mea_Culpa,
-  Viaoda_Libre,
-  Oxanium,
-  Chakra_Petch,
-} from "next/font/google";
+import { Noto_Sans, Mea_Culpa, Viaoda_Libre, Oxanium } from "next/font/google";
 import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
+const display = Oxanium({
+  subsets: ["latin"],
+  variable: "--font-display",
+});
 
 const noto_sans = Noto_Sans({
   subsets: ["latin"],
   weight: ["200", "300", "400"],
 });
 
-const viaoda_libre = Viaoda_Libre({
+const decorative = Viaoda_Libre({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-viaoda-libre",
 });
 
-const mea_culpa = Mea_Culpa({
+const cursive = Mea_Culpa({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-mea-culpa",
-});
-
-const oxanium = Oxanium({
-  subsets: ["latin"],
-  variable: "--font-oxanium",
-});
-
-const alternative = Chakra_Petch({
-  subsets: ["latin"],
-  variable: "--font-tektur",
-  weight: ["300", "700"],
 });
 
 export const metadata: Metadata = {
@@ -51,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${noto_sans.className} ${mea_culpa.variable} ${viaoda_libre.variable} ${oxanium.variable} ${alternative.variable}  antialiased`}
+        className={`${noto_sans.className} ${cursive.variable} ${decorative.variable} ${display.variable} antialiased`}
       >
         <div className="w-screen h-[100svh] md:h-screen flex justify-center items-center bg-black">
           {children}

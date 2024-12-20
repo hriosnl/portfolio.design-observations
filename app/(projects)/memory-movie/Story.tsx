@@ -189,7 +189,6 @@ export const Story = ({
       ref={containerRef}
       style={{
         justifyContent: isFinalStep ? "center" : "flex-start",
-        // paddingTop: isFinalStep ? 0 : isMobile ? "4.2rem" : "3.5rem",
         paddingTop: isFinalStep ? 0 : isMobile ? "10svh" : "3.5rem",
         paddingBottom: !isFinalStep ? "0" : isMobile ? "6rem" : "3rem",
       }}
@@ -341,7 +340,7 @@ export const Story = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 5, ease: "linear" }}
-          className="absolute size-[500px] flex justify-center items-center font-light cursive text-5xl text-[#203A48] rounded-xl"
+          className="absolute size-[500px] flex justify-center items-center font-light font-cursive text-5xl text-[#203A48] rounded-xl"
           style={{
             background:
               "radial-gradient(circle, rgba(254, 255, 255, 1), transparent 60%)",

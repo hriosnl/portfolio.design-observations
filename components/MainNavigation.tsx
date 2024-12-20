@@ -10,7 +10,6 @@ export const MainNavigation = () => {
       <ul className="flex gap-x-5 sm:gap-x-6">
         <NavigationLink name="About" href="/" />
         <NavigationLink name="Works" href="/works" />
-        {/* <Contact /> */}
       </ul>
     </nav>
   );
@@ -41,13 +40,13 @@ const NavigationLink = ({ name, href }: { name: string; href: string }) => {
     >
       <Link
         href={href}
-        className="text-[1.1rem] sm:font-light sm:text-xl uppercase oxanium"
+        className="text-[1.1rem] sm:font-light sm:text-xl uppercase font-display"
       >
         <div className="size-full">{name}</div>
         <div
           ref={scope}
           className={`absolute top-0 size-full ${
-            isActive ? "text-[hsl(0,0%,90%)]" : "text-[hsl(0,0%,70%)]"
+            !isActive ? "text-[hsl(270,6%,70%)]" : ""
           }`}
         >
           {name}

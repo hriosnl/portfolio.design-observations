@@ -141,21 +141,13 @@ export default function Works() {
     animate(`#${preview}-preview`, { y: 0 }, { duration: 0.3 });
   };
 
-  // const searchParams = useSearchParams();
-  // useEffect(() => {
-  //   if (searchParams.get("v")) {
-  //     showDetails(searchParams.get("v") as PreviewType);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [searchParams]);
-
   return (
     <main
       ref={scope}
       className="h-full flex flex-col lg:flex-row lg:justify-between"
     >
-      <section className="flex items-center">
-        <ul className="space-y-10 pb-5 pt-5 sm:pl-14 lg:pl-0 lg:mb-32 lg:py-0 lg:mr-10">
+      <section className="flex">
+        <ul className="space-y-6 lg:space-y-10 mb-5 sm:pl-14 lg:pl-0 lg:mr-10 lg:mt-[20vh]">
           <WorkLink
             name="Dynamic Island"
             href="/dynamic-island"
@@ -178,7 +170,7 @@ export default function Works() {
       </section>
 
       <section className="relative basis-1/2 grow flex flex-col-reverse justify-between lg:flex-col items-end max-w-[1000px]">
-        <div className="pb-16 pt-6 sm:max-w-[40rem] mx-auto lg:py-0 lg:pl-20 lg:mx-0 xl:pl-0">
+        <div className="pb-16 pt-8 sm:max-w-[40rem] mx-auto lg:py-0 lg:pl-20 lg:mx-0 xl:pl-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentDescription}
@@ -189,14 +181,14 @@ export default function Works() {
                 transition: { duration: 0.3 },
               }}
               transition={{ duration: 0.4 }}
-              className="relative text-[color:hsl(0,0%,85%)] text-lg md:text-base font-normal"
+              className="relative"
             >
               {description}
               <motion.div
                 key={currentDescription}
                 animate={{ clipPath: "inset(0% 0% 0% 100%)" }}
                 transition={{ duration: 1 }}
-                className="text-[color:hsl(0,0%,60%)] absolute top-0"
+                className="text-[color:hsl(270,6%,70%)] absolute top-0"
               >
                 {description}
               </motion.div>
@@ -282,16 +274,11 @@ const WorkLink = ({
   const [scope, animate] = useAnimate();
   const isLg = useBreakpoint("lg");
 
-  const [isShown, setIsShown] = useState(false);
-
   return (
     <li
       onClick={() => {
         hideDetails();
-        if (!isShown) {
-          showDetails();
-        }
-        setIsShown(!isShown);
+        showDetails();
       }}
       onMouseOver={() => {
         animate(
@@ -308,15 +295,14 @@ const WorkLink = ({
           { duration: 0.6 }
         );
         if (isLg) hideDetails();
-        setIsShown(false);
       }}
-      className="relative uppercase text-5xl xl:text-6xl font-extralight"
+      className="relative uppercase text-5xl xl:text-6xl font-thin"
     >
       <Link href={!isLg ? "" : href}>
-        <div className="size-full text-[hsl(0,0%,100%)]">{name}</div>
+        <div className="size-full">{name}</div>
         <div
           ref={scope}
-          className="absolute top-0 size-full text-[hsl(0,0%,65%)]"
+          className="absolute top-0 size-full text-[hsl(270,6%,66%)]"
         >
           {name}
         </div>
