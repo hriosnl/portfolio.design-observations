@@ -3,6 +3,7 @@ import "./globals.css";
 import { Noto_Sans, Mea_Culpa, Viaoda_Libre, Oxanium } from "next/font/google";
 import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const display = Oxanium({
   subsets: ["latin"],
@@ -44,6 +45,7 @@ export default function RootLayout({
         <div className="w-screen h-[100svh] md:h-screen flex justify-center items-center bg-black">
           {children}
         </div>
+        <Analytics />
         <SpeedInsights />
       </body>
     </html>
