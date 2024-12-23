@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 function getTimePeriod() {
-  let date = new Date();
-  let options = { timeZone: "Asia/Manila" };
-  let localTime = new Date(date.toLocaleString("en-US", options));
+  const date = new Date();
+  const options = { timeZone: "Asia/Manila" };
+  const localTime = new Date(date.toLocaleString("en-US", options));
 
   const hours = localTime.getHours();
   const minutes = localTime.getMinutes();

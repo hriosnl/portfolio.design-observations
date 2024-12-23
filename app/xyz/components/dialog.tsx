@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { X, Gift } from "lucide-react";
+import { X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -108,10 +108,15 @@ const DialogDescription = React.forwardRef<
 ));
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
-const ModalContent = ({
-  className,
-  children,
-}: React.HTMLAttributes<HTMLDivElement>) => (
+// =====================================================================
+// =====================================================================
+// ============ CUSTOM DIALOG: TWO-STEPS MODAL==========================
+// =====================================================================
+type ModalContentProps = React.HTMLAttributes<HTMLDivElement> & {
+  previousStep?: () => void;
+  nextStep?: () => void;
+};
+const ModalContent = ({ className, children }: ModalContentProps) => (
   <div
     className={cn(
       "bg-black flex flex-col gap-y-2.5 text-white rounded-lg p-6 shadow-xl",
@@ -122,7 +127,7 @@ const ModalContent = ({
     {children}
   </div>
 );
-ModalContent.displayName = "DialogInnerContent";
+ModalContent.displayName = "ModalContent";
 
 const CustomDialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
@@ -130,7 +135,6 @@ const CustomDialogContent = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay className="opacity-0" />
-
     <DialogPrimitive.Content
       className={cn(
         "fixed left-[50%] top-[50%] z-50 grid w-full translate-x-[-50%] translate-y-[-50%] gap-4 border-0 p-0 bg-background duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
@@ -146,51 +150,45 @@ const CustomDialogContent = React.forwardRef<
 ));
 CustomDialogContent.displayName = DialogPrimitive.Content.displayName;
 
-// =====================================================================
-// =====================================================================
-// =====================================================================
-// =====================================================================
-// =====================================================================
-// =====================================================================
-// =====================================================================
-// =====================================================================
-// =====================================================================
-// =====================================================================
-// =====================================================================
-
-const TwoStepModal = ({ trigger }: { trigger: React.ReactNode }) => {
-  const [longerExit, setLongerExit] = React.useState(false);
+type TwoStepModalProps = {
+  trigger: React.ReactNode;
+  children: React.ReactElement<ModalContentProps>[];
+};
+const TwoStepModal: React.FC<TwoStepModalProps> = ({ trigger, children }) => {
+  const steps = React.Children.map(children, (child) => {
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child, {
+        nextStep: nextStep,
+        previousStep: previousStep,
+      });
+    }
+  });
+  const firstModal = steps[0];
+  const secondModal = steps[1];
 
   const [showFirstDialog, setShowFirstDialog] = React.useState(true);
   const [isFirstDialogOpen, setIsFirstDialogOpen] = React.useState(false);
   const [isSecondDialogOpen, setIsSecondDialogOpen] = React.useState(false);
 
-  const switchDialogs = () => {
+  function previousStep() {
+    setIsSecondDialogOpen(false);
+    setIsFirstDialogOpen(true);
+  }
+
+  function nextStep() {
     setShowFirstDialog(false);
     setIsSecondDialogOpen(true);
 
     setTimeout(() => {
       setIsFirstDialogOpen(false);
       setShowFirstDialog(true);
-    }, 500);
-  };
+    }, 100);
+  }
 
   const closeDialog = () => {
     setIsFirstDialogOpen(false);
     setIsSecondDialogOpen(false);
   };
-
-  const handleInteractOutside = () => {
-    console.log("Closed via interact outside!");
-  };
-
-  React.useEffect(() => {
-    console.log("First dialog: ", isFirstDialogOpen);
-  }, [isFirstDialogOpen]);
-
-  React.useEffect(() => {
-    console.log("Second dialog: ", isSecondDialogOpen);
-  }, [isSecondDialogOpen]);
 
   return (
     <>
@@ -200,34 +198,9 @@ const TwoStepModal = ({ trigger }: { trigger: React.ReactNode }) => {
         {showFirstDialog && (
           <CustomDialogContent
             onClick={closeDialog}
-            onInteractOutside={handleInteractOutside}
-            className={cn(
-              "data-[state=open]:animate-[xyz-scale-in_150ms_ease-out] font-calibre",
-              longerExit
-                ? "data-[state=closed]:animate-[xyz-fade-out_600ms_ease-out]"
-                : "data-[state=closed]:animate-[xyz-fade-out_150ms_ease-out]"
-            )}
+            className="data-[state=open]:animate-[xyz-scale-in_150ms_ease-out] data-[state=closed]:animate-[xyz-fade-out_150ms_ease-out] font-calibre"
           >
-            <ModalContent className="h-[420px] flex items-center justify-center gap-y-7">
-              <DialogHeader>
-                <DialogTitle>
-                  <span className="font-semibold text-2xl">Treezy</span>
-                </DialogTitle>
-                <DialogDescription>
-                  <span className="text-[#868f97] font-semibold ">
-                    ads@qiwi.gg
-                  </span>
-                </DialogDescription>
-              </DialogHeader>
-
-              <button
-                onClick={switchDialogs}
-                className="bg-[#171b1a] flex items-center gap-x-2 rounded-full px-4 py-[0.6rem] size-fit"
-              >
-                <Gift strokeWidth={1.5} size={16} />
-                <span className="text-xs font-semibold">Refer a friend</span>
-              </button>
-            </ModalContent>
+            {firstModal}
           </CustomDialogContent>
         )}
       </Dialog>
@@ -235,53 +208,11 @@ const TwoStepModal = ({ trigger }: { trigger: React.ReactNode }) => {
       <Dialog open={isSecondDialogOpen} onOpenChange={setIsSecondDialogOpen}>
         <CustomDialogContent
           onClick={closeDialog}
-          className={cn(
-            "animate-[xyz-bounce-in_150ms_ease-out] font-calibre",
-            longerExit
-              ? "data-[state=closed]:animate-[xyz-fade-out_600ms_ease-out]"
-              : "data-[state=closed]:animate-[xyz-fade-out_150ms_ease-out]"
-          )}
+          className="data-[state=open]:animate-[xyz-bounce-in_150ms_ease-out] data-[state=closed]:animate-[xyz-fade-out_150ms_ease-out] font-calibre"
         >
-          <ModalContent className="bg-[#07070a] h-[200px] p-0">
-            <DialogHeader className="px-6 py-3">
-              <DialogTitle>
-                <span className="bg-[#1a1b20] px-5 py-1 rounded-[3px] text-[0.6rem] text-[#868f97]">
-                  Settings
-                </span>
-              </DialogTitle>
-            </DialogHeader>
-
-            <div className="px-6">
-              <input
-                type="text"
-                placeholder="email address"
-                className="bg-transparent text-2xl py-3 text-white font-light focus:outline-none placeholder:text-white/10 caret-blue-500"
-              />
-            </div>
-
-            <DialogFooter className="flex sm:justify-start items-center gap-x-2 px-7 py-8 border-t border-t-gray-500/20">
-              <Gift strokeWidth={1.5} size={16} color="#868f97" />
-              <p className="text-xs text-[#868f97]">
-                Give a friend a <span className="text-white">free month </span>
-                and earn one when they join Fey.
-              </p>
-            </DialogFooter>
-          </ModalContent>
+          {secondModal}
         </CustomDialogContent>
       </Dialog>
-
-      <div className="mt-10">
-        <input
-          id="slowerExit"
-          type="checkbox"
-          name="slowerExit"
-          onChange={() => setLongerExit(!longerExit)}
-        />
-        <label htmlFor="slowerExit" className="text-white font-mono">
-          {" "}
-          Slower Exit Animation
-        </label>
-      </div>
     </>
   );
 };
@@ -297,5 +228,6 @@ export {
   DialogFooter,
   DialogTitle,
   DialogDescription,
-  TwoStepModal as TwoStepModal,
+  ModalContent,
+  TwoStepModal,
 };
