@@ -1,0 +1,25 @@
+/* XYZ */
+.font-calibre {
+  font-family: "Calibri", sans-serif;
+}
+
+@keyframes scale-in {
+  from {
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: translate(-50%, -50%) scale(0.995);
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(0.99);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
