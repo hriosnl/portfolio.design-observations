@@ -159,12 +159,20 @@ CustomDialogContent.displayName = DialogPrimitive.Content.displayName;
 // =====================================================================
 
 const TwoStepModal = ({ trigger }: { trigger: React.ReactNode }) => {
+  const [longerExit, setLongerExit] = React.useState(false);
+
+  const [showFirstDialog, setShowFirstDialog] = React.useState(true);
   const [isFirstDialogOpen, setIsFirstDialogOpen] = React.useState(false);
   const [isSecondDialogOpen, setIsSecondDialogOpen] = React.useState(false);
 
   const switchDialogs = () => {
-    setIsFirstDialogOpen(false);
+    setShowFirstDialog(false);
     setIsSecondDialogOpen(true);
+
+    setTimeout(() => {
+      setIsFirstDialogOpen(false);
+      setShowFirstDialog(true);
+    }, 500);
   };
 
   const closeDialog = () => {
@@ -172,42 +180,67 @@ const TwoStepModal = ({ trigger }: { trigger: React.ReactNode }) => {
     setIsSecondDialogOpen(false);
   };
 
+  const handleInteractOutside = () => {
+    console.log("Closed via interact outside!");
+  };
+
+  React.useEffect(() => {
+    console.log("First dialog: ", isFirstDialogOpen);
+  }, [isFirstDialogOpen]);
+
+  React.useEffect(() => {
+    console.log("Second dialog: ", isSecondDialogOpen);
+  }, [isSecondDialogOpen]);
+
   return (
     <>
       <Dialog open={isFirstDialogOpen} onOpenChange={setIsFirstDialogOpen}>
         <DialogTrigger>{trigger}</DialogTrigger>
 
-        <CustomDialogContent
-          onClick={closeDialog}
-          className="data-[state=open]:animate-[scale-in_150ms_ease-out] font-calibre"
-        >
-          <ModalContent className="h-[420px] flex items-center justify-center gap-y-7">
-            <DialogHeader>
-              <DialogTitle>
-                <span className="font-semibold text-2xl">Treezy</span>
-              </DialogTitle>
-              <DialogDescription>
-                <span className="text-[#868f97] font-semibold ">
-                  ads@qiwi.gg
-                </span>
-              </DialogDescription>
-            </DialogHeader>
+        {showFirstDialog && (
+          <CustomDialogContent
+            onClick={closeDialog}
+            onInteractOutside={handleInteractOutside}
+            className={cn(
+              "data-[state=open]:animate-[xyz-scale-in_150ms_ease-out] font-calibre",
+              longerExit
+                ? "data-[state=closed]:animate-[xyz-fade-out_600ms_ease-out]"
+                : "data-[state=closed]:animate-[xyz-fade-out_150ms_ease-out]"
+            )}
+          >
+            <ModalContent className="h-[420px] flex items-center justify-center gap-y-7">
+              <DialogHeader>
+                <DialogTitle>
+                  <span className="font-semibold text-2xl">Treezy</span>
+                </DialogTitle>
+                <DialogDescription>
+                  <span className="text-[#868f97] font-semibold ">
+                    ads@qiwi.gg
+                  </span>
+                </DialogDescription>
+              </DialogHeader>
 
-            <button
-              onClick={switchDialogs}
-              className="bg-[#171b1a] flex items-center gap-x-2 rounded-full px-4 py-[0.6rem] size-fit"
-            >
-              <Gift strokeWidth={1.5} size={16} />
-              <span className="text-xs font-semibold">Refer a friend</span>
-            </button>
-          </ModalContent>
-        </CustomDialogContent>
+              <button
+                onClick={switchDialogs}
+                className="bg-[#171b1a] flex items-center gap-x-2 rounded-full px-4 py-[0.6rem] size-fit"
+              >
+                <Gift strokeWidth={1.5} size={16} />
+                <span className="text-xs font-semibold">Refer a friend</span>
+              </button>
+            </ModalContent>
+          </CustomDialogContent>
+        )}
       </Dialog>
 
       <Dialog open={isSecondDialogOpen} onOpenChange={setIsSecondDialogOpen}>
         <CustomDialogContent
           onClick={closeDialog}
-          className="animate-[bounce-in_150ms_ease-out] font-calibre"
+          className={cn(
+            "animate-[xyz-bounce-in_150ms_ease-out] font-calibre",
+            longerExit
+              ? "data-[state=closed]:animate-[xyz-fade-out_600ms_ease-out]"
+              : "data-[state=closed]:animate-[xyz-fade-out_150ms_ease-out]"
+          )}
         >
           <ModalContent className="bg-[#07070a] h-[200px] p-0">
             <DialogHeader className="px-6 py-3">
@@ -236,6 +269,19 @@ const TwoStepModal = ({ trigger }: { trigger: React.ReactNode }) => {
           </ModalContent>
         </CustomDialogContent>
       </Dialog>
+
+      <div className="mt-10">
+        <input
+          id="slowerExit"
+          type="checkbox"
+          name="slowerExit"
+          onChange={() => setLongerExit(!longerExit)}
+        />
+        <label htmlFor="slowerExit" className="text-white font-mono">
+          {" "}
+          Slower Exit Animation
+        </label>
+      </div>
     </>
   );
 };
