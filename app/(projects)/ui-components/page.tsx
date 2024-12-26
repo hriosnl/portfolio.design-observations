@@ -3,10 +3,7 @@
 import { FadeIn } from "@/components/FadeIn";
 import FluidTabs from "@/components/ui-components/FluidTabs";
 import ImageStack from "@/components/ui-components/ImageStack";
-import { useCurrentScreenSize } from "@/hooks/useBreakpoint";
 export default function Elements() {
-  const screenSize = useCurrentScreenSize();
-
   return (
     <main className="relative size-full">
       <div className="bg-[#0F0F0F] text-white fixed inset-0">
@@ -35,9 +32,9 @@ export default function Elements() {
       </div>
       <ElementsContainer />
 
-      <div className="absolute top-10 left-[48%] text-orange-500 bg-white">
+      {/* <div className="absolute top-10 left-[48%] text-orange-500 bg-white">
         size: {screenSize}
-      </div>
+      </div> */}
       <FadeIn />
     </main>
   );
