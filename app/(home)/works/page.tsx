@@ -162,7 +162,7 @@ export default function Works() {
           />
           <WorkLink
             name="Components"
-            href=""
+            href="/ui-components"
             showDetails={() => showDetails("components")}
             hideDetails={() => hideDetails()}
           />
