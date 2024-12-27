@@ -26,6 +26,27 @@ export default function About() {
     };
   }, []);
 
+  useEffect(() => {
+    let credits = `
+      ▄▄▄▖▗▖ ▗▖ ▗▄▖ ▗▖  ▗▖▗▖ ▗▖ ▗▄▄▖
+       █  ▐▌ ▐▌▐▌ ▐▌▐▛▚▖▐▌▐▌▗▞▘▐▌
+       █  ▐▛▀▜▌▐▛▀▜▌▐▌ ▝▜▌▐▛▚▖  ▝▀▚▖
+       █  ▐▌ ▐▌▐▌ ▐▌▐▌  ▐▌▐▌ ▐▌▗▄▄▞▘
+    `;
+
+    credits += `
+      As my design inspirations:
+      - https://extract.studio/
+      - https://lesanimals.digital/en/
+      - https://www.guillaumetomasi.com/chrysalises/
+
+      For Vaul in Memory Movie: 
+      - https://vaul.emilkowal.ski/
+    `;
+
+    console.log(credits);
+  }, [isLoaded]);
+
   return (
     <main>
       <section className="w-full sm:w-[40rem] xl:w-[45%] flex flex-col gap-y-6">

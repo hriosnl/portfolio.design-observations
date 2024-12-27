@@ -42,7 +42,7 @@ export default function Elements() {
 
 const ElementsContainer = () => {
   return (
-    <div className="relative bg-[color:hsl(0,0%,98%)] top-[52%] w-full h-fit border border-y-[hsl(0,0%,90%)]">
+    <div className="z-30 relative bg-[color:hsl(0,0%,98%)] top-[52%] w-full h-fit border border-y-[hsl(0,0%,90%)]">
       <Row1 />
       <Row2 />
       <Row3 />
@@ -79,7 +79,7 @@ const Box = ({
         ${children !== null ? "bg-black" : "bg-[hsl(0,0%,98%)]"}
         `}
     >
-      {children !== null && <Pattern />}
+      {/* {children !== null && <Pattern />} */}
       {children}
     </div>
   );
@@ -153,33 +153,33 @@ const Row3 = () => {
   );
 };
 
-const Pattern = () => {
-  const color = "hsl(0,0%,13%)";
+// const Pattern = () => {
+//   const color = "hsl(0,0%,13%)";
 
-  return (
-    <div className="absolute inset-0 z-0">
-      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern
-            id="diagonal-pattern"
-            patternUnits="userSpaceOnUse"
-            width="4"
-            height="4"
-          >
-            <g clip-path="url(#clip0)">
-              <path d="M1 -1L5 3" stroke={color} stroke-width="0.5"></path>
-              <path d="M-1 1L3 5" stroke={color} stroke-width="0.5"></path>
-            </g>
-          </pattern>
-        </defs>
-        <rect
-          x="0"
-          y="0"
-          width="100%"
-          height="100%"
-          fill="url(#diagonal-pattern)"
-        ></rect>
-      </svg>
-    </div>
-  );
-};
+//   return (
+//     <div className="absolute inset-0 z-0">
+//       <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+//         <defs>
+//           <pattern
+//             id="diagonal-pattern"
+//             patternUnits="userSpaceOnUse"
+//             width="4"
+//             height="4"
+//           >
+//             <g clip-path="url(#clip0)">
+//               <path d="M1 -1L5 3" stroke={color} stroke-width="0.5"></path>
+//               <path d="M-1 1L3 5" stroke={color} stroke-width="0.5"></path>
+//             </g>
+//           </pattern>
+//         </defs>
+//         <rect
+//           x="0"
+//           y="0"
+//           width="100%"
+//           height="100%"
+//           fill="url(#diagonal-pattern)"
+//         ></rect>
+//       </svg>
+//     </div>
+//   );
+// };
