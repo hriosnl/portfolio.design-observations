@@ -68,6 +68,16 @@ h1 {
     -webkit-mask-composite: destination-in;
     mask-composite: intersect;
   }
+
+  .no-scrollbar {
+    overflow: auto; /* or overflow: scroll; */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  /* Webkit-specific scrollbar hiding */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .otlg {

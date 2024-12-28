@@ -28,24 +28,25 @@ export default function About() {
 
   useEffect(() => {
     let credits = `
-      ▄▄▄▖▗▖ ▗▖ ▗▄▖ ▗▖  ▗▖▗▖ ▗▖ ▗▄▄▖
-       █  ▐▌ ▐▌▐▌ ▐▌▐▛▚▖▐▌▐▌▗▞▘▐▌
-       █  ▐▛▀▜▌▐▛▀▜▌▐▌ ▝▜▌▐▛▚▖  ▝▀▚▖
-       █  ▐▌ ▐▌▐▌ ▐▌▐▌  ▐▌▐▌ ▐▌▗▄▄▞▘
-    `;
+▄▄▄▖▗▖ ▗▖ ▗▄▖ ▗▖  ▗▖▗▖ ▗▖ ▗▄▄▖
+ █  ▐▌ ▐▌▐▌ ▐▌▐▛▚▖▐▌▐▌▗▞▘▐▌
+ █  ▐▛▀▜▌▐▛▀▜▌▐▌ ▝▜▌▐▛▚▖  ▝▀▚▖
+ █  ▐▌ ▐▌▐▌ ▐▌▐▌  ▐▌▐▌ ▐▌▗▄▄▞▘
+`;
 
     credits += `
-      As my design inspirations:
-      - https://extract.studio/
-      - https://lesanimals.digital/en/
-      - https://www.guillaumetomasi.com/chrysalises/
+For my design inspirations:
+- https://extract.studio/
+- https://lesanimals.digital/en/
+- https://www.guillaumetomasi.com/chrysalises/
 
-      For Vaul in Memory Movie: 
-      - https://vaul.emilkowal.ski/
-    `;
+For the Toast in Memory Movie:
+- https://sonner.emilkowal.ski/
+\n\n
+`;
 
     console.log(credits);
-  }, [isLoaded]);
+  }, []);
 
   return (
     <main>
