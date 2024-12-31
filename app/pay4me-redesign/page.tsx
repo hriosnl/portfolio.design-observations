@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "motion/react";
 
 import { Star, StarHalf } from "lucide-react";
+import useBreakpoint from "@/hooks/useBreakpoint";
 
 const grotesk = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -19,6 +20,10 @@ const inter = Inter({
 });
 
 export default function Home() {
+  const xs = useBreakpoint("xs");
+  const sm = useBreakpoint("sm");
+  const md = useBreakpoint("md");
+
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
   // Track mouse position
@@ -88,7 +93,21 @@ export default function Home() {
     }
   }, [x, y]);
 
-  return (
+  return xs || sm || md ? (
+    <div className="bg-black text-white w-screen h-screen flex flex-col items-center justify-center gap-y-1">
+      <div className="flex items-center gap-x-4 mb-8">
+        <Image
+          src="/other/pay4me/logo.png"
+          alt="Sketch of a University"
+          width={40}
+          height={40}
+        />
+        <h2 className="text-white text-2xl font-medium">Pay4Me App Redesign</h2>
+      </div>
+      <h3>Sorry, this page is not available on this screen size.</h3>
+      <h3>Please try again on a desktop browser.</h3>
+    </div>
+  ) : (
     <div
       className={`relative h-screen w-screen flex flex-col items-center bg-white ${grotesk.className}`}
     >
