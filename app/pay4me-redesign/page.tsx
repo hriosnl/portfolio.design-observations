@@ -159,7 +159,7 @@ export default function Home() {
           initial={{ x: "-100%" }}
           animate={{ x: 0 }}
           transition={{ duration: 0.5, type: "spring", bounce: 0, delay: 0.3 }}
-          className="w-1/2 bg-[#347928]/60 flex flex-col px-12 pt-40 gap-y-14"
+          className="w-1/2 bg-[#347928]/60 flex flex-col pl-16 pt-40 gap-y-14"
         >
           <div className="font-semibold text-black space-y-1">
             <p className="text-5xl">Cross-border Payments for</p>
@@ -174,7 +174,7 @@ export default function Home() {
           <motion.button
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
-            className="z-50 size-fit bg-white border-2 border-[#C2E4A5] text-black py-4 px-12 rounded-full text-2xl font-medium font-mono"
+            className="z-50 size-fit bg-white border-2 border-[#C2E4A5] text-black py-4 px-16 rounded-full text-2xl font-medium font-mono"
           >
             Make a Payment
           </motion.button>
@@ -276,7 +276,7 @@ export default function Home() {
 }
 
 const NavBar = () => (
-  <div className="absolute w-full h-16 px-12 z-10">
+  <div className="absolute w-full h-16 px-20 z-10">
     <div className="size-full bg-[#16423C] rounded-b-xl flex items-center text-white px-6">
       <div className="mr-auto flex items-center gap-x-2">
         <Image
