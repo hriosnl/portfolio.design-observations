@@ -26,8 +26,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/xyz/components/dialog2.tsx.bak",
-    "app/xyz/components/dialog copy3.tsx.bak"
+    "app/(projects)/xyz/components/dialog2.tsx.bakalog2.tsx.bak",
+    "app/(projects)/xyz/components/dialog copy3.tsx.bakcopy3.tsx.bak"
   ],
   "exclude": ["node_modules"]
 }
