@@ -296,7 +296,7 @@ const WorkLink = ({
         );
         if (isLg) hideDetails();
       }}
-      className="relative uppercase text-5xl xl:text-6xl font-thin"
+      className="relative uppercase text-5xl xl:text-6xl font-thin sm:font-thin"
     >
       <Link href={!isLg ? "" : href}>
         <div className="size-full">{name}</div>
