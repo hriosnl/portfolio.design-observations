@@ -371,6 +371,7 @@ function Illuminator({
         }}
         onAnimationComplete={() => {
           if (illuminate) {
+            console.log(">>> illumination complete!");
             handleIlluminateComplete();
           }
         }}
@@ -389,6 +390,7 @@ function Illuminator({
         }}
         onAnimationComplete={() => {
           if (illuminate) {
+            console.log(">>> changing image!");
             onIlluminationComplete();
           }
         }}
