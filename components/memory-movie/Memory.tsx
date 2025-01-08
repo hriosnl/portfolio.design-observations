@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { motion } from "motion/react";
-import { useEffect, useState, useMemo, useCallback } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 
 import {
   FOCUSED_INDEX,
@@ -76,244 +76,486 @@ const stepConditions = (step: number, isEnding: boolean) => {
   };
 };
 
-export function Memory({
-  index,
-  isStoryEnding,
-  step = -1,
-  animationProps,
-  memorySize,
-}: {
-  index: number;
-  isStoryEnding: boolean;
-  step: number;
-  animationProps: MotionAnimationProps;
-  memorySize: number;
-}) {
-  const { images, replaceImage } = useImageContext();
-  const { subscribe, emitEvent } = useMemoryEventContext();
+// export function Memory({
+//   index,
+//   isStoryEnding,
+//   step = -1,
+//   animationProps,
+//   memorySize,
+// }: {
+//   index: number;
+//   isStoryEnding: boolean;
+//   step: number;
+//   animationProps: MotionAnimationProps;
+//   memorySize: number;
+// }) {
+//   const { images, replaceImage } = useImageContext();
+//   const { subscribe, emitEvent } = useMemoryEventContext();
 
-  // Unwanted hack but I need to prevent zIndex from changing between different 'states'
-  const zIndex = useMemo(() => Math.floor(1 + Math.random() * 10), []);
+//   // Unwanted hack but I need to prevent zIndex from changing between different 'states'
+//   const zIndex = useMemo(() => Math.floor(1 + Math.random() * 10), []);
 
-  const conditions = stepConditions(step, isStoryEnding);
+//   const conditions = stepConditions(step, isStoryEnding);
 
-  const [ripple, setRipple] = useState<{
-    show: boolean;
-    direction: RippleDirection;
-  }>({ show: false, direction: null });
+//   const [ripple, setRipple] = useState<{
+//     show: boolean;
+//     direction: RippleDirection;
+//   }>({ show: false, direction: null });
 
-  const [shouldSlowlyTranslate, setShouldSlowlyTranslate] = useState(false);
+//   const [shouldSlowlyTranslate, setShouldSlowlyTranslate] = useState(false);
 
-  const handleIlluminateComplete = () => {
-    if (conditions.shouldReplaceMemoryImage()) {
-      replaceImage(index);
-    }
-  };
+//   const handleIlluminateComplete = () => {
+//     if (conditions.shouldReplaceMemoryImage()) {
+//       replaceImage(index);
+//     }
+//   };
 
-  const handleEvents = useCallback(
-    (event: MemoryEvents) => {
-      switch (event) {
-        case MemoryEvents.STRUCK: {
-          if (conditions.shouldRipple()) {
-            const neighbors = getNeighbors(index);
+//   const handleEvents = useCallback(
+//     (event: MemoryEvents) => {
+//       switch (event) {
+//         case MemoryEvents.STRUCK: {
+//           if (conditions.shouldRipple()) {
+//             const neighbors = getNeighbors(index);
 
-            emitEvent({
-              id: neighbors.top,
-              description: MemoryEvents.ENERGIZE_TOP,
-            });
-            emitEvent({
-              id: neighbors.right,
-              description: MemoryEvents.ENERGIZE_RIGHT,
-            });
-            emitEvent({
-              id: neighbors.bottom,
-              description: MemoryEvents.ENERGIZE_BOTTOM,
-            });
-            emitEvent({
-              id: neighbors.left,
-              description: MemoryEvents.ENERGIZE_LEFT,
-            });
+//             emitEvent({
+//               id: neighbors.top,
+//               description: MemoryEvents.ENERGIZE_TOP,
+//             });
+//             emitEvent({
+//               id: neighbors.right,
+//               description: MemoryEvents.ENERGIZE_RIGHT,
+//             });
+//             emitEvent({
+//               id: neighbors.bottom,
+//               description: MemoryEvents.ENERGIZE_BOTTOM,
+//             });
+//             emitEvent({
+//               id: neighbors.left,
+//               description: MemoryEvents.ENERGIZE_LEFT,
+//             });
+//           }
+
+//           return;
+//         }
+
+//         case MemoryEvents.ENERGIZE_TOP: {
+//           setRipple({
+//             show: true,
+//             direction: "top",
+//           });
+
+//           const topNeighbor = getNeighbors(index).top;
+//           emitEvent({
+//             id: topNeighbor,
+//             description: MemoryEvents.ENERGIZE_TOP_2ND,
+//           });
+//           return;
+//         }
+
+//         case MemoryEvents.ENERGIZE_RIGHT: {
+//           setRipple({
+//             show: true,
+//             direction: "right",
+//           });
+
+//           const rightNeighbor = getNeighbors(index).right;
+//           emitEvent({
+//             id: rightNeighbor,
+//             description: MemoryEvents.ENERGIZE_RIGHT_2ND,
+//           });
+//           return;
+//         }
+
+//         case MemoryEvents.ENERGIZE_BOTTOM: {
+//           setRipple({
+//             show: true,
+//             direction: "bottom",
+//           });
+
+//           const bottomNeighbor = getNeighbors(index).bottom;
+//           emitEvent({
+//             id: bottomNeighbor,
+//             description: MemoryEvents.ENERGIZE_BOTTOM_2ND,
+//           });
+//           return;
+//         }
+
+//         case MemoryEvents.ENERGIZE_LEFT: {
+//           setRipple({
+//             show: true,
+//             direction: "left",
+//           });
+
+//           const leftNeighbor = getNeighbors(index).left;
+//           emitEvent({
+//             id: leftNeighbor,
+//             description: MemoryEvents.ENERGIZE_LEFT_2ND,
+//           });
+//           return;
+//         }
+
+//         case MemoryEvents.ENERGIZE_TOP_2ND: {
+//           setRipple({
+//             show: true,
+//             direction: "top2nd",
+//           });
+//           return;
+//         }
+
+//         case MemoryEvents.ENERGIZE_RIGHT_2ND: {
+//           setRipple({
+//             show: true,
+//             direction: "right2nd",
+//           });
+//           return;
+//         }
+
+//         case MemoryEvents.ENERGIZE_BOTTOM_2ND: {
+//           setRipple({
+//             show: true,
+//             direction: "bottom2nd",
+//           });
+//           return;
+//         }
+
+//         case MemoryEvents.ENERGIZE_LEFT_2ND: {
+//           setRipple({
+//             show: true,
+//             direction: "left2nd",
+//           });
+//           return;
+//         }
+//       }
+//     },
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//     [emitEvent, index, step]
+//   );
+
+//   useEffect(() => {
+//     const observerFn = (event: MemoryEvents) => handleEvents(event);
+
+//     const unsubscribe = subscribe({
+//       id: index,
+//       fn: observerFn,
+//     });
+
+//     return () => {
+//       unsubscribe();
+//     };
+//   }, [subscribe, index, handleEvents]);
+
+//   const isMobile = memorySize === SMALL_GRID_CELL_SIZE;
+
+//   return (
+//     <motion.div
+//       animate={{
+//         scale:
+//           conditions.isFocused(index) && !conditions.isInCrossedFocus(index)
+//             ? 1.1
+//             : animationProps.props.scale,
+//         translateX:
+//           isStoryEnding && !shouldSlowlyTranslate
+//             ? animationProps.props.translateMoreCompactX
+//             : animationProps.props.translateX,
+//         translateY:
+//           isStoryEnding && !shouldSlowlyTranslate
+//             ? animationProps.props.translateMoreCompactY
+//             : animationProps.props.translateY,
+//         zIndex: conditions.isFocused(index) ? 100 : zIndex,
+//         filter: conditions.hasFocusedIndex()
+//           ? conditions.isFocused(index) || conditions.isInCrossedFocus(index)
+//             ? "blur(0px) brightness(1.1)"
+//             : "blur(3px) brightness(0.8)"
+//           : "blur(0px) brightness(1.1)",
+//       }}
+//       transition={{
+//         duration: 1,
+//         type: "spring",
+//         bounce: 0,
+//         translateX: !shouldSlowlyTranslate
+//           ? animationProps.transition.duration
+//           : animationProps.transition.durationMoreCompact,
+//         translateY: !shouldSlowlyTranslate
+//           ? animationProps.transition.duration
+//           : animationProps.transition.durationMoreCompact,
+//       }}
+//       onAnimationComplete={() => {
+//         if (isStoryEnding) setShouldSlowlyTranslate(true);
+//       }}
+//       style={{
+//         width: memorySize,
+//         height: memorySize,
+//       }}
+//       className="relative rounded-xl"
+//     >
+//       <Image
+//         src={`/memory-movie/memories/${images[index]}`}
+//         alt={`Memory Image: ${images[index]}`}
+//         fill={true}
+//         sizes="70px"
+//         priority
+//         className="object-cover rounded-xl"
+//       />
+
+//       {conditions.shouldIlluminate(index) ? (
+//         <Illuminator
+//           onIlluminationComplete={handleIlluminateComplete}
+//           isPeriodic={conditions.isPeriodicIllumination()}
+//           isMobile={isMobile}
+//         />
+//       ) : null}
+
+//       {ripple.show && (
+//         <Ripple
+//           direction={ripple.direction}
+//           onRippleComplete={() => setRipple({ show: false, direction: null })}
+//         />
+//       )}
+//     </motion.div>
+//   );
+// }
+
+export const Memory = React.memo(
+  ({
+    index,
+    isStoryEnding,
+    step = -1,
+    animationProps,
+    memorySize,
+  }: {
+    index: number;
+    isStoryEnding: boolean;
+    step: number;
+    animationProps: MotionAnimationProps;
+    memorySize: number;
+  }) => {
+    const { images, replaceImage } = useImageContext();
+    const { subscribe, emitEvent } = useMemoryEventContext();
+
+    // Unwanted hack but I need to prevent zIndex from changing between different 'states'
+    const zIndex = useMemo(() => Math.floor(1 + Math.random() * 10), []);
+
+    const conditions = stepConditions(step, isStoryEnding);
+
+    const [ripple, setRipple] = useState<{
+      show: boolean;
+      direction: RippleDirection;
+    }>({ show: false, direction: null });
+
+    const [shouldSlowlyTranslate, setShouldSlowlyTranslate] = useState(false);
+
+    const handleIlluminateComplete = () => {
+      if (conditions.shouldReplaceMemoryImage()) {
+        replaceImage(index);
+      }
+    };
+
+    const handleEvents = useCallback(
+      (event: MemoryEvents) => {
+        switch (event) {
+          case MemoryEvents.STRUCK: {
+            if (conditions.shouldRipple()) {
+              const neighbors = getNeighbors(index);
+
+              emitEvent({
+                id: neighbors.top,
+                description: MemoryEvents.ENERGIZE_TOP,
+              });
+              emitEvent({
+                id: neighbors.right,
+                description: MemoryEvents.ENERGIZE_RIGHT,
+              });
+              emitEvent({
+                id: neighbors.bottom,
+                description: MemoryEvents.ENERGIZE_BOTTOM,
+              });
+              emitEvent({
+                id: neighbors.left,
+                description: MemoryEvents.ENERGIZE_LEFT,
+              });
+            }
+
+            return;
           }
 
-          return;
+          case MemoryEvents.ENERGIZE_TOP: {
+            setRipple({
+              show: true,
+              direction: "top",
+            });
+
+            const topNeighbor = getNeighbors(index).top;
+            emitEvent({
+              id: topNeighbor,
+              description: MemoryEvents.ENERGIZE_TOP_2ND,
+            });
+            return;
+          }
+
+          case MemoryEvents.ENERGIZE_RIGHT: {
+            setRipple({
+              show: true,
+              direction: "right",
+            });
+
+            const rightNeighbor = getNeighbors(index).right;
+            emitEvent({
+              id: rightNeighbor,
+              description: MemoryEvents.ENERGIZE_RIGHT_2ND,
+            });
+            return;
+          }
+
+          case MemoryEvents.ENERGIZE_BOTTOM: {
+            setRipple({
+              show: true,
+              direction: "bottom",
+            });
+
+            const bottomNeighbor = getNeighbors(index).bottom;
+            emitEvent({
+              id: bottomNeighbor,
+              description: MemoryEvents.ENERGIZE_BOTTOM_2ND,
+            });
+            return;
+          }
+
+          case MemoryEvents.ENERGIZE_LEFT: {
+            setRipple({
+              show: true,
+              direction: "left",
+            });
+
+            const leftNeighbor = getNeighbors(index).left;
+            emitEvent({
+              id: leftNeighbor,
+              description: MemoryEvents.ENERGIZE_LEFT_2ND,
+            });
+            return;
+          }
+
+          case MemoryEvents.ENERGIZE_TOP_2ND: {
+            setRipple({
+              show: true,
+              direction: "top2nd",
+            });
+            return;
+          }
+
+          case MemoryEvents.ENERGIZE_RIGHT_2ND: {
+            setRipple({
+              show: true,
+              direction: "right2nd",
+            });
+            return;
+          }
+
+          case MemoryEvents.ENERGIZE_BOTTOM_2ND: {
+            setRipple({
+              show: true,
+              direction: "bottom2nd",
+            });
+            return;
+          }
+
+          case MemoryEvents.ENERGIZE_LEFT_2ND: {
+            setRipple({
+              show: true,
+              direction: "left2nd",
+            });
+            return;
+          }
         }
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [emitEvent, index, step]
+    );
 
-        case MemoryEvents.ENERGIZE_TOP: {
-          setRipple({
-            show: true,
-            direction: "top",
-          });
+    useEffect(() => {
+      const observerFn = (event: MemoryEvents) => handleEvents(event);
 
-          const topNeighbor = getNeighbors(index).top;
-          emitEvent({
-            id: topNeighbor,
-            description: MemoryEvents.ENERGIZE_TOP_2ND,
-          });
-          return;
-        }
+      const unsubscribe = subscribe({
+        id: index,
+        fn: observerFn,
+      });
 
-        case MemoryEvents.ENERGIZE_RIGHT: {
-          setRipple({
-            show: true,
-            direction: "right",
-          });
+      return () => {
+        unsubscribe();
+      };
+    }, [subscribe, index, handleEvents]);
 
-          const rightNeighbor = getNeighbors(index).right;
-          emitEvent({
-            id: rightNeighbor,
-            description: MemoryEvents.ENERGIZE_RIGHT_2ND,
-          });
-          return;
-        }
+    const isMobile = memorySize === SMALL_GRID_CELL_SIZE;
 
-        case MemoryEvents.ENERGIZE_BOTTOM: {
-          setRipple({
-            show: true,
-            direction: "bottom",
-          });
-
-          const bottomNeighbor = getNeighbors(index).bottom;
-          emitEvent({
-            id: bottomNeighbor,
-            description: MemoryEvents.ENERGIZE_BOTTOM_2ND,
-          });
-          return;
-        }
-
-        case MemoryEvents.ENERGIZE_LEFT: {
-          setRipple({
-            show: true,
-            direction: "left",
-          });
-
-          const leftNeighbor = getNeighbors(index).left;
-          emitEvent({
-            id: leftNeighbor,
-            description: MemoryEvents.ENERGIZE_LEFT_2ND,
-          });
-          return;
-        }
-
-        case MemoryEvents.ENERGIZE_TOP_2ND: {
-          setRipple({
-            show: true,
-            direction: "top2nd",
-          });
-          return;
-        }
-
-        case MemoryEvents.ENERGIZE_RIGHT_2ND: {
-          setRipple({
-            show: true,
-            direction: "right2nd",
-          });
-          return;
-        }
-
-        case MemoryEvents.ENERGIZE_BOTTOM_2ND: {
-          setRipple({
-            show: true,
-            direction: "bottom2nd",
-          });
-          return;
-        }
-
-        case MemoryEvents.ENERGIZE_LEFT_2ND: {
-          setRipple({
-            show: true,
-            direction: "left2nd",
-          });
-          return;
-        }
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [emitEvent, index, step]
-  );
-
-  useEffect(() => {
-    const observerFn = (event: MemoryEvents) => handleEvents(event);
-
-    const unsubscribe = subscribe({
-      id: index,
-      fn: observerFn,
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, [subscribe, index, handleEvents]);
-
-  const isMobile = memorySize === SMALL_GRID_CELL_SIZE;
-
-  return (
-    <motion.div
-      animate={{
-        scale:
-          conditions.isFocused(index) && !conditions.isInCrossedFocus(index)
-            ? 1.1
-            : animationProps.props.scale,
-        translateX:
-          isStoryEnding && !shouldSlowlyTranslate
-            ? animationProps.props.translateMoreCompactX
-            : animationProps.props.translateX,
-        translateY:
-          isStoryEnding && !shouldSlowlyTranslate
-            ? animationProps.props.translateMoreCompactY
-            : animationProps.props.translateY,
-        zIndex: conditions.isFocused(index) ? 100 : zIndex,
-        filter: conditions.hasFocusedIndex()
-          ? conditions.isFocused(index) || conditions.isInCrossedFocus(index)
-            ? "blur(0px) brightness(1.1)"
-            : "blur(3px) brightness(0.8)"
-          : "blur(0px) brightness(1.1)",
-      }}
-      transition={{
-        duration: 1,
-        type: "spring",
-        bounce: 0,
-        translateX: !shouldSlowlyTranslate
-          ? animationProps.transition.duration
-          : animationProps.transition.durationMoreCompact,
-        translateY: !shouldSlowlyTranslate
-          ? animationProps.transition.duration
-          : animationProps.transition.durationMoreCompact,
-      }}
-      onAnimationComplete={() => {
-        if (isStoryEnding) setShouldSlowlyTranslate(true);
-      }}
-      style={{
-        width: memorySize,
-        height: memorySize,
-      }}
-      className="relative rounded-xl"
-    >
-      <Image
-        src={`/memory-movie/memories/${images[index]}`}
-        alt={`Memory Image: ${images[index]}`}
-        fill={true}
-        sizes="70px"
-        priority
-        className="object-cover rounded-xl"
-      />
-
-      {conditions.shouldIlluminate(index) ? (
-        <Illuminator
-          onIlluminationComplete={handleIlluminateComplete}
-          isPeriodic={conditions.isPeriodicIllumination()}
-          isMobile={isMobile}
+    return (
+      <motion.div
+        animate={{
+          scale:
+            conditions.isFocused(index) && !conditions.isInCrossedFocus(index)
+              ? 1.1
+              : animationProps.props.scale,
+          translateX:
+            isStoryEnding && !shouldSlowlyTranslate
+              ? animationProps.props.translateMoreCompactX
+              : animationProps.props.translateX,
+          translateY:
+            isStoryEnding && !shouldSlowlyTranslate
+              ? animationProps.props.translateMoreCompactY
+              : animationProps.props.translateY,
+          zIndex: conditions.isFocused(index) ? 100 : zIndex,
+          filter: conditions.hasFocusedIndex()
+            ? conditions.isFocused(index) || conditions.isInCrossedFocus(index)
+              ? "blur(0px) brightness(1.1)"
+              : "blur(3px) brightness(0.8)"
+            : "blur(0px) brightness(1.1)",
+        }}
+        transition={{
+          duration: 1,
+          type: "spring",
+          bounce: 0,
+          translateX: !shouldSlowlyTranslate
+            ? animationProps.transition.duration
+            : animationProps.transition.durationMoreCompact,
+          translateY: !shouldSlowlyTranslate
+            ? animationProps.transition.duration
+            : animationProps.transition.durationMoreCompact,
+        }}
+        onAnimationComplete={() => {
+          if (isStoryEnding) setShouldSlowlyTranslate(true);
+        }}
+        style={{
+          width: memorySize,
+          height: memorySize,
+        }}
+        className="relative rounded-xl"
+      >
+        <Image
+          src={`/memory-movie/memories/${images[index]}`}
+          alt={`Memory Image: ${images[index]}`}
+          fill={true}
+          sizes="70px"
+          priority
+          className="object-cover rounded-xl"
         />
-      ) : null}
 
-      {ripple.show && (
-        <Ripple
-          direction={ripple.direction}
-          onRippleComplete={() => setRipple({ show: false, direction: null })}
-        />
-      )}
-    </motion.div>
-  );
-}
+        {conditions.shouldIlluminate(index) ? (
+          <Illuminator
+            onIlluminationComplete={handleIlluminateComplete}
+            isPeriodic={conditions.isPeriodicIllumination()}
+            isMobile={isMobile}
+          />
+        ) : null}
+
+        {ripple.show && (
+          <Ripple
+            direction={ripple.direction}
+            onRippleComplete={() => setRipple({ show: false, direction: null })}
+          />
+        )}
+      </motion.div>
+    );
+  }
+);
+Memory.displayName = "Memory";
 
 function Illuminator({
   onIlluminationComplete,

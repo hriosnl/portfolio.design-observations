@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useMemo, ReactNode } from "react";
 import { IMAGES } from "@/app/(projects)/memory-movie/constants";
 
 interface ImageContextType {
@@ -52,11 +52,11 @@ export const ImageProvider = ({ children }: { children: ReactNode }) => {
     // setReservedImages(newNotShown);
   };
 
-  const contextValue = {
-    images,
-    replacementImages,
-    replaceImage,
-  };
+  const contextValue = useMemo(
+    () => ({ images, replacementImages, replaceImage }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [images, replacementImages]
+  );
 
   return (
     <ImageContext.Provider value={contextValue}>
