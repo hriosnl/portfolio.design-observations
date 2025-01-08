@@ -381,11 +381,11 @@ function Illuminator({
         initial={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
         animate={{
           backgroundColor: illuminate
-            ? "rgba(255, 255, 255, 0.66)"
+            ? "rgba(255, 255, 255, 0.76)"
             : "rgba(255, 255, 255, 0)",
         }}
         transition={{
-          duration: brightenDuration * 0.9,
+          duration: brightenDuration * 0.8,
         }}
         onAnimationComplete={() => {
           if (illuminate) {
