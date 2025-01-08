@@ -1,7 +1,6 @@
 "use client";
 
-// import { createContext, useContext, useState, ReactNode } from "react";
-import { createContext, useContext, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 import { IMAGES } from "@/app/(projects)/memory-movie/constants";
 
 interface ImageContextType {
@@ -16,24 +15,32 @@ export const ImageProvider = ({ children }: { children: ReactNode }) => {
   const initialShown = IMAGES.slice(0, 35);
   const initialNotShown = IMAGES.slice(35);
 
-  // const [images, setImages] = useState(initialShown);
-  // const [replacementImages, setReservedImages] = useState(initialNotShown);
-  const images = [...initialShown];
-  const replacementImages = [...initialNotShown];
+  const [images, setImages] = useState(initialShown);
+  const [replacementImages, setReservedImages] = useState(initialNotShown);
 
   const replaceImage = (index: number, replacementIndex: number = -1) => {
     if (index < 0 || index >= images.length) return;
 
-    const currentImage = images[index];
+    // const currentImage = images[index];
 
     const randomIndex =
       replacementIndex === -1
         ? Math.floor(Math.random() * replacementImages.length)
         : replacementIndex;
-    const replacementImage = replacementImages[randomIndex];
+    // const replacementImage = replacementImages[randomIndex];
 
-    images[index] = replacementImage;
-    replacementImages[randomIndex] = currentImage;
+    // Swap elements in-place
+    const updatedImages = [...images];
+    const updatedReplacementImages = [...replacementImages];
+
+    [updatedImages[index], updatedReplacementImages[randomIndex]] = [
+      updatedReplacementImages[randomIndex],
+      updatedImages[index],
+    ];
+
+    // Trigger state updates only if necessary
+    setImages(updatedImages);
+    setReservedImages(updatedReplacementImages);
 
     // const newShown = [...images];
     // const newNotShown = [...replacementImages];
