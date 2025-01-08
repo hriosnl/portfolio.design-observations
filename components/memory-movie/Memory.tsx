@@ -567,7 +567,7 @@ function Illuminator({
   isMobile: boolean;
 }) {
   const [illuminate, setIlluminate] = useState(false);
-  const brightenDuration = 0.5;
+  const brightenDuration = 0.55;
   const fadeDuration = 0.28;
 
   const PROBABILITY = isMobile ? 0.007 : 0.01;
@@ -623,11 +623,11 @@ function Illuminator({
         initial={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
         animate={{
           backgroundColor: illuminate
-            ? "rgba(255, 255, 255, 0.76)"
+            ? "rgba(255, 255, 255, 0.8)"
             : "rgba(255, 255, 255, 0)",
         }}
         transition={{
-          duration: brightenDuration * 0.8,
+          duration: brightenDuration * 0.7,
         }}
         onAnimationComplete={() => {
           if (illuminate) {
