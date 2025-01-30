@@ -42,6 +42,8 @@ For my design inspirations:
 
 For the Toast in Memory Movie:
 - https://sonner.emilkowal.ski/
+
+Hello 🌏.
 \n\n
 `;
 
